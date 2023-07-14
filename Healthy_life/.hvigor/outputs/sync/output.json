@@ -1,0 +1,36 @@
+{
+  "ohos-module-entry": {
+    "SELECT_TARGET": "default",
+    "MODULE_BUILD_DIR": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build",
+    "TARGETS": {
+      "default": {
+        "SOURCE_ROOT": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\src\\main",
+        "RESOURCES_PATH": [
+          "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\src\\main\\resources"
+        ],
+        "BUILD_PATH": {
+          "OUTPUT_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\outputs\\default",
+          "INTERMEDIA_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates",
+          "JS_ASSETS_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\loader_out\\default",
+          "JS_LITE_ASSETS_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\loader_out_lite\\default",
+          "RES_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\res\\default",
+          "RES_PROFILE_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\res\\default\\resources\\base\\profile",
+          "ETS_SUPER_VISUAL_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\cache\\default\\default@CompileArkTS\\esmodule",
+          "JS_SUPER_VISUAL_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\cache\\default\\default@CompileJS\\jsbundle",
+          "WORKER_LOADER": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\loader\\default\\loader.json",
+          "MANIFEST_JSON": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\manifest\\default",
+          "OUTPUT_METADATA_JSON": "D:\\Android\\HarmonyProject\\Healthy_life\\entry\\build\\default\\intermediates\\hap_metadata\\default\\output_metadata.json"
+        }
+      }
+    }
+  },
+  "ohos-project": {
+    "SELECT_PRODUCT_NAME": "default",
+    "MODULE_BUILD_DIR": "D:\\Android\\HarmonyProject\\Healthy_life\\build",
+    "BUNDLE_NAME": "com.example.healthy_life",
+    "BUILD_PATH": {
+      "OUTPUT_PATH": "D:\\Android\\HarmonyProject\\Healthy_life\\build\\outputs\\default"
+    }
+  },
+  "version": 1
+}
