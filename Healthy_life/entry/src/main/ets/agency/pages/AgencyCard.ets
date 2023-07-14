@@ -125,7 +125,7 @@ struct AgencyCard {
             .borderRadius($r("app.float.agency_item_radius"))
             .backgroundColor(Color.White)
           }, item => JSON.stringify(item))
-        }
+        }//为列表每一项生成UI
         .padding({
           left: $r('app.float.agency_padding_left'),
           top: $r('app.float.agency_padding_top'),
