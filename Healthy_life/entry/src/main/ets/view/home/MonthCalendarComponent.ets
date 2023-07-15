@@ -110,7 +110,7 @@ export struct MonthCalendar {
                       .height($r('app.float.default_28'))
                       .objectFit(ImageFit.Contain)
                       .margin({ top: commonConst.THOUSANDTH_80 })
-                    Text(`${item.date.getDate()}%`)
+                    Text(`${item1.date.getDate()}%`)
                       .fontSize($r('app.float.default_6'))
                       .fontWeight(commonConst.FONT_WEIGHT_400)
                       .fontColor($r('app.color.titleColor'))

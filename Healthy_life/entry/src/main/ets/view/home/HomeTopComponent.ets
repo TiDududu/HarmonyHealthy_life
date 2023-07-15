@@ -58,13 +58,20 @@ export default struct HomeTopView {
         } else {
           WeekCalendar({ homeStore: $homeStore })
         }
-        Image($r('app.media.ic_switch'))
-          .height(36)
-          .width(36)
+        Text(this.is_month?"M":"W")//Note:注意这个格式化用法
+          .fontSize("15vp")
+          .fontWeight(commonConst.FONT_WEIGHT_500)
+          .fontColor($r('app.color.blueColor'))
+          .borderRadius($r('app.float.default_6'))
+          .height(28)
+          .width(28)
+          .border({ color: $r('app.color.blueColor'), width: $r('app.float.default_1') })
           .margin({ top: 25, right: 25 })
+          .textAlign(TextAlign.Center)
           .onClick(() => {
             this.is_month = !this.is_month
           })
+
       }
     }
     .height(this.is_month?commonConst.THOUSANDTH_650:commonConst.THOUSANDTH_500)
