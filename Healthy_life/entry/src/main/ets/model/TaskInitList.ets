@@ -43,6 +43,7 @@ export interface ITaskItem {
   frequency: string;
   isInit: boolean;
   step: number;
+  frequencyIds?: string[];
 }
 
 export interface TaskInitListType {

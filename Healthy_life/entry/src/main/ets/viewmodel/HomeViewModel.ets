@@ -119,7 +119,7 @@ export class HomeStore {
         isOpen,
         id: 0,
         date: dateToStr(new Date()),
-        isDone: true,
+        isDone: false,
         taskID,
         targetValue,
         isAlarm,

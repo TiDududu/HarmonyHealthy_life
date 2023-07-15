@@ -20,6 +20,7 @@ import { returnTimeStamp, createAppleRange, createDrinkRange, formatTime } from 
 import { taskType } from '../../common/bean/TaskInfo';
 import * as commonConst from '../..//common/constants/CommonConstants';
 import { FrequencyContentType } from '../../model/TaskInitList';
+import Logger from '../../common/utils/Logger';
 
 @CustomDialog
 export struct TargetSettingDialog {
@@ -64,9 +65,9 @@ export struct TargetSettingDialog {
       Row() {
         Text($r('app.string.target_setting')).fontSize(commonConst.DEFAULT_20).margin({ right: commonConst.DEFAULT_12 })
         Text(this.settingParams?.taskID === taskType.getup ?
-          commonConst.GET_UP_TIME_RANGE :
+        commonConst.GET_UP_TIME_RANGE :
             this.settingParams?.taskID === taskType.sleepEarly ?
-            commonConst.SLEEP_TIME_RANGE : '')
+          commonConst.SLEEP_TIME_RANGE : '')
           .fontSize(commonConst.DEFAULT_16)
       }
       .width(commonConst.THOUSANDTH_1000)
@@ -174,7 +175,9 @@ export struct FrequencyDialog {
   private frequencyChooseRange: FrequencyContentType[] = frequencyRange();
 
   setFrequency() {
-    const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
+    // const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
+    const checkedArr = this.frequencyChooseRange.filter((item) => this.settingParams.frequencyIds.includes(item?.id.toString()));
+
     if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === commonConst.NO_LENGTH) {
       this.currentFrequency = commonConst.EVERYDAY;
       this.settingParams.frequency = commonConst.INIT_WEEK_IDS;
@@ -204,9 +207,23 @@ export struct FrequencyDialog {
           ListItem() {
             Row() {
               Text(item?.label).fontSize(commonConst.DEFAULT_20)
-              Toggle({ type: ToggleType.Checkbox })
+              Toggle({ type: ToggleType.Checkbox, isOn: this.settingParams.frequencyIds.includes(item.id.toString()) })  // 使用新的属性
                 .onChange((isOn) => {
                   item.isChecked = isOn;
+                  Logger.info("picked fre"+isOn)
+                  // 如果选中了复选框，则在数组中添加元素
+                  if (isOn) {
+                    if (!this.settingParams.frequencyIds.includes(item.id.toString())) {
+                      this.settingParams.frequencyIds.push(item.id.toString());
+                    }
+                  }
+                  // 如果取消了复选框的选中，则从数组中删除元素
+                  else {
+                    const index = this.settingParams.frequencyIds.indexOf(item.id.toString());
+                    if (index > -1) {
+                      this.settingParams.frequencyIds.splice(index, 1);
+                    }
+                  }
                 })
             }
             .width(commonConst.THOUSANDTH_1000)
@@ -233,6 +250,7 @@ export struct FrequencyDialog {
           .onClick(() => {
             this.setFrequency();
             this.frequency = this.currentFrequency;
+            // this.settingParams.frequency = this.settingParams.frequencyIds.join(',');
             this.controller.close();
           })
       }

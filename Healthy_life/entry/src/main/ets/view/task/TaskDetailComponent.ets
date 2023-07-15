@@ -49,6 +49,8 @@ export default struct TaskDetail {
 
   parseRouterParams() {
     const routerParams: ITaskItem = JSON.parse(router.getParams()['params']);
+    routerParams.frequencyIds = routerParams.frequency.split(',');
+    Logger.info('Init frequencyIDs'+ routerParams.frequencyIds[2]);
     return routerParams;
   }
 
