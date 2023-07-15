@@ -5,9 +5,9 @@
         "bundleName" : "com.example.healthy_life",
         "debug" : true,
         "icon" : "$media:app_icon",
-        "iconId" : 16777216,
+        "iconId" : 16777217,
         "label" : "$string:app_name",
-        "labelId" : 16777217,
+        "labelId" : 16777216,
         "minAPIVersion" : 9,
         "targetAPIVersion" : 9,
         "vendor" : "example",
@@ -20,12 +20,12 @@
         [
             {
                 "description" : "$string:EntryAbility_desc",
-                "descriptionId" : 16777220,
+                "descriptionId" : 16777222,
                 "exported" : true,
                 "icon" : "$media:logo",
-                "iconId" : 16777380,
+                "iconId" : 16777235,
                 "label" : "$string:EntryAbility_label",
-                "labelId" : 16777221,
+                "labelId" : 16777223,
                 "name" : "EntryAbility",
                 "orientation" : "portrait",
                 "skills" : 
@@ -43,16 +43,16 @@
                 ],
                 "srcEntry" : "./ets/entryability/EntryAbility.ets",
                 "startWindowBackground" : "$color:white",
-                "startWindowBackgroundId" : 16777319,
+                "startWindowBackgroundId" : 16777402,
                 "startWindowIcon" : "$media:logo",
-                "startWindowIconId" : 16777380
+                "startWindowIconId" : 16777235
             }
         ],
         "compileMode" : "esmodule",
         "deliveryWithInstall" : true,
         "dependencies" : [],
         "description" : "$string:module_desc",
-        "descriptionId" : 16777225,
+        "descriptionId" : 16777227,
         "deviceTypes" : 
         [
             "phone"
@@ -61,15 +61,15 @@
         [
             {
                 "description" : "$string:EntryFormAbility_desc",
-                "descriptionId" : 16777222,
+                "descriptionId" : 16777224,
                 "label" : "$string:EntryFormAbility_label",
-                "labelId" : 16777223,
+                "labelId" : 16777225,
                 "metadata" : 
                 [
                     {
                         "name" : "ohos.extension.form",
                         "resource" : "$profile:form_config",
-                        "resourceId" : 16777383
+                        "resourceId" : 16777250
                     }
                 ],
                 "name" : "EntryFormAbility",
