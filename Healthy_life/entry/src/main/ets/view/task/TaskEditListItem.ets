@@ -34,7 +34,7 @@ import { taskType } from '../../common/bean/TaskInfo';
 }
 
 @Extend(Text) function targetSettingStyle(isOpen, taskID) {
-  .fontColor(isOpen && taskID !== taskType.smile && taskID !== taskType.brushTeeth ?
+  .fontColor(isOpen  ?
   $r('app.color.titleColor') :
   $r('app.color.disabledColor'))
 }

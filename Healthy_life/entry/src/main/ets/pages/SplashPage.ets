@@ -28,6 +28,7 @@ const IS_PRIVACY: string = 'isPrivacy';
 @Entry
 @Component
 struct SplashIndex {
+  //第一个打开的页面
   context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
   dialogController: CustomDialogController = new CustomDialogController({
     builder: UserPrivacyDialog(
@@ -42,6 +43,7 @@ struct SplashIndex {
   });
 
   onConfirm() {
+    //添加preferences: IS_PRIVACY=true
     let preferences = data_preferences.getPreferences(this.context, H_STORE);
     preferences.then((res) => {
       res.put(IS_PRIVACY, true).then(() => {
@@ -61,7 +63,7 @@ struct SplashIndex {
   jumpAdPage() {
     setTimeout(() => {
       router.replaceUrl({ url: 'pages/AdvertisingPage' });
-    }, commonConst.LAUNCHER_DELAY_TIME);
+    }, commonConst.LAUNCHER_DELAY_TIME);//启动动画，结束后进入广告
   }
 
   aboutToAppear() {
@@ -71,7 +73,7 @@ struct SplashIndex {
         if (isPrivate === true) {
           this.jumpAdPage();
         } else {
-          this.dialogController.open();
+          this.dialogController.open();//第一次打开时要求用户设置权限
         }
       });
     });
@@ -82,12 +84,13 @@ struct SplashIndex {
   }
 
   build() {
+    //logo、应用名、应用介绍居中从上到下排列，加上个背景图完成启动页面
     Column() {
-      Image($r('app.media.logo'))
+      Image($r('app.media.logo'))//logo
         .width($r('app.float.default_120'))
         .aspectRatio(1)
         .margin({ top: $r('app.float.default_120') });
-      Text($r('app.string.EntryAbility_label'))
+      Text($r('app.string.EntryAbility_label'))//健康生活
         .fontFamily($r('app.string.HarmonyHeiTi_Bold'))
         .fontSize($r('app.float.default_24'))
         .fontColor($r('app.color.titleColor'))

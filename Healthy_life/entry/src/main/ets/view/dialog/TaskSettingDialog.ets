@@ -16,7 +16,7 @@
 import prompt from '@system.prompt';
 import { ITaskItem } from '../../model/TaskInitList';
 import { frequencyRange } from '../../common/utils/Utils';
-import { returnTimeStamp, createAppleRange, createDrinkRange, formatTime } from '../../viewmodel/TaskViewModel';
+import { returnTimeStamp, createAppleRange, createDrinkRange, createSmileRange, createBrushteethRange, createRunRange, formatTime } from '../../viewmodel/TaskViewModel';
 import { taskType } from '../../common/bean/TaskInfo';
 import * as commonConst from '../..//common/constants/CommonConstants';
 import { FrequencyContentType } from '../../model/TaskInitList';
@@ -28,6 +28,14 @@ export struct TargetSettingDialog {
   controller: CustomDialogController;
   drinkRange: string[] = createDrinkRange();
   appleRange: string[] = createAppleRange();
+
+  //增加微笑和刷牙
+  smileRange: string[] = createSmileRange();
+  brushteethRange: string[] = createBrushteethRange();
+
+  //增加跑步一公里
+  runRange: string[] = createRunRange();
+
   currentValue: string = this.settingParams.targetValue;
   currentTime: string = commonConst.DEFAULT_TIME;
 
@@ -82,14 +90,22 @@ export struct TargetSettingDialog {
           .onChange((value: TimePickerResult) => {
             this.currentTime = formatTime(value);
           })
-      } else {
-        TextPicker({ range: this.settingParams?.taskID === taskType.drinkWater ? this.drinkRange : this.appleRange })
+      }
+      else {
+        TextPicker({ range: this.settingParams?.taskID === taskType.drinkWater ? this.drinkRange :
+          (this.settingParams?.taskID === taskType.eatApple ? this.appleRange:
+            (this.settingParams?.taskID === taskType.smile ? this.smileRange :
+              (this.settingParams?.taskID === taskType.brushTeeth ? this.brushteethRange : this.runRange)
+            )
+          )
+        })
           .width(commonConst.THOUSANDTH_900,)
           .height(commonConst.THOUSANDTH_800,)
           .onChange((value) => {
             this.currentValue = value?.split(' ')[0];
           })
       }
+
 
       Row() {
         Text($r('app.string.cancel')).fontSize(commonConst.DEFAULT_20).fontColor($r('app.color.blueColor'))

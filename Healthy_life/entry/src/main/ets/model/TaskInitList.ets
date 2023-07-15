@@ -21,12 +21,14 @@ import {
   SMILE_TASK_NAME,
   BRUSH_TEETH_TASK_NAME,
   SLEEP_TASK_NAME,
+  RUN_TASK_NAME,
   GET_UP_CONTENT,
   DRINK_CONTENT,
   EAT_APPLE_CONTENT,
   SMILE_CONTENT,
   BRUSH_TEETH_CONTENT,
-  SLEEP_CONTENT
+  SLEEP_CONTENT,
+  RUN_CONTENT
 } from '../common/constants/CommonConstants';
 
 export interface ITaskItem {
@@ -130,6 +132,19 @@ export const TaskList: TaskInfo[] = [
     targetValue: '22:00',
     isAlarm: true,
     startTime: '',
+    endTime: ';',
+    frequency: '',
+    isDone: false,
+    finValue: ''
+  },
+  {
+    id: 6,
+    taskID: 7,
+    isOpen: true,
+    date: '',
+    targetValue: '3',
+    isAlarm: true,
+    startTime: '08: 00',
     endTime: ';',
     frequency: '',
     isDone: false,
@@ -243,6 +258,21 @@ export const TaskMapById: TaskInitListType = {
     startTime: '08: 00',
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7'
+  },
+  7: {
+    taskID: 7,
+    taskName: $r('app.string.task_runonemile'),
+    icon: $r("app.media.ic_task_run"),
+    dialogBg: $r('app.media.ic_dialog_run_one_mile'),
+    targetValue: '1',
+    isOpen: false,
+    unit: '次',
+    step: 1,
+    isInit: true,
+    isAlarm: false,
+    startTime: '08: 00',
+    endTime: '00: 00',
+    frequency: '1, 2, 3, 4, 5, 6, 7'
   }
 }
 
@@ -284,6 +314,10 @@ export const RemindContentMap = {
   6: {
     title: SLEEP_TASK_NAME,
     content: SLEEP_CONTENT
+  },
+  7: {
+    title: RUN_TASK_NAME,
+    content: RUN_CONTENT
   },
 };
 

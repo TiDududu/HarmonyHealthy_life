@@ -19,6 +19,9 @@ import {
   DRINK_STEP,
   DRINK_MAX_RANGE,
   EAT_APPLE_RANGE,
+  SMILE_RANGE,
+  BRUSH_TEETH_RANGE,
+  RUN_RANGE,
   TIMES_100
 } from '../common/constants/CommonConstants';
 import Logger from '../common/utils/Logger';
@@ -231,3 +234,37 @@ export const createAppleRange = () => {
   }
   return appleRangeArr;
 }
+
+/* 补充微笑和刷牙 */
+/**
+ * @description Generate the range of smile 1 - 3
+ * @return Array<string>
+ */
+
+export const createSmileRange = () => {
+  const smileRangeArr = []
+  for (let i = 1; i <= SMILE_RANGE; i++) {
+    smileRangeArr.push(`${i} 次`);
+  }
+  return smileRangeArr;
+}
+
+export const createBrushteethRange = () => {
+  const burshteethRangeArr = []
+  for (let i = 1; i <= BRUSH_TEETH_RANGE; i++) {
+    burshteethRangeArr.push(`${i} 次`);
+  }
+  return burshteethRangeArr;
+}
+
+//补充跑步一公里
+export const createRunRange = () => {
+  const runRangeArr = []
+  for (let i = 1; i <= RUN_RANGE; i++) {
+    runRangeArr.push(`${i} 次`);
+  }
+  return runRangeArr;
+}
+
+
+
