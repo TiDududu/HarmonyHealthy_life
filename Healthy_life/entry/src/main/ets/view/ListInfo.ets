@@ -14,9 +14,11 @@
  */
 
 import { MineInfoList, InfoItem } from '../model/Mine';
-
+import router from '@ohos.router';
 @Component
 export struct ListInfo {
+  @Link nickname: string;
+  @Link signature: string;
 
   build() {
     List() {
@@ -41,7 +43,18 @@ export struct ListInfo {
           width: { bottom: $r('app.float.default_1') },
           color: $r('app.color.borderColor')
         })
+        .onClick(() => {
+          if(item.id == '1') {
+            router.pushUrl({
+              url: 'pages/PersonalData',
+              params:{
+                nickname: this.nickname,
+                signature:this.signature
+              }
+            })
+          }
 
+        })
       }, item => item.id);
     }
     .border({

@@ -191,6 +191,34 @@
     {
       "name": "agencyNoTask",
       "value": "Go to Healthy Living to add tasks"
+    },
+    {
+      "name": "nickname",
+      "value": "请输入昵称"
+    },
+    {
+      "name": "signature",
+      "value": "请输入个性签名"
+    },
+    {
+      "name": "sex",
+      "value": "请选择性别"
+    },
+    {
+      "name": "date",
+      "value": "请输入日期"
+    },
+    {
+      "name": "high",
+      "value": "请选择身高, 单位:cm"
+    },
+    {
+      "name": "weight",
+      "value": "请选择体重, 单位:kg"
+    },
+    {
+      "name": "image",
+      "value": "请选择图片"
     }
   ]
 }
