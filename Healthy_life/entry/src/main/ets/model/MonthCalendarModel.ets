@@ -46,6 +46,7 @@ export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel
 
   let currentDate = new Date(date);
   const currentMonth = currentDate.getMonth();
+  currentDate.setDate(1);
 
   while (currentDate.getMonth() === currentMonth) {
     let [arr, strArr] = [[], []];
