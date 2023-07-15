@@ -98,7 +98,7 @@ class ProgressCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
             Column.debugLine("progress/pages/ProgressCard.ets(76:5)");
-            Column.backgroundColor({ "id": 16777313, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Column.backgroundColor({ "id": 16777396, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Column.width(this.FULL_WIDTH_PERCENT);
             Column.height(this.FULL_HEIGHT_PERCENT);
             Column.onClick(() => {
@@ -127,10 +127,10 @@ class ProgressCard extends ViewPU {
             Progress.create({ value: 0, total: this.PROGRESS_TOTAL, type: ProgressType.Ring });
             Progress.debugLine("progress/pages/ProgressCard.ets(78:9)");
             Progress.value(Number.parseInt(this.percent));
-            Progress.width({ "id": 16777377, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Progress.height({ "id": 16777377, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Progress.backgroundColor({ "id": 16777312, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Progress.style({ strokeWidth: { "id": 16777378, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
+            Progress.width({ "id": 16777324, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Progress.height({ "id": 16777324, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Progress.backgroundColor({ "id": 16777395, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Progress.style({ strokeWidth: { "id": 16777325, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
             if (!isInitialRender) {
                 Progress.pop();
             }
@@ -150,7 +150,7 @@ class ProgressCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.percent);
             Text.debugLine("progress/pages/ProgressCard.ets(85:11)");
-            Text.fontSize({ "id": 16777376, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777323, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.fontColor(Color.Black);
             Text.fontWeight(FontWeight.Normal);
             if (!isInitialRender) {
@@ -163,10 +163,10 @@ class ProgressCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.PERCENTAGE);
             Text.debugLine("progress/pages/ProgressCard.ets(89:11)");
-            Text.fontSize({ "id": 16777375, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777322, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.fontColor(Color.Black);
             Text.fontWeight(this.TEXT_SLIGHTLY_BOLD);
-            Text.margin({ top: { "id": 16777374, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
+            Text.margin({ top: { "id": 16777321, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -189,9 +189,9 @@ class ProgressCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.numerator.toString());
             Text.debugLine("progress/pages/ProgressCard.ets(100:9)");
-            Text.fontColor({ "id": 16777309, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777373, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Text.lineHeight({ "id": 16777372, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777392, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777320, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.lineHeight({ "id": 16777319, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Normal);
             if (!isInitialRender) {
                 Text.pop();
@@ -203,9 +203,9 @@ class ProgressCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.SLASHES + this.denominator);
             Text.debugLine("progress/pages/ProgressCard.ets(105:9)");
-            Text.fontColor({ "id": 16777300, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777370, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Text.lineHeight({ "id": 16777369, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777383, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777317, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.lineHeight({ "id": 16777316, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Normal);
             if (!isInitialRender) {
                 Text.pop();

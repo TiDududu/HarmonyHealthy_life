@@ -19,8 +19,8 @@
         <CLASSES />
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../../../../Program_Files/harmony_sdk/openharmony/9/ets/api" />
-          <root url="file://$MODULE_DIR$/../../../../../../Program_Files/harmony_sdk/openharmony/9/ets/component" />
+          <root url="file://$MODULE_DIR$/../../../../../../DevEco/sdk/openharmony/9/ets/api" />
+          <root url="file://$MODULE_DIR$/../../../../../../DevEco/sdk/openharmony/9/ets/component" />
         </SOURCES>
       </library>
     </orderEntry>

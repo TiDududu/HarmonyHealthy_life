@@ -20,12 +20,12 @@ class AgencyCard extends ViewPU {
         this.__taskList = this.createLocalStorageProp("taskList", [], "taskList");
         this.__showWidget = this.createLocalStorageProp("showWidget", false, "showWidget");
         this.iconList = {
-            getup: { "id": 16777275, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-            drink: { "id": 16777294, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-            apple: { "id": 16777290, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-            smile: { "id": 16777292, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-            clean: { "id": 16777277, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-            sleep: { "id": 16777271, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
+            getup: { "id": 16777263, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+            drink: { "id": 16777264, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+            apple: { "id": 16777252, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+            smile: { "id": 16777271, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+            clean: { "id": 16777258, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+            sleep: { "id": 16777373, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
         };
         this.ACTION_TYPE = 'router';
         this.ABILITY_NAME = 'EntryAbility';
@@ -144,13 +144,13 @@ class AgencyCard extends ViewPU {
                         List.create({ space: this.LIST_SPACE });
                         List.debugLine("agency/pages/AgencyCard.ets(119:9)");
                         List.padding({
-                            left: { "id": 16777330, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-                            top: { "id": 16777332, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-                            right: { "id": 16777331, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-                            bottom: { "id": 16777329, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
+                            left: { "id": 16777277, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+                            top: { "id": 16777279, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+                            right: { "id": 16777278, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+                            bottom: { "id": 16777276, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
                         });
                         List.lanes(this.LIST_TWO_LANES);
-                        List.backgroundColor({ "id": 16777306, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        List.backgroundColor({ "id": 16777389, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         List.width(this.FULL_WIDTH_PERCENT);
                         List.height(this.FULL_HEIGHT_PERCENT);
                         if (!isInitialRender) {
@@ -168,8 +168,8 @@ class AgencyCard extends ViewPU {
                                 const itemCreation = (elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     ListItem.create(deepRenderFunction, isLazyCreate);
-                                    ListItem.margin({ right: { "id": 16777327, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
-                                    ListItem.borderRadius({ "id": 16777328, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                                    ListItem.margin({ right: { "id": 16777274, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } });
+                                    ListItem.borderRadius({ "id": 16777275, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                                     ListItem.backgroundColor(Color.White);
                                     ListItem.debugLine("agency/pages/AgencyCard.ets(121:13)");
                                     if (!isInitialRender) {
@@ -231,7 +231,7 @@ class AgencyCard extends ViewPU {
             Column.justifyContent(FlexAlign.Center);
             Column.width(this.FULL_WIDTH_PERCENT);
             Column.height(this.FULL_HEIGHT_PERCENT);
-            Column.backgroundColor({ "id": 16777308, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Column.backgroundColor({ "id": 16777391, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Column.onClick(() => {
                 this.jumpToAbility();
             });
@@ -242,7 +242,7 @@ class AgencyCard extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Image.create({ "id": 16777227, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Image.create({ "id": 16777247, "type": 20000, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Image.debugLine("agency/pages/AgencyCard.ets(147:7)");
             Image.width(this.EMPTY_IMAGE_WIDTH);
             Image.height(this.EMPTY_IMAGE_HEIGHT);
@@ -254,9 +254,9 @@ class AgencyCard extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Text.create({ "id": 16777224, "type": 10003, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.create({ "id": 16777226, "type": 10003, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.debugLine("agency/pages/AgencyCard.ets(151:7)");
-            Text.fontSize({ "id": 16777371, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777318, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Text.fontColor(Color.White);
             Text.fontWeight(FontWeight.Normal);
             Text.opacity(this.TEXT_OPACITY);
@@ -275,8 +275,8 @@ class AgencyCard extends ViewPU {
             Row.create();
             Row.debugLine("agency/pages/AgencyCard.ets(168:5)");
             Row.padding({
-                left: { "id": 16777333, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
-                right: { "id": 16777333, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
+                left: { "id": 16777280, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" },
+                right: { "id": 16777280, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" }
             });
             Row.width(this.FULL_WIDTH_PERCENT);
             Row.height(this.AGENCY_COMPONENT_HEIGHT);
@@ -292,8 +292,8 @@ class AgencyCard extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Image.create(this.iconList[taskItem.taskType]);
             Image.debugLine("agency/pages/AgencyCard.ets(169:7)");
-            Image.width({ "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-            Image.height({ "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Image.width({ "id": 16777273, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+            Image.height({ "id": 16777273, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
             Image.objectFit(ImageFit.Contain);
             if (!isInitialRender) {
                 Image.pop();
@@ -309,8 +309,8 @@ class AgencyCard extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         Text.create(taskItem.isDone ? taskItem.targetValue : this.TARGET_VALUE_SPLICING + taskItem.targetValue);
                         Text.debugLine("agency/pages/AgencyCard.ets(174:9)");
-                        Text.fontSize({ "id": 16777379, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
-                        Text.fontColor({ "id": 16777317, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontSize({ "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontColor({ "id": 16777400, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         Text.opacity(this.TARGET_TEXT_OPACITY);
                         Text.fontWeight(FontWeight.Normal);
                         Text.layoutWeight(this.TARGET_TEXT_WEIGHT);
@@ -340,9 +340,9 @@ class AgencyCard extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         Text.create(taskItem.finValueIsNull ? this.CROSS_BAR_SYMBOL : taskItem.finValue);
                         Text.debugLine("agency/pages/AgencyCard.ets(183:11)");
-                        Text.fontSize(taskItem.finValueIsNull ? { "id": 16777379, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } : { "id": 16777334, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontSize(taskItem.finValueIsNull ? { "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } : { "id": 16777281, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         Text.fontWeight(taskItem.finValueIsNull ? FontWeight.Normal : this.TEXT_SLIGHTLY_BOLD);
-                        Text.fontColor(taskItem.finValueIsNull ? { "id": 16777302, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } : { "id": 16777317, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontColor(taskItem.finValueIsNull ? { "id": 16777385, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" } : { "id": 16777400, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Text.pop();
                         }
@@ -353,9 +353,9 @@ class AgencyCard extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         Text.create(this.SLASHES + taskItem.targetValue);
                         Text.debugLine("agency/pages/AgencyCard.ets(191:11)");
-                        Text.fontSize({ "id": 16777379, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontSize({ "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         Text.fontWeight(FontWeight.Normal);
-                        Text.fontColor({ "id": 16777302, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontColor({ "id": 16777385, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Text.pop();
                         }
@@ -366,9 +366,9 @@ class AgencyCard extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         Text.create(taskItem.unit);
                         Text.debugLine("agency/pages/AgencyCard.ets(195:11)");
-                        Text.fontSize({ "id": 16777379, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontSize({ "id": 16777326, "type": 10002, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         Text.fontWeight(FontWeight.Normal);
-                        Text.fontColor({ "id": 16777302, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
+                        Text.fontColor({ "id": 16777385, "type": 10001, params: [], "bundleName": "com.example.healthy_life", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Text.pop();
                         }

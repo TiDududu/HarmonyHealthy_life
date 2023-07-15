@@ -54,7 +54,7 @@ export const FORM_INFO = {
 }
 
 // TaskNum
-export const TASK_NUM = 6;
+export const TASK_NUM = 7;
 
 // THOUSANDTH
 export const THOUSANDTH_15: string = '1.5%'; // ‘1.5%’
@@ -199,6 +199,10 @@ export const BRUSH_TEETH_TASK_NAME: string = '每日刷牙';
 
 export const SLEEP_TASK_NAME: string = '早睡';
 
+//新增跑步一公里
+export const RUN_TASK_NAME: string = '跑步一公里';
+//
+
 export const GET_UP_CONTENT: string = '该早起啦';
 
 export const DRINK_CONTENT: string = '该喝水啦';
@@ -210,6 +214,10 @@ export const SMILE_CONTENT: string = '请保持微笑';
 export const BRUSH_TEETH_CONTENT: string = '每日刷牙';
 
 export const SLEEP_CONTENT: string = '早睡';
+
+//新增跑步一公里
+export const RUN_CONTENT: string = '该跑步啦';
+//
 
 export const H_STORE: string = 'healthAppStore';
 
@@ -238,6 +246,14 @@ export const TIMES_50: number = 50;
 export const TIMES_100: number = 100;
 
 export const EAT_APPLE_RANGE: number = 100;
+
+//增加刷牙和微笑
+export const SMILE_RANGE: number = 3;
+
+export const BRUSH_TEETH_RANGE: number = 3;
+
+//增加跑步一公里
+export const RUN_RANGE: number = 3;
 
 
 // letter spacing
@@ -272,7 +288,8 @@ export enum TaskType {
   Apple = 'apple',
   Smile = 'smile',
   Clean = 'clean',
-  Sleep = 'sleep'
+  Sleep = 'sleep',
+  Run = 'run'
 }
 
 export enum Unit {
