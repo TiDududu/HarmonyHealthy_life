@@ -121,6 +121,17 @@ export class HomeStore {
     if (editedTaskInfo?.taskID) {
       // edited task
       const {taskID, targetValue, isAlarm, frequency, startTime, endTime, isOpen } = editedTaskInfo;
+      let finValue;
+
+      if (taskID === 1 || taskID === 6) {
+        finValue = '--';
+      } else if (taskID >= 2 && taskID <= 5) {
+        finValue = '0';
+      } else {
+        finValue = 'Invalid taskID'; // You may want to handle invalid taskID in a way that suits your program.
+      }
+
+
       let task: TaskInfo = {
         isOpen,
         id: 0,
@@ -132,7 +143,7 @@ export class HomeStore {
         frequency,
         startTime,
         endTime,
-        finValue: targetValue
+        finValue
       }
       this.dateArr = this.dateArr.map((item: WeekDateModel) => {
         if (task.date == item.dateStr) {
