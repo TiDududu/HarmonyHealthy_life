@@ -116,10 +116,3 @@ export struct MonthCalendar {
       .width(commonConst.THOUSANDTH_1000)
       .height(commonConst.THOUSANDTH_1000)
       .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_120 })
-
-    }
-    .width(commonConst.THOUSANDTH_1000)
-    .height(commonConst.THOUSANDTH_420)
-    .padding(commonConst.THOUSANDTH_33)
-  }
-}
