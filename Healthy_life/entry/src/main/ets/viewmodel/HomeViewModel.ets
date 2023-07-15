@@ -18,9 +18,8 @@ import { isReachNewAchievement, ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveMo
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
-import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
+import { dateToStr, weekDateFormat } from '../common/utils/Utils';
 import { WeekDateModel, initializeOnStartUp, getPreviousWeek, WEEK_DAY_NUM } from '../model/WeekCalendarModel';
-import { initializeOnStartUp_Month } from '../model/MonthCalendarModel'
 import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
 import DayInfoApi from '../common/database/tables/DayInfoApi';
@@ -31,26 +30,21 @@ import Logger from '../common/utils/Logger';
 export class HomeStore {
   public currentDate: Date;
   public dateArr: Array<WeekDateModel> = []; // data source list
-  public weekArr: Array<Array<WeekDateModel>>=[];
   public selectedDay: number; // selected day of on week
   public showDate: number;
   public dateTitle: string;
-  public monthTitle: string;
   public selectedDayInfo: WeekDateModel; // task info on selected day
 
   constructor(currentDate: Date) {
     this.currentDate = currentDate;
     this.showDate = currentDate.getTime();
     this.dateTitle = weekDateFormat(currentDate.getTime());
-    this.monthTitle = monthFormat(currentDate.getTime());
     this.selectedDay = (new Date().getDay() + WEEK_DAY_NUM - 1) % WEEK_DAY_NUM;
   }
 
   public initData() {
     let [initArr, dateArr] = initializeOnStartUp(this.currentDate);
-    let [initArrMonth,dataArrMonth]=initializeOnStartUp_Month(this.currentDate);
     this.dateArr = initArr;
-    this.weekArr=initArrMonth;
     Logger.info('this.currentDate', this.currentDate.toDateString());
     Logger.info('initWeekData dateArr', JSON.stringify(dateArr))
     // get data form db
@@ -121,6 +115,18 @@ export class HomeStore {
     if (editedTaskInfo?.taskID) {
       // edited task
       const {taskID, targetValue, isAlarm, frequency, startTime, endTime, isOpen } = editedTaskInfo;
+      let finValue;
+
+      if (taskID === 1 || taskID === 6) {
+        finValue = '--';
+      } else if (taskID >= 2 && taskID <= 5) {
+        finValue = '0';
+      } else if(taskID == 7) {
+        finValue = '0';
+      } else {
+        finValue = 'Invalid taskID'; // You may want to handle invalid taskID in a way that suits your program.
+      }
+
       let task: TaskInfo = {
         isOpen,
         id: 0,
@@ -132,8 +138,9 @@ export class HomeStore {
         frequency,
         startTime,
         endTime,
-        finValue: targetValue
+        finValue
       }
+
       this.dateArr = this.dateArr.map((item: WeekDateModel) => {
         if (task.date == item.dateStr) {
           Logger.info('item', JSON.stringify(item));
@@ -186,13 +193,11 @@ export class HomeStore {
     }
     this.showDate = showDateTime;
     this.dateTitle = weekDateFormat(this.showDate);
-    this.monthTitle = monthFormat(this.showDate);
     let selectedInfo = this.dateArr.find((item: WeekDateModel) => item.dateStr == dateToStr(new Date(showDateTime)));
     if (selectedInfo) {
       this.updateSelectedDayInfo({ ...selectedInfo });
     }
     Logger.info('dateTitle', this.dateTitle);
-    Logger.info('monthTitle', this.monthTitle);
   }
 
   public getDonePercent(): string {
