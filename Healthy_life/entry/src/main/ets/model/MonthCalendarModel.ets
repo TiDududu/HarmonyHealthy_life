@@ -17,11 +17,12 @@ import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { WEEK_TITLES, dateToStr } from '../common/utils/Utils'
 import Logger from '../common/utils/Logger'
+import { WeekDateModel } from './WeekCalendarModel';
 
 // day number of on week
 export const WEEK_DAY_NUM: number = 7;
 
-export class WeekDateModel {
+export class MonthDateModel {
   weekTitle: string;
   dateStr: string;
   date: Date;
@@ -99,7 +100,7 @@ export function getPreviousWeek(showDate: Date): [Array<WeekDateModel>, Array<st
 }
 
 export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>] {
-  Logger.debug('MonthCalendarModel', 'get month date by date: ' + showDate.toDateString());
+  /*Logger.debug('MonthCalendarModel', 'get month date by date: ' + showDate.toDateString());
   let arrMonth:Array<Array<WeekDateModel>>=[];
   let strArrMonth: Array<Array<string>>=[];
 
@@ -108,12 +109,31 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
   currentDate.setDate(1); // Set date to the first day of the month
 
   while (currentDate.getMonth() === currentMonth) {
+    let currentDay = currentDate.getDay() - 1;
+    if (currentDate.getDay() === 0) {
+      currentDay = 6;
+    }
+    currentDate.setDate(currentDate.getDate() - currentDay);
+
     let [arr, strArr] = getPreviousWeek(currentDate); // Call getPreviousWeek for each week in the month
     arrMonth.push(arr);
     strArrMonth.push(strArr);
     currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
+  }*/
+  let show_month = showDate.getMonth();
+  if(show_month!=0)
+  {
+    showDate.setMonth(show_month-1);
   }
-
+  else
+  {
+    showDate.setFullYear(showDate.getFullYear()-1,show_month,1)
+  }
+  let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
+  for(let index = 0; index<arrMonth.length; index++){
+    arrMonth[index]=arrMonth[index].reverse();
+    strArrMonth[index]=strArrMonth[index].reverse();
+  }
   return [arrMonth, strArrMonth];
 }
 
