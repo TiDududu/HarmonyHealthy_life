@@ -22,8 +22,8 @@ import Logger from '../common/utils/Logger'
 export const WEEK_DAY_NUM: number = 7;
 
 export class WeekDateModel {
-  weekTitle: string; //星期几
-  dateStr: string;  //日期字符串
+  weekTitle: string;
+  dateStr: string;
   date: Date;
   dayInfo: DayInfo;
   taskList: TaskInfo[] = [];
@@ -40,25 +40,40 @@ export class WeekDateModel {
  *
  * @param date  today str
  */
-export function initializeOnStartUp(date: Date): [Array<WeekDateModel>, Array<string>] {
-  let [arr, strArr] = [[], []]; // 日期信息，日期字符串
-  let currentDay = date.getDay() - 1;
-  if (date.getDay() === 0) {
-    currentDay = 6;
-  }//周一
-  Logger.debug('WeekCalendarModel', date.toISOString());
-  // monday is first day of week
-  date.setDate(date.getDate() - currentDay)//设置为一周开头
-  for (let index = 0; index < WEEK_DAY_NUM; index++) {//设置一周内各天的WeekDateModel
-    let tempDate = new Date(date);
-    tempDate.setDate(date.getDate() + index);
-    let dateStr = dateToStr(tempDate);
-    strArr.push(dateStr);
-    arr.push(new WeekDateModel(WEEK_TITLES[tempDate.getDay()], dateStr, tempDate))
+export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>]  {
+  let arrMonth:Array<Array<string>>=[];
+  let strArrMonth: Array<Array<WeekDateModel>>=[];
+
+  let currentDate = new Date(date);
+  const currentMonth = currentDate.getMonth();
+  currentDate.setDate(1);
+
+  while (currentDate.getMonth() === currentMonth) {
+    let [arr, strArr] = [[], []];
+    let currentDay = currentDate.getDay() - 1;
+    if (currentDate.getDay() === 0) {
+      currentDay = 6;
+    }
+    Logger.debug('WeekCalendarModel', currentDate.toISOString());
+    // Monday is the first day of the week
+    currentDate.setDate(currentDate.getDate() - currentDay);
+
+    for (let index = 0; index < WEEK_DAY_NUM; index++) {
+      let tempDate = new Date(currentDate);
+      tempDate.setDate(currentDate.getDate() + index);
+      let dateStr = dateToStr(tempDate);
+      strArr.push(dateStr);
+      arr.push(new WeekDateModel(WEEK_TITLES[tempDate.getDay()], dateStr, tempDate));
+    }
+    Logger.debug('WeekCalendarModel', 'initialWeekDate' + JSON.stringify(arr));
+    arrMonth.push(strArr)
+    strArrMonth.push(arr);
+    currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
   }
-  Logger.debug('WeekCalendarModel', 'initialWeekDate' + JSON.stringify(arr))
-  return [arr, strArr];
+
+  return [strArrMonth,arrMonth];
 }
+
 
 /**
  * get previous week data

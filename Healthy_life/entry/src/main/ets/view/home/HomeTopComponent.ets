@@ -15,6 +15,7 @@
 
 import { HomeStore } from '../../viewmodel/HomeViewModel';
 import { WeekCalendar } from './WeekCalendarComponent';
+import { MonthCalendar } from './MonthCalendarComponent';
 import * as commonConst from '../../common/constants/CommonConstants';
 import HealthText from '../../view/HealthTextComponent';
 
@@ -29,7 +30,7 @@ import HealthText from '../../view/HealthTextComponent';
 @Component
 export default struct HomeTopView {
   @Link homeStore: HomeStore;
-
+  @State is_month: boolean = false;
   build() {
     Stack({ alignContent: Alignment.Top }){
       Column() {
@@ -52,21 +53,39 @@ export default struct HomeTopView {
         .width(commonConst.THOUSANDTH_1000)
         .padding({ left: $r('app.float.default_24') })
 
-        WeekCalendar({ homeStore:  $homeStore })
-        Text($r('app.string.task_list'))
+      Stack({alignContent: Alignment.TopEnd}) {
+        if (this.is_month) {
+          MonthCalendar({ homeStore: $homeStore })
+        } else {
+          WeekCalendar({ homeStore: $homeStore })
+        }
+         Text($r('app.string.task_list'))
           .titleTextStyle()
           .backgroundColor($r('app.color.primaryBgColor'))
           .borderWidth({bottom:3})
           .borderRadius({bottomLeft:5,bottomRight:5})
           .borderColor($r('app.color.primaryBgColor'))
+        Text(this.is_month?"M":"W")//Note:注意这个格式化用法
+          .fontSize("15vp")
+          .fontWeight(commonConst.FONT_WEIGHT_500)
+          .fontColor($r('app.color.blueColor'))
+          .borderRadius($r('app.float.default_6'))
+          .height(28)
+          .width(28)
+          .border({ color: $r('app.color.blueColor'), width: $r('app.float.default_1') })
+          .margin({ top: 25, right: 25 })
+          .textAlign(TextAlign.Center)
+          .onClick(() => {
+            this.is_month = !this.is_month
+          })
+
       }
-      .height(commonConst.THOUSANDTH_500)
-      .backgroundImagePosition({x: 0, y: 0})
-      .backgroundImage($r('app.media.ic_home_bg'))
-      .backgroundImageSize({ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
-      .justifyContent(FlexAlign.End)
-
-    }.backgroundColor($r('app.color.primaryBgColor'))
-
-  }
+    }
+    .height(this.is_month?commonConst.THOUSANDTH_650:commonConst.THOUSANDTH_500)
+    .backgroundImagePosition({x: 0, y: 0})
+    .backgroundImage($r('app.media.ic_home_bg'))
+    .backgroundImageSize(this.is_month?{ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_650 }:
+      { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
+    .justifyContent(FlexAlign.End)
+  }.backgroundColor($r('app.color.primaryBgColor'))
 }
