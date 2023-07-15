@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a65793e9-b137-4249-9de6-444e6ec90f3b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/HarmonyHealthy_life.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Healthy_life/entry/build/default/cache/default/default@CompileArkTS/esmodule/debug/entry/src/main/ets/viewmodel/HomeViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Healthy_life/entry/build/default/cache/default/default@CompileArkTS/esmodule/debug/entry/src/main/ets/viewmodel/HomeViewModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Healthy_life/entry/build/default/cache/default/default@CompileArkTS/esmodule/debug/entry/src/main/ets/viewmodel/TaskViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Healthy_life/entry/build/default/cache/default/default@CompileArkTS/esmodule/debug/entry/src/main/ets/viewmodel/TaskViewModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Healthy_life/entry/src/main/ets/viewmodel/HomeViewModel.ets" beforeDir="false" afterPath="$PROJECT_DIR$/Healthy_life/entry/src/main/ets/viewmodel/HomeViewModel.ets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Healthy_life/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Healthy_life/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +25,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
 </project>
