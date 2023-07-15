@@ -15,6 +15,7 @@
 
 import { HomeStore } from '../../viewmodel/HomeViewModel';
 import { WeekCalendar } from './WeekCalendarComponent';
+import { MonthCalendar } from './MonthCalendarComponent';
 import * as commonConst from '../../common/constants/CommonConstants';
 import HealthText from '../../view/HealthTextComponent';
 
@@ -29,7 +30,7 @@ import HealthText from '../../view/HealthTextComponent';
 @Component
 export default struct HomeTopView {
   @Link homeStore: HomeStore;
-
+  @State is_month: boolean = false;
   build() {
     Column() {
       Text($r('app.string.target_progress'))
@@ -51,7 +52,20 @@ export default struct HomeTopView {
       .width(commonConst.THOUSANDTH_1000)
       .padding({ left: $r('app.float.default_24') })
 
-      WeekCalendar({ homeStore:  $homeStore })
+      Stack({alignContent: Alignment.TopEnd}) {
+        if (this.is_month) {
+          MonthCalendar()
+        } else {
+          WeekCalendar({ homeStore: $homeStore })
+        }
+        Image($r('app.media.ic_switch'))
+          .height(36)
+          .width(36)
+          .margin({ top: 15, right: 15 })
+          .onClick(() => {
+            this.is_month = !this.is_month
+          })
+      }
     }
     .height(commonConst.THOUSANDTH_500)
     .backgroundImagePosition({x: 0, y: 0})
