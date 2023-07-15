@@ -35,10 +35,24 @@ export struct TaskCard {
   clickAction: (isClick: boolean) => void;
 
   @Builder targetValueBuilder() {
+
     if (JSON.parse(this.taskInfoStr).isDone) {
-      HealthText({ title: '', titleResource: $r('app.string.task_done') })
-    } else {
+      //如果任务完成,输出已完成文本
+      //进度条变暗
       Row() {
+
+        HealthText({
+          title: '',
+          titleResource: $r('app.string.task_done')
+        })
+
+      }
+
+    } else {
+      //如果任务未完成,展示完成值或--,然后使用Text组件展示斜杠/、目标值(targetValue属性)
+      //进度条显示完成程度
+      Row() {
+
         HealthText({
           title: JSON.parse(this.taskInfoStr).finValue || `--`,
           fontSize: $r('app.float.default_24')
@@ -51,20 +65,78 @@ export struct TaskCard {
   }
 
   build() {
-    Row() {
+    Row({ space: commonConst.DEFAULT_6 }) {
       Row({ space: commonConst.DEFAULT_6 }) {
         Image(TaskMapById[JSON.parse(this.taskInfoStr).taskID].icon)
           .width($r('app.float.default_36')).height($r('app.float.default_36'))
           .objectFit(ImageFit.Contain)
-        HealthText({
-          title: '',
-          titleResource: TaskMapById[JSON.parse(this.taskInfoStr).taskID].taskName,
-          fontFamily: $r('app.string.HarmonyHeiTi')
-        })
-      }
+        Row(){
+          HealthText({
+            title: '',
+            titleResource: TaskMapById[JSON.parse(this.taskInfoStr).taskID].taskName,
+            fontFamily: $r('app.string.HarmonyHeiTi')
+          })
+        }.width(50)
+        Row(){
+          if(JSON.parse(this.taskInfoStr).isDone){
+            Progress({
+              value: 0,
+              total: 200,
+              type: ProgressType.Capsule
+            })
+              .color('#c8ba5656')
+              .value(200)
+              .width(200)
+              .height(10)
+          }
+          else{
+            if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(parseInt(JSON.parse(this.taskInfoStr).targetValue)/3)) {
+              Progress({
+                value: 0,
+                total: 200,
+                type: ProgressType.Capsule
+              })
+                .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                .color('#c9ffe070')
+                .backgroundColor('#fffdf4f4')
+                .width(200)
+                .height(10)
+            }
+            else{
+              if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(2*parseInt(JSON.parse(this.taskInfoStr).targetValue))/3) {
+                Progress({
+                  value: 0,
+                  total: 200,
+                  type: ProgressType.Capsule
+                })
+                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                  .color('#d0ff9232')
+                  .backgroundColor('#fffdf4f4')
+                  .width(200)
+                  .height(10)
+              }
+              else {
+                Progress({
+                  value: 0,
+                  total: 200,
+                  type: ProgressType.Capsule
+                })
+                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                  .color('#bafd5817')
+                  .backgroundColor('#fffdf4f4')
+                  .width(200)
+                  .height(10)
+
+
+              }
+            }
+          }
+        }
+
+      }//三个组件
 
       this.targetValueBuilder();
-    }
+    }.alignItems(VerticalAlign.Center)
     .allSize()
     .justifyContent(FlexAlign.SpaceBetween)
     .borderRadius($r('app.float.default_24'))
