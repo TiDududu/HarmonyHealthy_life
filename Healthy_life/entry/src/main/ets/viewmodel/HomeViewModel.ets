@@ -123,9 +123,11 @@ export class HomeStore {
       const {taskID, targetValue, isAlarm, frequency, startTime, endTime, isOpen } = editedTaskInfo;
       let finValue;
 
-      if (taskID === 1 || taskID === 6) {
+      if (taskID == 1 || taskID == 6) {
         finValue = '--';
       } else if (taskID >= 2 && taskID <= 5) {
+        finValue = '0';
+      } else if(taskID == 7) {
         finValue = '0';
       } else {
         finValue = 'Invalid taskID'; // You may want to handle invalid taskID in a way that suits your program.
