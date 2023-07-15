@@ -61,7 +61,7 @@ export default struct HomeTopView {
         Image($r('app.media.ic_switch'))
           .height(36)
           .width(36)
-          .margin({ top: 15, right: 15 })
+          .margin({ top: 25, right: 25 })
           .onClick(() => {
             this.is_month = !this.is_month
           })

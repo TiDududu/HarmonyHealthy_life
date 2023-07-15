@@ -42,13 +42,7 @@ export class WeekDateModel {
  */
 export function initializeOnStartUp(date: Date): [Array<WeekDateModel>, Array<string>] {
   let [arr, strArr] = [[], []]; // getPreviousWeek(date);
-  let currentDay = date.getDay() - 1;
-  if (date.getDay() === 0) {
-    currentDay = 6;
-  }
-  Logger.debug('WeekCalendarModel', date.toISOString());
-  // monday is first day of week
-  date.setDate(date.getDate() - currentDay)
+  date.setDate(1);
   for (let index = 0; index < WEEK_DAY_NUM; index++) {
     let tempDate = new Date(date);
     tempDate.setDate(date.getDate() + index);

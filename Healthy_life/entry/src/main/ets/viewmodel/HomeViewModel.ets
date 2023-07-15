@@ -20,6 +20,7 @@ import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
 import { WeekDateModel, initializeOnStartUp, getPreviousWeek, WEEK_DAY_NUM } from '../model/WeekCalendarModel';
+import { initializeOnStartUp_Month } from '../model/MonthCalendarModel'
 import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
 import DayInfoApi from '../common/database/tables/DayInfoApi';
@@ -30,6 +31,7 @@ import Logger from '../common/utils/Logger';
 export class HomeStore {
   public currentDate: Date;
   public dateArr: Array<WeekDateModel> = []; // data source list
+  public weekArr: Array<Array<WeekDateModel>>=[];
   public selectedDay: number; // selected day of on week
   public showDate: number;
   public dateTitle: string;
@@ -46,7 +48,9 @@ export class HomeStore {
 
   public initData() {
     let [initArr, dateArr] = initializeOnStartUp(this.currentDate);
+    let [initArrMonth,dataArrMonth]=initializeOnStartUp_Month(this.currentDate);
     this.dateArr = initArr;
+    this.weekArr=initArrMonth;
     Logger.info('this.currentDate', this.currentDate.toDateString());
     Logger.info('initWeekData dateArr', JSON.stringify(dateArr))
     // get data form db

@@ -102,11 +102,11 @@ export struct MonthCalendar {
               })
             }
 
-            ForEach([0, 1, 2, 3, 4], () => {
+            ForEach(this.homeStore.weekArr, (item0: Array<WeekDateModel>, index0: number) => {
               Row() {
-                ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
+                ForEach(item0, (item1: WeekDateModel, index1: number) => {
                   Column() {
-                    Image(this.getProgressImg(item))
+                    Image(this.getProgressImg(item1))
                       .height($r('app.float.default_28'))
                       .objectFit(ImageFit.Contain)
                       .margin({ top: commonConst.THOUSANDTH_80 })
@@ -114,7 +114,7 @@ export struct MonthCalendar {
                   .height("34vp")
                   .width(`${WEEK_DAY_WIDTH}%`)
                   .justifyContent(FlexAlign.SpaceBetween)
-                  .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item, index))
+                  .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item1, index1))
                 })
               }
             })
