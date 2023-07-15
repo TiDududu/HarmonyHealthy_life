@@ -22,8 +22,8 @@ import Logger from '../common/utils/Logger'
 export const WEEK_DAY_NUM: number = 7;
 
 export class WeekDateModel {
-  weekTitle: string;
-  dateStr: string;
+  weekTitle: string; //星期几
+  dateStr: string;  //日期字符串
   date: Date;
   dayInfo: DayInfo;
   taskList: TaskInfo[] = [];

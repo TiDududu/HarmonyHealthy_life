@@ -23,8 +23,10 @@ import * as commonConst from '../../common/constants/CommonConstants';
 import Logger from '../../common/utils/Logger';
 
 export const WEEK_DAY_WIDTH: number = 100 / commonConst.WEEK_DAY_NUM;
+export const WEEK_DAY_HEIGHT: number = 38;
 const DEFAULT_SCROLL_WIDTH = 336; // default calendar width
 const DEFAULT_SCROLL_PERCENT = 0.934; // default calendar width percent
+//const DEFAULT_LINE_NUMBER = 5; //默认日历行数
 
 @Component
 export struct MonthCalendar {
@@ -42,7 +44,7 @@ export struct MonthCalendar {
     } catch (err) {
       Logger.error('HomeIndex->onScrollEnd', JSON.stringify(err));
     }
-    this.homeStore.setSelectedShowDate(new Date().getTime());
+    this.homeStore.setSelectedShowDate(new Date().getTime()); //传入当前时间的时间戳，使得homeStore内的日期字符串与 得到更新
   }
 
   getProgressImg(item: WeekDateModel): Resource {
@@ -72,36 +74,49 @@ export struct MonthCalendar {
   build() {
     Row() {
       Column() {
+        //月标题
         Row() {
           this.ArrowIcon(false)
-          HealthText({ title: this.homeStore.dateTitle, fontSize: $r('app.float.default_14') })
+          HealthText({ title: this.homeStore.monthTitle, fontSize: $r('app.float.default_14') })
             .margin($r('app.float.default_12'))
           this.ArrowIcon(true)
         }
         .justifyContent(FlexAlign.Center)
 
+        //月日历，横向滚动
         Scroll(this.scroller) {
-          Row() {
-            ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
-              Column() {
-                Text(item.weekTitle)
-                  .fontSize($r('app.float.default_12'))
-                  .fontWeight(commonConst.FONT_WEIGHT_500)
-                  .fontColor(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.titleColor'))
-                  .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
-                  .opacity(commonConst.OPACITY_6)
-                Divider()
-                  .margin({top: commonConst.DEFAULT_2, bottom: $r('app.float.default_4')})
-                  .width($r('app.float.default_12'))
-                  .color(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.white'))
-                Image(this.getProgressImg(item))
-                  .height($r('app.float.default_28'))
-                  .objectFit(ImageFit.Contain)
-                  .margin({ top: commonConst.THOUSANDTH_80 })
+          Column({space:"8vp"}) {
+            Row() {
+              ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
+                Column() {
+                  Text(item.weekTitle)
+                    .fontSize($r('app.float.default_12'))
+                    .fontWeight(commonConst.FONT_WEIGHT_500)
+                    .fontColor(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    .opacity(commonConst.OPACITY_6)
+                }
+                .width(`${WEEK_DAY_WIDTH}%`)
+                .justifyContent(FlexAlign.SpaceBetween)
+                .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item, index))
+              })
+            }
+
+            ForEach([0, 1, 2, 3, 4], () => {
+              Row() {
+                ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
+                  Column() {
+                    Image(this.getProgressImg(item))
+                      .height($r('app.float.default_28'))
+                      .objectFit(ImageFit.Contain)
+                      .margin({ top: commonConst.THOUSANDTH_80 })
+                  }
+                  .height("34vp")
+                  .width(`${WEEK_DAY_WIDTH}%`)
+                  .justifyContent(FlexAlign.SpaceBetween)
+                  .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item, index))
+                })
               }
-              .width(`${WEEK_DAY_WIDTH}%`)
-              .justifyContent(FlexAlign.SpaceBetween)
-              .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item, index))
             })
           }
         }
@@ -116,3 +131,9 @@ export struct MonthCalendar {
       .width(commonConst.THOUSANDTH_1000)
       .height(commonConst.THOUSANDTH_1000)
       .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_120 })
+    }
+    .width(commonConst.THOUSANDTH_1000)
+    .height(commonConst.THOUSANDTH_710)
+    .padding(commonConst.THOUSANDTH_33)
+  }
+}

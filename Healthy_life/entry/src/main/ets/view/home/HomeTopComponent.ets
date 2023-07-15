@@ -54,7 +54,7 @@ export default struct HomeTopView {
 
       Stack({alignContent: Alignment.TopEnd}) {
         if (this.is_month) {
-          MonthCalendar()
+          MonthCalendar({ homeStore: $homeStore })
         } else {
           WeekCalendar({ homeStore: $homeStore })
         }
@@ -67,10 +67,11 @@ export default struct HomeTopView {
           })
       }
     }
-    .height(commonConst.THOUSANDTH_500)
+    .height(this.is_month?commonConst.THOUSANDTH_650:commonConst.THOUSANDTH_500)
     .backgroundImagePosition({x: 0, y: 0})
     .backgroundImage($r('app.media.ic_home_bg'))
-    .backgroundImageSize({ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
+    .backgroundImageSize(this.is_month?{ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_650 }:
+      { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
     .justifyContent(FlexAlign.End)
   }
 }

@@ -50,6 +50,11 @@ export function weekDateFormat(timestamp: number) {
     return dateFormat(tempDate) + WEEK + WEEK_TITLES[tempDate.getDay()];
 }
 
+export function monthFormat(timestamp: number) {
+    let tempDate = new Date(timestamp);
+    return tempDate.getFullYear() + YEAR + padTo2Digits(tempDate.getMonth() + 1) + MONTH;
+}
+
 export function sameDate(firstDate: Date, timestamp: number) {
 
     let secondDate = new Date(timestamp);

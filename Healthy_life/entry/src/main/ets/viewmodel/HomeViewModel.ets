@@ -18,7 +18,7 @@ import { isReachNewAchievement, ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveMo
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
-import { dateToStr, weekDateFormat } from '../common/utils/Utils';
+import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
 import { WeekDateModel, initializeOnStartUp, getPreviousWeek, WEEK_DAY_NUM } from '../model/WeekCalendarModel';
 import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
@@ -33,12 +33,14 @@ export class HomeStore {
   public selectedDay: number; // selected day of on week
   public showDate: number;
   public dateTitle: string;
+  public monthTitle: string;
   public selectedDayInfo: WeekDateModel; // task info on selected day
 
   constructor(currentDate: Date) {
     this.currentDate = currentDate;
     this.showDate = currentDate.getTime();
     this.dateTitle = weekDateFormat(currentDate.getTime());
+    this.monthTitle = monthFormat(currentDate.getTime());
     this.selectedDay = (new Date().getDay() + WEEK_DAY_NUM - 1) % WEEK_DAY_NUM;
   }
 
@@ -180,11 +182,13 @@ export class HomeStore {
     }
     this.showDate = showDateTime;
     this.dateTitle = weekDateFormat(this.showDate);
+    this.monthTitle = monthFormat(this.showDate);
     let selectedInfo = this.dateArr.find((item: WeekDateModel) => item.dateStr == dateToStr(new Date(showDateTime)));
     if (selectedInfo) {
       this.updateSelectedDayInfo({ ...selectedInfo });
     }
     Logger.info('dateTitle', this.dateTitle);
+    Logger.info('monthTitle', this.monthTitle);
   }
 
   public getDonePercent(): string {
