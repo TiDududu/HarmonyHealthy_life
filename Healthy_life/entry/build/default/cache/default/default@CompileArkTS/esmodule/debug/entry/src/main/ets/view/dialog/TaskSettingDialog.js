@@ -17,6 +17,7 @@ import { frequencyRange } from '@bundle:com.example.healthy_life/entry/ets/commo
 import { returnTimeStamp, createAppleRange, createDrinkRange, formatTime } from '@bundle:com.example.healthy_life/entry/ets/viewmodel/TaskViewModel';
 import { taskType } from '@bundle:com.example.healthy_life/entry/ets/common/bean/TaskInfo';
 import * as commonConst from '@bundle:com.example.healthy_life/entry/ets/common/constants/CommonConstants';
+import Logger from '@bundle:com.example.healthy_life/entry/ets/common/utils/Logger';
 export class TargetSettingDialog extends ViewPU {
     constructor(parent, params, __localStorage, elmtId = -1) {
         super(parent, __localStorage, elmtId);
@@ -419,7 +420,8 @@ export class FrequencyDialog extends ViewPU {
         this.controller = ctr;
     }
     setFrequency() {
-        const checkedArr = this.frequencyChooseRange.filter((item) => item === null || item === void 0 ? void 0 : item.isChecked);
+        // const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
+        const checkedArr = this.frequencyChooseRange.filter((item) => this.settingParams.frequencyIds.includes(item === null || item === void 0 ? void 0 : item.id.toString()));
         if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === commonConst.NO_LENGTH) {
             this.currentFrequency = commonConst.EVERYDAY;
             this.settingParams.frequency = commonConst.INIT_WEEK_IDS;
@@ -526,9 +528,23 @@ export class FrequencyDialog extends ViewPU {
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-                            Toggle.create({ type: ToggleType.Checkbox });
+                            Toggle.create({ type: ToggleType.Checkbox, isOn: this.settingParams.frequencyIds.includes(item.id.toString()) });
                             Toggle.onChange((isOn) => {
                                 item.isChecked = isOn;
+                                Logger.info("picked fre" + isOn);
+                                // 如果选中了复选框，则在数组中添加元素
+                                if (isOn) {
+                                    if (!this.settingParams.frequencyIds.includes(item.id.toString())) {
+                                        this.settingParams.frequencyIds.push(item.id.toString());
+                                    }
+                                }
+                                // 如果取消了复选框的选中，则从数组中删除元素
+                                else {
+                                    const index = this.settingParams.frequencyIds.indexOf(item.id.toString());
+                                    if (index > -1) {
+                                        this.settingParams.frequencyIds.splice(index, 1);
+                                    }
+                                }
                             });
                             if (!isInitialRender) {
                                 Toggle.pop();
@@ -565,9 +581,23 @@ export class FrequencyDialog extends ViewPU {
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-                            Toggle.create({ type: ToggleType.Checkbox });
+                            Toggle.create({ type: ToggleType.Checkbox, isOn: this.settingParams.frequencyIds.includes(item.id.toString()) });
                             Toggle.onChange((isOn) => {
                                 item.isChecked = isOn;
+                                Logger.info("picked fre" + isOn);
+                                // 如果选中了复选框，则在数组中添加元素
+                                if (isOn) {
+                                    if (!this.settingParams.frequencyIds.includes(item.id.toString())) {
+                                        this.settingParams.frequencyIds.push(item.id.toString());
+                                    }
+                                }
+                                // 如果取消了复选框的选中，则从数组中删除元素
+                                else {
+                                    const index = this.settingParams.frequencyIds.indexOf(item.id.toString());
+                                    if (index > -1) {
+                                        this.settingParams.frequencyIds.splice(index, 1);
+                                    }
+                                }
                             });
                             if (!isInitialRender) {
                                 Toggle.pop();
@@ -628,6 +658,7 @@ export class FrequencyDialog extends ViewPU {
             Text.onClick(() => {
                 this.setFrequency();
                 this.frequency = this.currentFrequency;
+                // this.settingParams.frequency = this.settingParams.frequencyIds.join(',');
                 this.controller.close();
             });
             if (!isInitialRender) {

@@ -81,6 +81,8 @@ export default class TaskDetail extends ViewPU {
     }
     parseRouterParams() {
         const routerParams = JSON.parse(router.getParams()['params']);
+        routerParams.frequencyIds = routerParams.frequency.split(',');
+        Logger.info('Init frequencyIDs' + routerParams.frequencyIds[2]);
         return routerParams;
     }
     onParamsChanged() {
