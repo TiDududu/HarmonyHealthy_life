@@ -110,11 +110,13 @@ export default struct HomeIndex {
   }
 
   build() {
-    Stack() {
+    Stack({ alignContent: Alignment.Top }) {
+      Column(){
+        HomeTopView({ homeStore: $homeStore })
+      }.zIndex(2)
       Scroll(this.scroller) {
         Column() {
           HomeTopView({ homeStore: $homeStore })
-          Text($r('app.string.task_list')).titleTextStyle()
           if (this.homeStore.getTaskListOfDay().length > 0) {
             Column({ space: commonConst.DEFAULT_8 }) {
               ForEach(this.homeStore.getTaskListOfDay(), (item: TaskInfo) => {
@@ -151,6 +153,7 @@ export default struct HomeIndex {
       .allSize()
       .onScroll(this.onScrollAction.bind(this))
       .align(Alignment.TopStart)
+      .zIndex(1)
 
       AddBtn({ clickAction: this.editTaskAction.bind(this) })
       Row() {

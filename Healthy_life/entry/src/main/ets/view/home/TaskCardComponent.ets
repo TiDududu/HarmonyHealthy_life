@@ -55,7 +55,7 @@ export struct TaskCard {
 
         HealthText({
           title: JSON.parse(this.taskInfoStr).finValue || `--`,
-          fontSize: $r('app.float.default_24')
+          fontSize: $r('app.float.default_22')
         })
         Text(` / ${JSON.parse(this.taskInfoStr).targetValue} ${TaskMapById[JSON.parse(this.taskInfoStr).taskID].unit}`)
           .labelTextStyle()
@@ -81,50 +81,50 @@ export struct TaskCard {
           if(JSON.parse(this.taskInfoStr).isDone){
             Progress({
               value: 0,
-              total: 200,
+              total: 150,
               type: ProgressType.Capsule
             })
               .color('#c8ba5656')
-              .value(200)
-              .width(200)
+              .value(150)
+              .width('40%')
               .height(10)
           }
           else{
             if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(parseInt(JSON.parse(this.taskInfoStr).targetValue)/3)) {
               Progress({
                 value: 0,
-                total: 200,
+                total: 150,
                 type: ProgressType.Capsule
               })
-                .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
                 .color('#c9ffe070')
                 .backgroundColor('#fffdf4f4')
-                .width(200)
+                .width('40%')
                 .height(10)
             }
             else{
               if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(2*parseInt(JSON.parse(this.taskInfoStr).targetValue))/3) {
                 Progress({
                   value: 0,
-                  total: 200,
+                  total: 150,
                   type: ProgressType.Capsule
                 })
-                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
                   .color('#d0ff9232')
                   .backgroundColor('#fffdf4f4')
-                  .width(200)
+                  .width('40%')
                   .height(10)
               }
               else {
                 Progress({
                   value: 0,
-                  total: 200,
+                  total: 150,
                   type: ProgressType.Capsule
                 })
-                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*200)
+                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
                   .color('#bafd5817')
                   .backgroundColor('#fffdf4f4')
-                  .width(200)
+                  .width('40%')
                   .height(10)
 
 

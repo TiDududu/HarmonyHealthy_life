@@ -31,47 +31,67 @@ import HealthText from '../../view/HealthTextComponent';
 export default struct HomeTopView {
   @Link homeStore: HomeStore;
   @State is_month: boolean = false;
-  build() {
-    Column() {
-      Text($r('app.string.target_progress'))
-        .titleTextStyle()
-        .opacity(commonConst.OPACITY_6)
-        .padding({ left: $r('app.float.default_24') })
-      Row() {
-        HealthText({
-          title: this.homeStore.getDonePercent(),
-          fontSize: $r('app.float.default_72'),
-          fontFamily: $r('app.string.HarmonyHeiTi_Bold'),
-          fontWeight: commonConst.FONT_WEIGHT_700
-        })
-        Text('%')
-          .titleTextStyle()
-          .fontSize($r('app.float.default_40'))
-          .margin({ top: $r('app.float.default_12'), left: $r('app.float.default_8') })
-      }
-      .width(commonConst.THOUSANDTH_1000)
-      .padding({ left: $r('app.float.default_24') })
 
-      Stack({alignContent: Alignment.TopEnd}) {
-        if (this.is_month) {
-          MonthCalendar({ homeStore: $homeStore })
-        } else {
-          WeekCalendar({ homeStore: $homeStore })
-        }
-        Image($r('app.media.ic_switch'))
-          .height(36)
-          .width(36)
-          .margin({ top: 25, right: 25 })
-          .onClick(() => {
-            this.is_month = !this.is_month
+  build() {
+    Stack({ alignContent: Alignment.Top }) {
+      Column() {
+        Text($r('app.string.target_progress'))
+          .titleTextStyle()
+          .opacity(commonConst.OPACITY_6)
+          .padding({ left: $r('app.float.default_24') })
+        Row() {
+          HealthText({
+            title: this.homeStore.getDonePercent(),
+            fontSize: $r('app.float.default_72'),
+            fontFamily: $r('app.string.HarmonyHeiTi_Bold'),
+            fontWeight: commonConst.FONT_WEIGHT_700
           })
+          Text('%')
+            .titleTextStyle()
+            .fontSize($r('app.float.default_40'))
+            .margin({ top: $r('app.float.default_12'), left: $r('app.float.default_8') })
+        }
+        .width(commonConst.THOUSANDTH_1000)
+        .padding({ left: $r('app.float.default_24') })
+
+        Column(){
+          Stack({ alignContent: Alignment.TopEnd }) {
+            if (this.is_month) {
+              MonthCalendar({ homeStore: $homeStore })
+            } else {
+              WeekCalendar({ homeStore: $homeStore })
+            }
+
+            Text(this.is_month ? "M" : "W") //Note:注意这个格式化用法
+              .fontSize("15vp")
+              .fontWeight(commonConst.FONT_WEIGHT_500)
+              .fontColor($r('app.color.blueColor'))
+              .borderRadius($r('app.float.default_6'))
+              .height(28)
+              .width(28)
+              .border({ color: $r('app.color.blueColor'), width: $r('app.float.default_1') })
+              .margin({ top: 25, right: 25 })
+              .textAlign(TextAlign.Center)
+              .onClick(() => {
+                this.is_month = !this.is_month
+              })
+
+          }
+          Text($r('app.string.task_list'))
+            .titleTextStyle()
+            .backgroundColor($r('app.color.primaryBgColor'))
+            .borderWidth({ bottom: 3 })
+            .borderRadius({ bottomLeft: 5, bottomRight: 5 })
+            .borderColor($r('app.color.primaryBgColor'))
+        }
+
       }
-    }
-    .height(this.is_month?commonConst.THOUSANDTH_650:commonConst.THOUSANDTH_500)
-    .backgroundImagePosition({x: 0, y: 0})
-    .backgroundImage($r('app.media.ic_home_bg'))
-    .backgroundImageSize(this.is_month?{ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_650 }:
-      { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
-    .justifyContent(FlexAlign.End)
+      .height(this.is_month ? commonConst.THOUSANDTH_650 : commonConst.THOUSANDTH_500)
+      .backgroundImagePosition({ x: 0, y: 0 })
+      .backgroundImage($r('app.media.ic_home_bg'))
+      .backgroundImageSize(this.is_month ? { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_650 } :
+        { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
+      .justifyContent(FlexAlign.End)
+    }.backgroundColor($r('app.color.primaryBgColor'))
   }
 }
