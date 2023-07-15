@@ -124,6 +124,7 @@ struct Index {
     .barWidth(commonConst.THOUSANDTH_940)
     .barMode(BarMode.Fixed)
     .vertical(false)
+    .animationDuration(400)
     .onChange((index) => {
       this.currentPage = index;
     })
