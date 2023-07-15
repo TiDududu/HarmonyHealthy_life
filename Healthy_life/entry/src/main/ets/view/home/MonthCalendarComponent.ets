@@ -15,6 +15,7 @@
 
 import display from '@ohos.display';
 import WeekCalendarMethods from '../../viewmodel/CalendarViewModel';
+import MonthCalendarMethods from '../../viewmodel/MonthCalendarViewModel';
 import { HomeStore } from '../../viewmodel/HomeViewModel';
 import HealthText from '../../view/HealthTextComponent';
 import { WeekDateModel } from '../../model/WeekCalendarModel';
@@ -68,7 +69,7 @@ export struct MonthCalendar {
     .height($r('app.float.default_20'))
     .rotate({ z: 1, angle: isRight ? 0 : commonConst.DEFAULT_180 })
     .justifyContent(FlexAlign.Center)
-    .onClick(() => isRight ? WeekCalendarMethods.goToNextWeek.call(this) : WeekCalendarMethods.gotoPreviousWeek.call(this))
+    .onClick(() => isRight ? MonthCalendarMethods.goToNextMonth.call(this) : MonthCalendarMethods.gotoPreviousMonth.call(this))
   }
 
   build() {
@@ -98,29 +99,28 @@ export struct MonthCalendar {
                 }
                 .width(`${WEEK_DAY_WIDTH}%`)
                 .justifyContent(FlexAlign.SpaceBetween)
-                .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item, index))
               })
             }
 
             ForEach(this.homeStore.weekArr, (item0: Array<WeekDateModel>, index0: number) => {
               Row() {
                 ForEach(item0, (item1: WeekDateModel, index1: number) => {
-                  Column() {
-                    Image(this.getProgressImg(item1))
-                      .height($r('app.float.default_28'))
-                      .objectFit(ImageFit.Contain)
-                      .margin({ top: commonConst.THOUSANDTH_80 })
-                    Text(`${item1.date.getDate()}`)
-                      .fontSize($r('app.float.default_12'))
-                      .fontWeight(commonConst.FONT_WEIGHT_400)
-                      .fontColor($r('app.color.titleColor'))
-                      .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
-                      .opacity(commonConst.OPACITY_6)
-                  }
-                  .height("38vp")
-                  .width(`${WEEK_DAY_WIDTH}%`)
-                  .justifyContent(FlexAlign.SpaceBetween)
-                  .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item1, index1))
+                    Column() {
+                      Image( (item1.date.getMonth()==this.homeStore.month)?this.getProgressImg(item1):$r("app.media.ic_cross"))
+                        .height($r('app.float.default_28'))
+                        .objectFit(ImageFit.Contain)
+                        .margin({ top: commonConst.THOUSANDTH_80 })
+                      Text(`${item1.date.getDate()}`)
+                        .fontSize($r('app.float.default_12'))
+                        .fontWeight(commonConst.FONT_WEIGHT_400)
+                        .fontColor($r('app.color.titleColor'))
+                        .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                        .opacity(commonConst.OPACITY_6)
+                    }
+                    .height("38vp")
+                    .width(`${WEEK_DAY_WIDTH}%`)
+                    .justifyContent(FlexAlign.SpaceBetween)
+                    .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item1, index1))
                 })
               }
             })
@@ -129,6 +129,7 @@ export struct MonthCalendar {
         .scrollBar(BarState.Off)
         .scrollable(ScrollDirection.Horizontal)
         .width(commonConst.THOUSANDTH_1000)
+        .height(commonConst.THOUSANDTH_1000)
         .onScrollStop(() => WeekCalendarMethods.onScrollEndAction.call(this))
         .onScrollEdge(() => WeekCalendarMethods.onScrollEdgeAction.call(this))
       }
@@ -136,7 +137,7 @@ export struct MonthCalendar {
       .backgroundColor($r('app.color.white'))
       .width(commonConst.THOUSANDTH_1000)
       .height(commonConst.THOUSANDTH_1000)
-      .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_120 })
+      .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_50 })
     }
     .width(commonConst.THOUSANDTH_1000)
     .height(commonConst.THOUSANDTH_710)

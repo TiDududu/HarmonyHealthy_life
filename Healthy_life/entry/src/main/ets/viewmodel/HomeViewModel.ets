@@ -36,6 +36,7 @@ export class HomeStore {
   public showDate: number;
   public dateTitle: string;
   public monthTitle: string;
+  public month: number;
   public selectedDayInfo: WeekDateModel; // task info on selected day
 
   constructor(currentDate: Date) {
@@ -43,6 +44,7 @@ export class HomeStore {
     this.showDate = currentDate.getTime();
     this.dateTitle = weekDateFormat(currentDate.getTime());
     this.monthTitle = monthFormat(currentDate.getTime());
+    this.month=currentDate.getMonth();
     this.selectedDay = (new Date().getDay() + WEEK_DAY_NUM - 1) % WEEK_DAY_NUM;
   }
 

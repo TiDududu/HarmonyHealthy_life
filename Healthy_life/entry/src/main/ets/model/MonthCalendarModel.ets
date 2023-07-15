@@ -41,8 +41,8 @@ export class WeekDateModel {
  * @param date  today str
  */
 export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>]  {
-  let arrMonth:Array<Array<string>>=[];
-  let strArrMonth: Array<Array<WeekDateModel>>=[];
+  let arrMonth:Array<Array<WeekDateModel>>=[];
+  let strArrMonth: Array<Array<string>>=[];
 
   let currentDate = new Date(date);
   const currentMonth = currentDate.getMonth();
@@ -66,12 +66,12 @@ export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel
       arr.push(new WeekDateModel(WEEK_TITLES[tempDate.getDay()], dateStr, tempDate));
     }
     Logger.debug('WeekCalendarModel', 'initialWeekDate' + JSON.stringify(arr));
-    arrMonth.push(strArr)
-    strArrMonth.push(arr);
+    arrMonth.push(arr)
+    strArrMonth.push(strArr);
     currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
   }
 
-  return [strArrMonth,arrMonth];
+  return [arrMonth,strArrMonth];
 }
 
 
@@ -97,4 +97,24 @@ export function getPreviousWeek(showDate: Date): [Array<WeekDateModel>, Array<st
   Logger.debug('WeekCalendarModel', JSON.stringify(arr))
   return [arr, strArr];
 }
+
+export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>] {
+  Logger.debug('MonthCalendarModel', 'get month date by date: ' + showDate.toDateString());
+  let arrMonth:Array<Array<WeekDateModel>>=[];
+  let strArrMonth: Array<Array<string>>=[];
+
+  let currentDate = new Date(showDate);
+  const currentMonth = currentDate.getMonth();
+  currentDate.setDate(1); // Set date to the first day of the month
+
+  while (currentDate.getMonth() === currentMonth) {
+    let [arr, strArr] = getPreviousWeek(currentDate); // Call getPreviousWeek for each week in the month
+    arrMonth.push(arr);
+    strArrMonth.push(strArr);
+    currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
+  }
+
+  return [arrMonth, strArrMonth];
+}
+
 

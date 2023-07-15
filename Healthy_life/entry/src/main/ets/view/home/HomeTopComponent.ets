@@ -67,10 +67,10 @@ export default struct HomeTopView {
           })
       }
     }
-    .height(this.is_month?commonConst.THOUSANDTH_650:commonConst.THOUSANDTH_500)
+    .height(this.is_month?commonConst.THOUSANDTH_800:commonConst.THOUSANDTH_500)
     .backgroundImagePosition({x: 0, y: 0})
     .backgroundImage($r('app.media.ic_home_bg'))
-    .backgroundImageSize(this.is_month?{ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_650 }:
+    .backgroundImageSize(this.is_month?{ width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_560 }:
       { width: commonConst.THOUSANDTH_1000, height: commonConst.THOUSANDTH_900 })
     .justifyContent(FlexAlign.End)
   }
