@@ -29,12 +29,14 @@ export default class EntryAbility extends UIAbility {
   private static TAG: string = 'EntryAbility';
 
   async onCreate(want, launchParam) {
+    //这两个参数仅用来传给onNewWant函数
     globalThis.abilityWant = want;
     globalThis.launchParam = launchParam;
 
     RdbUtils.initDb(this.context, RDB_NAME.dbName);
     await RdbUtils.createDb();
 
+    //新建各table
     RdbUtils.createTable(DAY_INFO.tableName, columnDayInfoList).then(() => {
       Logger.info(`RdbHelper createTable dayInfo success`);
     }).catch(err => {
@@ -58,6 +60,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage) {
     // Main window is created, set main page for this ability
+    //加载主界面
     globalThis.isForeground = true;
     windowStage.loadContent('pages/SplashPage', (err, data) => {
       if (err.code) {

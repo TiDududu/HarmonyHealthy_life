@@ -43,13 +43,13 @@ struct AdvertisingPage {
       } else {
         this.goToHomePage();
       }
-    }, DURATION_1000)
+    }, DURATION_1000)//每秒调用一次参数内函数
   }
 
   build() {
     Column() {
       Row() {
-        Text($r('app.string.jump_ad', this.duration))
+        Text($r('app.string.jump_ad', this.duration))//Note:注意这个格式化用法
           .fontSize($r('app.float.default_12'))
           .fontColor($r('app.color.white'))
           .borderRadius($r('app.float.default_16'))
@@ -62,7 +62,7 @@ struct AdvertisingPage {
           .onClick(() => this.goToHomePage())
       }
       .width('90%')
-      .justifyContent(FlexAlign.End)
+      .justifyContent(FlexAlign.End)//对齐方式
 
       Row() {
         Image($r('app.media.logo'))

@@ -20,12 +20,14 @@ export const DAY_INFO = {
   tableName: 'dayInfo',
   columns: ['date', 'targetTaskNum', 'finTaskNum']
 }
+//每日计划完成、已完成任务数
 
 /** global info table */
 export const GLOBAL_INFO = {
   tableName: 'globalInfo',
   columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements']
 }
+
 
 /** task info table */
 export const TASK_INFO = {

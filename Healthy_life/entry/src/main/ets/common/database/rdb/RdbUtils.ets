@@ -24,7 +24,7 @@ let dbContext: Context;
 let mDatabaseName: string = '';
 
 export class RdbUtils {
-  private rdbHelpers = new Map<string, RdbHelper>();
+  private rdbHelpers = new Map<string, RdbHelper>();//数据库名->数据库管理者
 
   initDb(context: Context, databaseName: string) {
     dbContext = context;
