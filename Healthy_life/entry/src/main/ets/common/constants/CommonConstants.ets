@@ -25,7 +25,7 @@ export const DAY_INFO = {
 /** global info table */
 export const GLOBAL_INFO = {
   tableName: 'globalInfo',
-  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements']
+  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements' , 'achievements_single']
 }
 
 
@@ -110,6 +110,10 @@ export const DEFAULT_60: number = 60;
 export const DEFAULT_100: number = 100;
 
 export const DEFAULT_180: number = 180;
+
+export const DEFAULT_200: number = 200;
+
+export const DEFAULT_300: number = 300;
 
 // fontWeight
 export const FONT_WEIGHT_400: number = 400;
@@ -283,6 +287,10 @@ export const FULL_HEIGHT: string = '100%';
 export const WEEK_DAY_NUM: number = 7; // number days of one week
 
 export const WEEK_DAY_TIME: number = WEEK_DAY_NUM * 24 * 60 * 60 * 1000;
+
+export const MONTH_DAY_NUM: number = 30; // number days of one week
+
+export const MONTH_DAY_TIME: number = MONTH_DAY_NUM * 24 * 60 * 60 * 1000;
 
 export enum TaskType {
   Getup = 'getup',

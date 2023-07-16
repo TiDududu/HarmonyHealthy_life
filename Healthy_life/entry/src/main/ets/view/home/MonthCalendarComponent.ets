@@ -93,7 +93,7 @@ export struct MonthCalendar {
                   Text(item.weekTitle)
                     .fontSize($r('app.float.default_12'))
                     .fontWeight(commonConst.FONT_WEIGHT_500)
-                    .fontColor(sameDate(item.date, this.homeStore.showDate) ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    .fontColor(item.date.getDay()===(new Date(this.homeStore.showDate)).getDay() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
                     .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
                     .opacity(commonConst.OPACITY_6)
                 }

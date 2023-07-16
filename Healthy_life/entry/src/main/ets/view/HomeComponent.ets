@@ -92,6 +92,9 @@ export default struct HomeIndex {
       if (res.showAchievement) {
         this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [res.achievementLevel]);
       }
+      // if (res.showAchievement_single) {
+      //   this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [res.achievementLevel_single]);
+      // }
     })
   }
 

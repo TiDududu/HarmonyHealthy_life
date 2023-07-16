@@ -27,3 +27,20 @@ export struct TitleBar {
     .width(commonConst.FULL_WIDTH)
   }
 }
+
+//新增单项成就title
+@Component
+export struct TitleBar_single {
+  build() {
+    Row() {
+      Text($r('app.string.single_achievement'))
+        .fontSize($r('app.float.default_24'))
+        .fontColor($r('app.color.white'))
+        .align(Alignment.Start)
+        .padding({left: commonConst.ACHIEVE_TITLE_BAR_LEFT,top: commonConst.ACHIEVE_TITLE_BAR_TOP})
+    }
+    .width(commonConst.FULL_WIDTH)
+  }
+}
+
+

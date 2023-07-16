@@ -16,17 +16,20 @@
 import { WeekDateModel } from '../model/WeekCalendarModel';
 import Logger from '../common/utils/Logger';
 import { WEEK_DAY_NUM, WEEK_DAY_TIME } from '../common/constants/CommonConstants';
-
+import { MONTH_DAY_NUM,MONTH_DAY_TIME} from '../common/constants/CommonConstants';
 const LAZY_DATA_PAGE: number = 2; // lazy page number
 
 function gotoPreviousMonth() {
   this.isPageScroll = true;
   let date: Date = new Date(this.homeStore.showDate);
-  Logger.info('HomeIndex', 'gotoPreviousWeek: showDate_' + date.toISOString());
+  Logger.info('HomeIndex', 'gotoPreviousMonth: showDate_' + date.toISOString());
 
   if ((this.currentPage + LAZY_DATA_PAGE) * WEEK_DAY_NUM > this.homeStore.dateArr.length) {
     // get more history data
-    this.homeStore.getPreWeekData(date, () => {
+    this.homeStore.getPreMonthData(date, () => {
+      let new_showDate=new Date(this.homeStore.showDate);
+      new_showDate.setDate(0);
+      // this.homeStore.setSelectedShowDate(new_showDate.getTime());
       this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
       this.currentPage += 1;
     });
@@ -40,12 +43,12 @@ function gotoPreviousMonth() {
 
 function goToNextMonth() {
   if (this.currentPage <= 0) {
-    Logger.info('HomeIndex', 'goToNextWeek: is the current week');
+    Logger.info('HomeIndex', 'goToNextMonth: is the current week');
     return;
   }
   this.isPageScroll = true;
-  Logger.info('HomeIndex', 'goToNextWeek: nextPage');
-  this.homeStore.setSelectedShowDate(this.homeStore.showDate + WEEK_DAY_TIME);
+  Logger.info('HomeIndex', 'goToNextMonth: nextPage');
+  this.homeStore.setSelectedShowDate(this.homeStore.showDate + MONTH_DAY_TIME);
   this.currentPage -= 1;
   this.scroller.scrollPage({ next: true });
 }

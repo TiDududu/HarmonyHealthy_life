@@ -35,7 +35,7 @@ export class DatabaseModel {
     let self = this;
     GlobalInfoApi.query(function (globalResult) {
       if (globalResult.length === 0) { // if global information is not found, it is written
-        let globalInfo = new GlobalInfo(date, date, 0, '');
+        let globalInfo = new GlobalInfo(date, date, 0, '', '');
         GlobalInfoApi.insertData(globalInfo, (isDone) => {
           if (isDone) {
             Logger.info('AppStart', 'Insert globalInfo success: ' + JSON.stringify(globalInfo));
