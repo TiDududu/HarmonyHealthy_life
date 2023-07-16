@@ -120,15 +120,7 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
     strArrMonth.push(strArr);
     currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
   }*/
-  let show_month = showDate.getMonth();
-  if(show_month!=0)
-  {
-    showDate.setMonth(show_month-1);
-  }
-  else
-  {
-    showDate.setFullYear(showDate.getFullYear()-1,show_month,1)
-  }
+  showDate.setDate(0);
   let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
   for(let index = 0; index<arrMonth.length; index++){
     arrMonth[index]=arrMonth[index].reverse();

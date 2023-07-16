@@ -104,7 +104,7 @@ export class HomeStore {
 
   public updateSelectedDayInfo(selectedDayInfo: WeekDateModel) {
     Logger.debug('updateSelectedDayInfo', JSON.stringify(selectedDayInfo));
-    if (selectedDayInfo.taskList?.length === 0) {
+    if (selectedDayInfo.taskList?.length === 0) { //获取该日期的任务列表
       // get data form db
       TaskInfoTableApi.query(selectedDayInfo.dateStr, true, (res) => {
         Logger.info('Selected TaskInfoList: ', JSON.stringify(res));
