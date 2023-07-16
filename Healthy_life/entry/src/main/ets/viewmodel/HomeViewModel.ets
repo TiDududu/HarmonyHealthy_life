@@ -251,6 +251,52 @@ export class HomeStore {
         }
         return item;
       }).slice(0);
+      
+      for(let i=0;i<this.weekArr.length;i++) {
+        this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) => {
+          if (task.date == item.dateStr) {
+            Logger.info('item', JSON.stringify(item));
+            let taskList: TaskInfo[] = item.taskList;
+            const dayInfo: DayInfo = item.dayInfo;
+            if (editedTaskInfo.isOpen) {
+              // add task
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID)
+                .concat(task)
+                .sort((a, b) => a.taskID - b.taskID);
+              let count: number = 0;
+              taskList.forEach((taskItem: TaskInfo) => {
+                if (taskItem.isDone) {
+                  count++;
+                }
+              });
+              if (count > dayInfo.finTaskNum) {
+                dayInfo.finTaskNum = count;
+              }
+            } else {
+              // delete task
+              let taskIndex = taskList.findIndex((taskItem) => taskItem.taskID == taskID);
+              Logger.info('taskList[taskIndex]', JSON.stringify(taskList[taskIndex]));
+              if (taskList[taskIndex]?.isDone) {
+                dayInfo.finTaskNum -= 1;
+              }
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID);
+            }
+            dayInfo.targetTaskNum = taskList.length;
+            if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
+              dayInfo.finTaskNum = dayInfo.targetTaskNum;
+            }
+            DayInfoApi.updateData(dayInfo, () => {
+            });
+            Logger.debug("tempDayInfo", JSON.stringify(dayInfo));
+            let currentDayInfo = { ...item, taskList, dayInfo };
+            if (this.checkCurrentDay()) {
+              this.selectedDayInfo = currentDayInfo;
+            }
+            return currentDayInfo;
+          }
+          return item;
+        }).slice(0);
+      }
     }
   }
 
