@@ -129,7 +129,7 @@ export class HomeStore {
             let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
             this.weekArr[j][i].dayInfo = dayInfo;
           }
-          this.weekArr.push(initArr[j]);
+          //this.weekArr.push(initArr[j]);
         }
         //this.weekArr.push(initArr[j]);
       })
