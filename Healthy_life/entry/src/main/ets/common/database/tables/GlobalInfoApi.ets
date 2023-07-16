@@ -65,12 +65,13 @@ class GlobalInfoApi {
         Logger.info('GlobalInfoTable', 'query no results!');
         callback([]);
       } else {
-        let result = new GlobalInfo('', '', 0, '');
+        let result = new GlobalInfo('', '', 0, '','');
         resultSet.goToFirstRow();
         result.firstDate = resultSet.getString(resultSet.getColumnIndex('firstDate'));
         result.lastDate = resultSet.getString(resultSet.getColumnIndex('lastDate'));
         result.checkInDays = resultSet.getDouble(resultSet.getColumnIndex('checkInDays'));
         result.achievements = resultSet.getString(resultSet.getColumnIndex('achievements'));
+        result.achievements_single = resultSet.getString(resultSet.getColumnIndex('achievements_single'));
         callback(result);
       }
     });
