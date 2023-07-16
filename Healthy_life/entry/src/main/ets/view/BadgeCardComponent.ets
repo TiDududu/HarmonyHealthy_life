@@ -36,3 +36,26 @@ export struct BadgeCard {
     .padding({top: commonConst.ACHIEVE_CARD_TOP, bottom: commonConst.ACHIEVE_CARD_BOTTOM})
   }
 }
+
+
+//新增单项成就徽章
+@Component
+export struct BadgeCard_single {
+  @Prop content: string;
+  imgSrc: Resource;
+
+  build() {
+    Column({space: commonConst.DEFAULT_18}) {
+      Image(this.imgSrc)
+        .width(commonConst.FULL_WIDTH)
+        .height(commonConst.ACHIEVE_CARD_IMG_HEIGHT)
+        .objectFit(ImageFit.Contain)
+      Text($r('app.string.task_achievement_multi_level', Number(this.content)))
+        .lineHeight($r('app.float.default_16'))
+        .fontSize($r('app.float.default_12'))
+        .fontColor($r('app.color.white'))
+    }
+    .width(ratio2percent(commonConst.ACHIEVE_SPLIT_RATIO))
+    .padding({top: commonConst.ACHIEVE_CARD_TOP, bottom: commonConst.ACHIEVE_CARD_BOTTOM})
+  }
+}

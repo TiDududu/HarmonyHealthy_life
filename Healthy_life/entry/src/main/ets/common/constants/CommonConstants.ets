@@ -25,7 +25,7 @@ export const DAY_INFO = {
 /** global info table */
 export const GLOBAL_INFO = {
   tableName: 'globalInfo',
-  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements']
+  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements' , 'achievements_single']
 }
 
 
@@ -110,6 +110,10 @@ export const DEFAULT_60: number = 60;
 export const DEFAULT_100: number = 100;
 
 export const DEFAULT_180: number = 180;
+
+export const DEFAULT_200: number = 200;
+
+export const DEFAULT_300: number = 300;
 
 // fontWeight
 export const FONT_WEIGHT_400: number = 400;

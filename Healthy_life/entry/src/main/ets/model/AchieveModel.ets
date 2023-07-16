@@ -13,11 +13,17 @@
  * limitations under the License.
  */
 
-import { ACHIEVEMENT_LEVEL_LIST } from './TaskInitList';
+import { ACHIEVEMENT_LEVEL_LIST ,ACHIEVEMENT_LEVEL_LIST_SINGLE } from './TaskInitList';
 import GlobalInfo from '../common/bean/GlobalInfo';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
+import TaskInfo from '../common/bean/TaskInfo';
+import TaskInfoApi from '../common/database/tables/TaskInfoApi';
+import {GLOBAL_KEY} from '../common/constants/CommonConstants';
 
 export const ACHIEVEMENT_LEVEL_KEY = 'AchievementLevelKey';
+
+//新增单项成就等级
+export const ACHIEVEMENT_LEVEL_KEY_SINGLE = 'AchievementLevelKeySingle';
 
 export function getAchievementLevel() {
   GlobalInfoApi.query((res) => {
@@ -37,6 +43,34 @@ export function isReachNewAchievement(globalInfo: GlobalInfo): boolean {
   let achievements = achievementStr.split(',');
 
   if (ACHIEVEMENT_LEVEL_LIST.indexOf(globalInfo.checkInDays) >= 0 && achievements.indexOf(String(globalInfo.checkInDays)) < 0) {
+    return true;
+  }
+  return false;
+}
+
+//新增单项成就
+export function getAchievementLevel_single() {
+  TaskInfoApi.query(GLOBAL_KEY, true, (res) => {
+    let taskInfo: TaskInfo = res;
+
+      AppStorage.Set<Number>(ACHIEVEMENT_LEVEL_KEY_SINGLE, Number(taskInfo.finValue) / Number(taskInfo.targetValue));
+
+  })
+}
+
+export function isReachNewAchievement_single(globalInfo: GlobalInfo): boolean {
+  let achievementStr_single = globalInfo.achievements_single??'';
+  let achievements_single = achievementStr_single.split(',');
+  let finish_time: number = 200;  //try
+
+  TaskInfoApi.query(GLOBAL_KEY, true, (res) => {
+    let taskInfo: TaskInfo = res;
+
+   // finish_time = Number(taskInfo.finValue) / Number(taskInfo.targetValue) ;
+
+  });
+
+  if (ACHIEVEMENT_LEVEL_LIST_SINGLE.indexOf(finish_time) >= 0 && achievements_single.indexOf(String(finish_time)) < 0) {
     return true;
   }
   return false;
