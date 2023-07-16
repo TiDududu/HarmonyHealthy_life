@@ -38,6 +38,10 @@ export const columnGlobalInfoList: Array<ColumnInfo> = [
   {
     name: 'achievements',
     type: 'text'
+  },
+  {
+    name: 'achievements_single',
+    type: 'text'
   }
 ];
 

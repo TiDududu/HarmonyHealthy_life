@@ -52,7 +52,7 @@ export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel
   while (currentDate.getMonth() === currentMonth) {
     let [arr, strArr] = [[], []];
     let currentDay = currentDate.getDay() - 1;
-    if (currentDate.getDay() === 0) {
+    if (currentDate.getDay() === 0) {//Sunday
       currentDay = 6;
     }
     Logger.debug('WeekCalendarModel', currentDate.toISOString());
@@ -120,20 +120,18 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
     strArrMonth.push(strArr);
     currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
   }*/
-  let show_month = showDate.getMonth();
-  if(show_month!=0)
-  {
-    showDate.setMonth(show_month-1);
-  }
-  else
-  {
-    showDate.setFullYear(showDate.getFullYear()-1,show_month,1)
-  }
+  showDate.setDate(0);
   let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
-  for(let index = 0; index<arrMonth.length; index++){
+  /*for(let index = 0; index<arrMonth.length; index++){
     arrMonth[index]=arrMonth[index].reverse();
     strArrMonth[index]=strArrMonth[index].reverse();
-  }
+  }*/
+  return [arrMonth, strArrMonth];
+}
+
+export function getNextMonth(showDate: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>] {
+  showDate.setDate(32);
+  let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
   return [arrMonth, strArrMonth];
 }
 
