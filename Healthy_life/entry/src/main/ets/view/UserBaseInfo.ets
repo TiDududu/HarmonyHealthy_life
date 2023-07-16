@@ -15,17 +15,27 @@
 
 @Component
 export struct UserBaseInfo {
+  @Prop image: string;
   @Prop nickname: string;
   @Prop signature: string;
+  getImage(){
+    if(this.image == 'app.media.ic_user'){
+      return $r('app.media.ic_user')
+    }
+    else{
+      return this.image
+    }
+  }
 
   build() {
     Column() {
       // userIcon
-      Image($r('app.media.ic_user'))
+      Image(this.getImage())
         .objectFit(ImageFit.Contain)
         .height($r('app.float.default_66'))
         .width($r('app.float.default_66'))
         .margin({ top: $r('app.float.default_71') })
+
 
       Column() {
         Text('LV.7')

@@ -19,7 +19,7 @@ import { WEEK_DAY_NUM, WEEK_DAY_TIME } from '../common/constants/CommonConstants
 
 const LAZY_DATA_PAGE: number = 2; // lazy page number
 
-function gotoPreviousWeek() {
+function gotoPreviousMonth() {
   this.isPageScroll = true;
   let date: Date = new Date(this.homeStore.showDate);
   Logger.info('HomeIndex', 'gotoPreviousWeek: showDate_' + date.toISOString());
@@ -32,13 +32,13 @@ function gotoPreviousWeek() {
     });
   } else {
     this.scroller.scrollPage({ next: false });
-    Logger.info('HomeIndex', 'gotoPreviousWeek');
+    Logger.info('HomeIndex', 'gotoPreviousMonth');
     this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
     this.currentPage += 1;
   }
 }
 
-function goToNextWeek() {
+function goToNextMonth() {
   if (this.currentPage <= 0) {
     Logger.info('HomeIndex', 'goToNextWeek: is the current week');
     return;
@@ -88,8 +88,8 @@ function calenderItemClickAction(item: WeekDateModel, index: number) {
 }
 
 const WeekCalendarMethods = {
-  gotoPreviousWeek,
-  goToNextWeek,
+  gotoPreviousMonth,
+  goToNextMonth,
   onScrollEndAction,
   onScrollEdgeAction,
   calenderItemClickAction

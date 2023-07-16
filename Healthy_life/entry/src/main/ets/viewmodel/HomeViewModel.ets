@@ -36,6 +36,7 @@ export class HomeStore {
   public showDate: number;
   public dateTitle: string;
   public monthTitle: string;
+  public month: number;
   public selectedDayInfo: WeekDateModel; // task info on selected day
 
   constructor(currentDate: Date) {
@@ -43,6 +44,7 @@ export class HomeStore {
     this.showDate = currentDate.getTime();
     this.dateTitle = weekDateFormat(currentDate.getTime());
     this.monthTitle = monthFormat(currentDate.getTime());
+    this.month=currentDate.getMonth();
     this.selectedDay = (new Date().getDay() + WEEK_DAY_NUM - 1) % WEEK_DAY_NUM;
   }
 
@@ -268,7 +270,9 @@ export class HomeStore {
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
-        updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        // updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        updateTask.finValue = `${value}`;
+        Logger.info('finvalue after update' + updateTask.finValue);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
         if (!res || hasExceed) {
