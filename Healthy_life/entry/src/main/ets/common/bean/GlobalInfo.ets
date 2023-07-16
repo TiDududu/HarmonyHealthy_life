@@ -29,8 +29,10 @@ export default class GlobalInfo {
 
     //增加单项任务成就
     achievements_single: string;
+    //增加单项成就次数
+    finish_time: number;
 
-    constructor(firstDate: string, lastDate: string, checkInDays: number, achievements: string , achievements_single:string ) {
+    constructor(firstDate: string, lastDate: string, checkInDays: number, achievements: string , achievements_single:string , finish_time:number) {
         this.firstDate = firstDate;
         this.lastDate = lastDate;
         this.checkInDays = checkInDays;
@@ -38,5 +40,8 @@ export default class GlobalInfo {
 
         //新增单项任务
         this.achievements_single = achievements_single;
+
+        //新增单项完成次数
+        this.finish_time = finish_time;
     }
 }

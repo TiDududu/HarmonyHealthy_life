@@ -43,10 +43,11 @@ export struct BadgePanel {
 @Component
 export struct BadgePanel_single {
   @StorageProp(ACHIEVEMENT_LEVEL_KEY_SINGLE) successiveTimes: number = 0;
-
+  // @Link BadgeCardItems_single: [string, Resource][];
   aboutToAppear() {
     Logger.debug('BadgePanel_single','aboutToAppear')
     getAchievementLevel_single()
+    // this.BadgeCardItems_single=getBadgeCardItems_single(this.successiveTimes);
   }
 
   build() {

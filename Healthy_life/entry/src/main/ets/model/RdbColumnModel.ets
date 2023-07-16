@@ -42,6 +42,11 @@ export const columnGlobalInfoList: Array<ColumnInfo> = [
   {
     name: 'achievements_single',
     type: 'text'
+  },
+  {
+    name: 'finish_time',
+    type: 'integer',
+    nullable: true
   }
 ];
 

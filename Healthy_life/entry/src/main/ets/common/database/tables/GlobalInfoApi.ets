@@ -65,7 +65,7 @@ class GlobalInfoApi {
         Logger.info('GlobalInfoTable', 'query no results!');
         callback([]);
       } else {
-        let result = new GlobalInfo('', '', 0, '','');
+        let result = new GlobalInfo('', '', 0, '','',0);
         resultSet.goToFirstRow();
         result.firstDate = resultSet.getString(resultSet.getColumnIndex('firstDate'));
         result.lastDate = resultSet.getString(resultSet.getColumnIndex('lastDate'));

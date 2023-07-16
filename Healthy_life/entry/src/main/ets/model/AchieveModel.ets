@@ -20,6 +20,8 @@ import TaskInfo from '../common/bean/TaskInfo';
 import TaskInfoApi from '../common/database/tables/TaskInfoApi';
 import {GLOBAL_KEY} from '../common/constants/CommonConstants';
 
+import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
+
 export const ACHIEVEMENT_LEVEL_KEY = 'AchievementLevelKey';
 
 //新增单项成就等级
@@ -50,27 +52,46 @@ export function isReachNewAchievement(globalInfo: GlobalInfo): boolean {
 
 //新增单项成就
 export function getAchievementLevel_single() {
-  TaskInfoApi.query(GLOBAL_KEY, true, (res) => {
-    let taskInfo: TaskInfo = res;
 
-      AppStorage.Set<Number>(ACHIEVEMENT_LEVEL_KEY_SINGLE, Number(taskInfo.finValue) / Number(taskInfo.targetValue));
+  let Day = new Date();
+  Day.setDate(Day.getDate());
+  Day = new Date(Day);
+  let DayStr = dateToStr(Day);
 
+  TaskInfoApi.query(DayStr, true, (res) => {
+    let taskInfo: TaskInfo = res[0];
+    AppStorage.Set<string>(ACHIEVEMENT_LEVEL_KEY_SINGLE, String(Math.ceil(Number(taskInfo.finValue) / Number(taskInfo.targetValue))*100));
   })
+  // GlobalInfoApi.query((res) => {
+  //   let globalInfo: GlobalInfo = res;
+  //
+  //   let achievementStr = globalInfo.achievements_single??'';
+  //   let achievements = achievementStr.split(',');
+  //   if (achievements.length > 0) {
+  //     AppStorage.Set<Number>(ACHIEVEMENT_LEVEL_KEY_SINGLE, Number(achievements[achievements.length - 1]));
+  //   }
+  // })
+
 }
 
 export function isReachNewAchievement_single(globalInfo: GlobalInfo): boolean {
   let achievementStr_single = globalInfo.achievements_single??'';
   let achievements_single = achievementStr_single.split(',');
-  let finish_time: number = 200;  //try
 
-  TaskInfoApi.query(GLOBAL_KEY, true, (res) => {
-    let taskInfo: TaskInfo = res;
+  let Day = new Date();
+  Day.setDate(Day.getDate());
+  Day = new Date(Day);
+  let DayStr = dateToStr(Day);
 
-   // finish_time = Number(taskInfo.finValue) / Number(taskInfo.targetValue) ;
+
+  TaskInfoApi.query_apple(DayStr, true, (res) => {
+    let taskInfo: TaskInfo = res[0];
+
+    globalInfo.finish_time = Math.ceil(Number(taskInfo.finValue) / Number(taskInfo.targetValue) * 100) ;
 
   });
 
-  if (ACHIEVEMENT_LEVEL_LIST_SINGLE.indexOf(finish_time) >= 0 && achievements_single.indexOf(String(finish_time)) < 0) {
+  if (ACHIEVEMENT_LEVEL_LIST_SINGLE.indexOf(globalInfo.finish_time) >= 0) {
     return true;
   }
   return false;

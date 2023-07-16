@@ -106,7 +106,56 @@ class TaskInfoApi {
       }
     });
   }
+
+  //增加查询单项任务的api，吃苹果为例
+  query_apple(date: string, isOpen: boolean = true, callback): void {
+    let predicates = new dataRdb.RdbPredicates(TASK_INFO.tableName);
+    predicates.equalTo('date', date).and().equalTo('taskID', 3);
+
+    //predicates.equalTo('taskID', 3 );
+
+    if (isOpen) {
+      predicates.equalTo('isOpen', true);
+    }
+    //predicates.orderByAsc('taskID');
+    RdbUtils.query(predicates).then(resultSet => {
+      let count = resultSet.rowCount;
+      if (count === 0 || typeof count === 'string') {
+        Logger.error('TaskInfoTable', `${date} query no results!`);
+        callback([]);
+      } else {
+        resultSet.goToFirstRow();
+        const result = [];
+        for (let i = 0; i < count; i++) {
+          let tmp = new TaskInfo(0, '', 0, '', false, '', '', '', false, '');
+          tmp.isOpen = resultSet.getDouble(resultSet.getColumnIndex('isOpen')) ? true : false;
+          tmp.id = resultSet.getDouble(resultSet.getColumnIndex('id'));
+          tmp.date = resultSet.getString(resultSet.getColumnIndex('date'));
+          tmp.taskID = resultSet.getDouble(resultSet.getColumnIndex('taskID'));
+          tmp.targetValue = resultSet.getString(resultSet.getColumnIndex('targetValue'));
+          tmp.isAlarm = resultSet.getDouble(resultSet.getColumnIndex('isAlarm')) ? true : false;
+          tmp.startTime = resultSet.getString(resultSet.getColumnIndex('startTime'));
+          tmp.endTime = resultSet.getString(resultSet.getColumnIndex('endTime'));
+          tmp.frequency = resultSet.getString(resultSet.getColumnIndex('frequency'));
+          tmp.isDone = resultSet.getDouble(resultSet.getColumnIndex('isDone')) ? true : false;
+          tmp.finValue = resultSet.getString(resultSet.getColumnIndex('finValue'));
+          result[i] = tmp;
+          resultSet.goToNextRow();
+        }
+        callback(result);
+      }
+    });
+  }
+
+
+
+
+
+
 }
+
+
+
 
 function generateBucket(taskInfo: TaskInfo): dataRdb.ValuesBucket {
   let valueBucket = {};

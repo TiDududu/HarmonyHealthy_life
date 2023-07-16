@@ -17,6 +17,7 @@ import { CustomDialogCallback } from './CustomDialogView';
 import TaskInfo from '../../common/bean/TaskInfo';
 import { TaskMapById } from '../../model/TaskInitList';
 import { DEFAULT_8, DEFAULT_12 } from '../../common/constants/CommonConstants';
+import { getAchievementLevel , getAchievementLevel_single } from '../../model/AchieveModel'
 
 @Extend(Text) function textStyle () {
   .fontColor($r('app.color.white'))
@@ -105,6 +106,7 @@ struct TaskClock {
       .onClick(() => {
         globalThis.taskListChange = true;
         this.confirm();
+        getAchievementLevel_single()
       })
       .visibility(!this.showButton ? Visibility.None : Visibility.Visible)
 

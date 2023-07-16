@@ -20,6 +20,7 @@ import Logger from '../common/utils/Logger';
 
 @Component
 export struct AchievementIndex {
+  // @Link BadgeCardItems_single: [string, Resource][];
   aboutToAppear(){
     Logger.debug('AchievementIndex', 'aboutToAppear')
   }

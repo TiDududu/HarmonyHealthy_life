@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\刘扬\\.ohos\\config\\auto_debug_Healthy_life_com.example.healthy_life_70086000196119687.cer",
+          "storePassword": "0000001AAFC75BBA1594A01BCCC5D654470C8821835F86F57D18C7179D24E01971BA2A21401DE9683318",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A3A1B4057EC97C879FAF7790B311203F266CD95D3A4FE29C3B6E74989DE897DB048A38FB52829",
+          "profile": "C:\\Users\\刘扬\\.ohos\\config\\auto_debug_Healthy_life_com.example.healthy_life_70086000196119687.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\刘扬\\.ohos\\config\\auto_debug_Healthy_life_com.example.healthy_life_70086000196119687.p12"
+        }
+      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [

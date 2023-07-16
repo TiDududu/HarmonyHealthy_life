@@ -26,6 +26,8 @@ import { HomeStore } from '../viewmodel/HomeViewModel';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
 import { NICK_NAME, SIGNATURE, FULL_HEIGHT } from '../common/constants/CommonConstants';
 import data_preferences from '@ohos.data.preferences';
+import { getBadgeCardItems ,getBadgeCardItems_single } from '../viewmodel/AchievementViewModel'
+import { ACHIEVEMENT_LEVEL_KEY ,ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel'
 
 @Styles function allSize() {
   .width(commonConst.THOUSANDTH_1000)
@@ -43,6 +45,8 @@ struct Index {
   @State nickname: string = NICK_NAME;
   @State signature: string = SIGNATURE;
   @State image: string = 'app.media.ic_user';
+  // @State BadgeCardItems_single:[string, Resource][] = getBadgeCardItems_single(0);
+  // @StorageProp(ACHIEVEMENT_LEVEL_KEY_SINGLE) successiveTimes: number = 0;
   private tabController: TabsController = new TabsController();
 
   onPageShow() {
@@ -58,6 +62,7 @@ struct Index {
       this.checkCurrentTime();
     }
     this.MineIndexDate()
+    // this.BadgeCardItems_single = getBadgeCardItems_single(this.successiveTimes);
   }
   MineIndexDate(){
     let preferences = data_preferences.getPreferences(this.context, "PersonalData");

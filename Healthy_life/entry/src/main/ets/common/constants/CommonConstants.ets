@@ -25,7 +25,7 @@ export const DAY_INFO = {
 /** global info table */
 export const GLOBAL_INFO = {
   tableName: 'globalInfo',
-  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements' , 'achievements_single']
+  columns: ['id', 'firstDate', 'lastDate', 'checkInDays', 'achievements' , 'achievements_single','finish_time']
 }
 
 
