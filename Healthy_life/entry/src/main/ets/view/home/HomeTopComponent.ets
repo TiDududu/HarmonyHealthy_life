@@ -98,7 +98,10 @@ export default struct HomeTopView {
                   .margin({ top: 25, right: 25 })
                   .textAlign(TextAlign.Center)
                   .onClick(() => {
-                    this.is_month = !this.is_month
+                    let showDate=new Date(this.homeStore.showDate);
+                    this.is_month = !this.is_month;
+                    this.homeStore.setSelectedShowDate(this.homeStore.showDate);
+                    this.homeStore.getThisMonthData(showDate,()=>{});
                   })
 
               }
