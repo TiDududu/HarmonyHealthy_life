@@ -18,6 +18,7 @@ import { WeekCalendar } from './WeekCalendarComponent';
 import { MonthCalendar } from './MonthCalendarComponent';
 import * as commonConst from '../../common/constants/CommonConstants';
 import HealthText from '../../view/HealthTextComponent';
+import { ACHIEVE_CARD_TOP } from '../../common/constants/CommonConstants';
 
 
 @Extend(Text) function titleTextStyle () {
@@ -44,6 +45,7 @@ export default struct HomeTopView {
           {value:'黑色',icon: $r('app.media.ic_home_bg')}])
           .height(20)
           .opacity(0.3)
+          .margin({top:5})
           .selected(0)
           .value('更换主题')
           .font({size: 15, weight:200, family: 'serif', style: FontStyle.Normal })
