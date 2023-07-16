@@ -137,6 +137,26 @@ export class HomeStore {
     callback();
   }
 
+  public getThisMonthData(date: Date, callback: Function) {
+    date.setDate(0);
+    let [initArr, dateArr] = getNextMonth(date);
+    // get data form db
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+        Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
+        if (res.length > 0) {
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
+          }
+        }
+        //this.weekArr.push(initArr[j]);
+      })
+    }
+    callback();
+  }
+
   public getNextMonthData(date: Date, callback: Function) {
     let [initArr, dateArr] = getNextMonth(date);
     // get data form db
