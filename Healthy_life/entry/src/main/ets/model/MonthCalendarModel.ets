@@ -122,6 +122,7 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
   }*/
   showDate.setDate(0);
   let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
+  this.homeStore.setSelectedShowDate(showDate.getTime());
   /*for(let index = 0; index<arrMonth.length; index++){
     arrMonth[index]=arrMonth[index].reverse();
     strArrMonth[index]=strArrMonth[index].reverse();
