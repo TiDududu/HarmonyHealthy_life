@@ -14,7 +14,7 @@
  */
 
 import { DEFAULT_100 ,DEFAULT_200 ,DEFAULT_300 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel';
+import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE, , getHistoryTaskLevel, getAchievementTask } from '../model/AchieveModel';
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST,ACHIEVEMENT_LEVEL_LIST_SINGLE } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
@@ -272,6 +272,7 @@ export class HomeStore {
   }
 
   public getDonePercent(): string {
+    getAchievementTask(new Date().toDateString())
     let dayInfo = this.selectedDayInfo?.dayInfo;
     Logger.debug("dayInfo", JSON.stringify(dayInfo));
     if (dayInfo && (dayInfo?.finTaskNum || 0) > 0) {
@@ -307,6 +308,7 @@ export class HomeStore {
     this.selectedDayInfo.taskList = this.selectedDayInfo.taskList.map((item) => {
       return item.taskID == taskItem?.taskID ? taskItem : item;
     });
+    getHistoryTaskLevel(7);
     let achievementLevel;
     let achievementLevel_single;
     if (taskItem.isDone) {
@@ -348,6 +350,7 @@ export class HomeStore {
         Logger.info('finvalue after update' + updateTask.finValue);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
+
         if (!res || hasExceed) {
           Logger.error('taskClock-updateTask', JSON.stringify(res));
           reject(res);

@@ -109,6 +109,18 @@
       "value": "今日完成%d %"
     },
     {
+      "name": "task_achievement_name",
+      "value": "%s任务达成"
+    },
+    {
+      "name": "run_level",
+      "value": "跑步累计已达%d公里"
+    },
+    {
+      "name": "apple_level",
+      "value": "吃苹果个数已达%d个"
+    },
+    {
       "name": "already_open",
       "value": "已开启"
     },
