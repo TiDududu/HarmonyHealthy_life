@@ -164,7 +164,25 @@ export const AchievementMap = {
   '73_off': $r('app.media.ic_badge_73_off'),
   '73_on': $r('app.media.ic_badge_73_on'),
   '99_off': $r('app.media.ic_badge_99_off'),
-  '99_on': $r('app.media.ic_badge_99_on')
+  '99_on': $r('app.media.ic_badge_99_on'),
+  'task1_off': $r('app.media.task1_off'),
+  'task1_on': $r('app.media.task1_on'),
+  'task2_off': $r('app.media.task2_off'),
+  'task2_on': $r('app.media.task2_on'),
+  'task3_off': $r('app.media.task3_off'),
+  'task3_on': $r('app.media.task3_on'),
+  'task4_off': $r('app.media.task4_off'),
+  'task4_on': $r('app.media.task4_on'),
+  'task5_off': $r('app.media.task5_off'),
+  'task5_on': $r('app.media.task5_on'),
+  'task6_off': $r('app.media.task6_off'),
+  'task6_on': $r('app.media.task6_on'),
+  'run1_off': $r('app.media.run1_off'),
+  'run1_on': $r('app.media.run1_on'),
+  'run3_off': $r('app.media.run3_off'),
+  'run3_on': $r('app.media.run3_on'),
+  'run5_off': $r('app.media.run5_off'),
+  'run5_on': $r('app.media.run5_on')
 }
 
 
@@ -336,3 +354,9 @@ export const RemindContentMap = {
 };
 
 export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];
+// 新添加的任务名称列表
+export const TASKS_NAME = ['早起', '喝水', '吃苹果', '微笑', '刷牙', '睡觉', '跑步']
+
+// 新添加的成就等级
+export const ACHIEVEMENT_RUN = [1, 3, 5];
+export const ACHIEVEMENT_APPLE = [1, 3, 5];

@@ -14,7 +14,7 @@
  */
 
 import { DEFAULT_100 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement, ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel';
+import { isReachNewAchievement, ACHIEVEMENT_LEVEL_KEY, getHistoryTaskLevel, getAchievementTask} from '../model/AchieveModel';
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
@@ -211,6 +211,7 @@ export class HomeStore {
   }
 
   public getDonePercent(): string {
+    getAchievementTask(new Date().toDateString())
     let dayInfo = this.selectedDayInfo?.dayInfo;
     Logger.debug("dayInfo", JSON.stringify(dayInfo));
     if (dayInfo && (dayInfo?.finTaskNum || 0) > 0) {
@@ -243,6 +244,7 @@ export class HomeStore {
     this.selectedDayInfo.taskList = this.selectedDayInfo.taskList.map((item) => {
       return item.taskID == taskItem?.taskID ? taskItem : item;
     });
+    getHistoryTaskLevel(7);
     let achievementLevel;
     if (taskItem.isDone) {
       let dayInfo = await this.updateDayInfo();
@@ -273,6 +275,7 @@ export class HomeStore {
         updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
+
         if (!res || hasExceed) {
           Logger.error('taskClock-updateTask', JSON.stringify(res));
           reject(res);

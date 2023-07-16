@@ -16,8 +16,13 @@
 import { ACHIEVEMENT_LEVEL_LIST } from './TaskInitList';
 import GlobalInfo from '../common/bean/GlobalInfo';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
+import TaskInfo from '../common/bean/TaskInfo'
+import TaskInfoApi from '../common/database/tables/TaskInfoApi'
 
 export const ACHIEVEMENT_LEVEL_KEY = 'AchievementLevelKey';
+export const ACHIEVEMENT_TASK_KEY = 'AchievementTaskKey';
+export const ACHIEVEMENT_HISTORY_7 = 'AchievementTaskHistory_7';
+// export const ACHIEVEMENT_TASK_ = 'AchievementTaskKey';
 
 export function getAchievementLevel() {
   GlobalInfoApi.query((res) => {
@@ -32,6 +37,25 @@ export function getAchievementLevel() {
 
 }
 
+export function getHistoryTaskLevel(taskID: number) {
+  TaskInfoApi.queryHistorySum(taskID, (res) => {
+
+    AppStorage.SetOrCreate<Number>(ACHIEVEMENT_HISTORY_7, res);
+  })
+}
+
+export function getAchievementTask(date: string) {
+
+  TaskInfoApi.queryDone(date, (res) => {
+    let ans = '';
+
+    for ( let i = 0; i < res.length; i++){
+      let taskInfo: TaskInfo = res[i];
+      ans += String(taskInfo.taskID);
+    }
+    AppStorage.SetOrCreate<String>(ACHIEVEMENT_TASK_KEY, ans);
+  })
+}
 export function isReachNewAchievement(globalInfo: GlobalInfo): boolean {
   let achievementStr = globalInfo.achievements??'';
   let achievements = achievementStr.split(',');

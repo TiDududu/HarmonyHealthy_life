@@ -16,6 +16,8 @@
 import * as commonConst from '../common/constants/CommonConstants';
 import { BadgePanel } from './BadgePanelComponent';
 import { TitleBar } from './TitleBarComponent';
+import { BadgeTaskPanel } from './BadgeTaskPanelComponent'
+import { BadgeRunPanel} from './runTaskPanelComponent'
 import Logger from '../common/utils/Logger';
 
 @Component
@@ -32,6 +34,8 @@ export struct AchievementIndex {
     Column({space: commonConst.DEFAULT_20}) {
       TitleBar()
       BadgePanel()
+      // BadgeTaskPanel()
+      BadgeRunPanel()
     }
     .padding(commonConst.DEFAULT_10)
     .height(commonConst.FULL_HEIGHT)
