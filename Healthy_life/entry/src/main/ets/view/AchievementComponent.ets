@@ -16,6 +16,7 @@
 import * as commonConst from '../common/constants/CommonConstants';
 import { BadgePanel, BadgePanel_single } from './BadgePanelComponent';
 import { TitleBar, TitleBar_single } from './TitleBarComponent';
+import { BadgeRunPanel} from './runTaskPanelComponent'
 import Logger from '../common/utils/Logger';
 
 @Component
@@ -30,18 +31,39 @@ export struct AchievementIndex {
   }
 
   build() {
-    Column({space: commonConst.DEFAULT_20}) {
-      TitleBar()
-      BadgePanel()
+    Stack({ alignContent: Alignment.TopStart }) {
 
-      //新增一个title
-      TitleBar_single()
-      BadgePanel_single()
+      Scroll(this.scroller) {
+        Column({ space: commonConst.DEFAULT_20 }) {
+          TitleBar()
+          BadgePanel()
 
+          //新增一个title
+          TitleBar_single()
+          BadgePanel_single()
+
+          // 跑步历史累计
+          BadgeRunPanel()
+        }
+        .padding(commonConst.DEFAULT_10)
+        // .height(commonConst.FULL_HEIGHT)
+        .width(commonConst.FULL_WIDTH)
+        .backgroundColor($r('app.color.black'))
+      }
+      .scrollable(ScrollDirection.Vertical) // 滚动方向纵向
+      .scrollBar(BarState.On) // 滚动条常驻显示
+      .scrollBarColor(Color.Gray) // 滚动条颜色
+      .scrollBarWidth(10) // 滚动条宽度
+      .edgeEffect(EdgeEffect.None)
+      .onScroll((xOffset: number, yOffset: number) => {
+        console.info(xOffset + ' ' + yOffset)
+      })
+      .onScrollEdge((side: Edge) => {
+        console.info('To the edge')
+      })
+      .onScrollEnd(() => {
+        console.info('Scroll Stop')
+      })
     }
-    .padding(commonConst.DEFAULT_10)
-    .height(commonConst.FULL_HEIGHT)
-    .width(commonConst.FULL_WIDTH)
-    .backgroundColor($r('app.color.black'))
   }
 }
