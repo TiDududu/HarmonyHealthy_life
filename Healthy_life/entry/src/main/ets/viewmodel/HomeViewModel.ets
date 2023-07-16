@@ -51,7 +51,7 @@ export class HomeStore {
 
   public initData() {
     let [initArr, dateArr] = initializeOnStartUp(this.currentDate);
-    let [initArrMonth,dataArrMonth]=initializeOnStartUp_Month(this.currentDate);
+    let [initArrMonth,dateArrMonth]=initializeOnStartUp_Month(this.currentDate);
     this.dateArr = initArr;
     this.weekArr=initArrMonth;
     Logger.info('this.currentDate', this.currentDate.toDateString());
@@ -75,10 +75,30 @@ export class HomeStore {
           }
         }
         this.dateArr = initArr;
+
+        for(let j=0;j<dateArrMonth.length;j++){
+          DayInfoApi.queryList(dateArrMonth[j], (res: DayInfo[]) => {
+            let tempList = res.concat(dayInfo);
+            Logger.info('initDayInfoList: ', JSON.stringify(res));
+            for (let i = 0; i < this.weekArr[j].length; i++) {
+              let tempDayInfo = tempList.find((item) => item.date == this.weekArr[j][i].dateStr) || {
+                date: this.weekArr[j][i].dateStr,
+                finTaskNum: 0,
+                targetTaskNum: 0
+              };
+              this.weekArr[j][i].dayInfo = tempDayInfo;
+              if (this.weekArr[j][i].dateStr == dateToStr(new Date(this.showDate))) {
+                // get tasks of showDate
+                this.weekArr[j][i].taskList = taskList;
+              }
+            }
+          })
+        }
         setTimeout(() => {
           this.setSelectedShowDate(this.showDate);
         }, 0)
       })
+
     })
   }
 
@@ -99,38 +119,38 @@ export class HomeStore {
   }
 
   public getPreMonthData(date: Date, callback: Function) {
-    let [initArr, dateArr] = getPreviousMonth(date);
+    let [arrMonth, strArrMonth] = getPreviousMonth(date);
     // get data form db
     this.weekArr=[];
-    for (let j=0;j<initArr.length;j++) {
-      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+    for (let j=0;j<arrMonth.length;j++) {
+      DayInfoApi.queryList(strArrMonth[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < initArr[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
-            initArr[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < arrMonth[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == arrMonth[j][i].dateStr) || null;
+            arrMonth[j][i].dayInfo = dayInfo;
           }
+          this.weekArr.push(arrMonth[j]);
         }
-        this.weekArr.push(initArr[j]);
       })
     }
     callback();
   }
 
   public getNextMonthData(date: Date, callback: Function) {
-    let [initArr, dateArr] = getNextMonth(date);
+    let [arrMonth, strArrMonth] = getNextMonth(date);
     // get data form db
     this.weekArr=[];
-    for (let j=0;j<initArr.length;j++) {
-      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+    for (let j=0;j<arrMonth.length;j++) {
+      DayInfoApi.queryList(strArrMonth[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < initArr[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
-            initArr[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < arrMonth[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == arrMonth[j][i].dateStr) || null;
+            arrMonth[j][i].dayInfo = dayInfo;
           }
         }
-        this.weekArr.push(initArr[j]);
+        this.weekArr.push(arrMonth[j]);
       })
     }
     callback();

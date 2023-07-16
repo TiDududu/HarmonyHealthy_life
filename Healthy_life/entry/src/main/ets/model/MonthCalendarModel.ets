@@ -52,7 +52,7 @@ export function initializeOnStartUp_Month(date: Date):[Array<Array<WeekDateModel
   while (currentDate.getMonth() === currentMonth) {
     let [arr, strArr] = [[], []];
     let currentDay = currentDate.getDay() - 1;
-    if (currentDate.getDay() === 0) {
+    if (currentDate.getDay() === 0) {//Sunday
       currentDay = 6;
     }
     Logger.debug('WeekCalendarModel', currentDate.toISOString());

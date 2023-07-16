@@ -62,9 +62,9 @@ function onScrollEndAction() {
       this.scroller.scrollTo({ xOffset, yOffset: 0 });
       this.isLoadMore = false;
     }
-    this.currentPage = this.homeStore.dateArr.length / WEEK_DAY_NUM - page - 1;
+    let dayModel = this.homeStore.weekArr[2][0];
+    //let aaaa = (this.homeStore.currentDate.getFullYear()-dayModel.getFullYear())*12+(this.homeStore.currentDate.getMonth()-dayModel.getMonth()) - page - 1;
     Logger.info('HomeIndex', 'onScrollEnd: page ' + page + ', listLength ' + this.homeStore.dateArr.length);
-    let dayModel = this.homeStore.dateArr[WEEK_DAY_NUM * page+this.homeStore.selectedDay];
     Logger.info('HomeIndex', 'currentItem: ' + JSON.stringify(dayModel) + ', selectedDay  ' + this.homeStore.selectedDay);
     this.homeStore.setSelectedShowDate(dayModel.date.getTime());
   }
@@ -74,13 +74,12 @@ function onScrollEndAction() {
 function onScrollEdgeAction(side: Edge) {
   if (side == Edge.Top && !this.isPageScroll) {
     Logger.info('HomeIndex', 'onScrollEdge: currentPage ' + this.currentPage);
-    if ((this.currentPage + 2) * WEEK_DAY_NUM >= this.homeStore.dateArr.length) {
-      Logger.info('HomeIndex', 'onScrollEdge: load more data');
-      let date: Date = new Date(this.homeStore.showDate);
-      date.setDate(date.getDate() - WEEK_DAY_NUM);
-      this.homeStore.getPreWeekData(date);
-      this.isLoadMore = true;
-    }
+    Logger.info('HomeIndex', 'onScrollEdge: load more data');
+    let date: Date = new Date(this.homeStore.showDate);
+    date.setDate(0);
+    this.homeStore.getNextMonthData(date,()=>{});
+    this.isLoadMore = true;
+
   }
 }
 
