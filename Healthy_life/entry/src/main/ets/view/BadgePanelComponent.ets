@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import { BadgeCard } from './BadgeCardComponent'
-import { getAchievementLevel} from '../model/AchieveModel'
-import { getBadgeCardItems } from '../viewmodel/AchievementViewModel'
+import { BadgeCard , BadgeCard_single } from './BadgeCardComponent'
+import { getAchievementLevel , getAchievementLevel_single } from '../model/AchieveModel'
+import { getBadgeCardItems ,getBadgeCardItems_single } from '../viewmodel/AchievementViewModel'
 import Logger from '../common/utils/Logger'
-import { ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel'
+import { ACHIEVEMENT_LEVEL_KEY ,ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel'
 import * as commonConst from '../common/constants/CommonConstants';
 
 @Component
@@ -33,6 +33,26 @@ export struct BadgePanel {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
       ForEach(getBadgeCardItems(this.successiveDays), (item) => {
         BadgeCard({ content: item[0], imgSrc: item[1]})
+      })
+    }
+    .width(commonConst.FULL_WIDTH)
+  }
+}
+
+//新增单项成就
+@Component
+export struct BadgePanel_single {
+  @StorageProp(ACHIEVEMENT_LEVEL_KEY_SINGLE) successiveTimes: number = 0;
+
+  aboutToAppear() {
+    Logger.debug('BadgePanel_single','aboutToAppear')
+    getAchievementLevel_single()
+  }
+
+  build() {
+    Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
+      ForEach(getBadgeCardItems_single(this.successiveTimes), (item) => {
+        BadgeCard_single({ content: item[0], imgSrc: item[1]})
       })
     }
     .width(commonConst.FULL_WIDTH)

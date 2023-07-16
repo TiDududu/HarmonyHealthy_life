@@ -27,10 +27,16 @@ export default class GlobalInfo {
     checkInDays: number;
     achievements: string;
 
-    constructor(firstDate: string, lastDate: string, checkInDays: number, achievements: string) {
+    //增加单项任务成就
+    achievements_single: string;
+
+    constructor(firstDate: string, lastDate: string, checkInDays: number, achievements: string , achievements_single:string ) {
         this.firstDate = firstDate;
         this.lastDate = lastDate;
         this.checkInDays = checkInDays;
         this.achievements = achievements;
+
+        //新增单项任务
+        this.achievements_single = achievements_single;
     }
 }

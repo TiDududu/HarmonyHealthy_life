@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ACHIEVEMENT_LEVEL_LIST, TASKS_NAME, AchievementMap, ACHIEVEMENT_RUN } from '../model/TaskInitList';
+import { ACHIEVEMENT_LEVEL_LIST, AchievementMap,ACHIEVEMENT_LEVEL_LIST_SINGLE,AchievementMap_single, TASKS_NAME, ACHIEVEMENT_RUN } from '../model/TaskInitList';
 
 export function getBadgeCardItems(successiveDays: number):[string, Resource][] {
   let badgeMileStones = ACHIEVEMENT_LEVEL_LIST;
@@ -22,6 +22,19 @@ export function getBadgeCardItems(successiveDays: number):[string, Resource][] {
     let onOrOff = successiveDays >= badgeMileStones[i] ? 'on' : 'off';
     let titleContent = String(badgeMileStones[i]);
     let oneItem:[string, Resource] = [titleContent,AchievementMap[`${ badgeMileStones[i] }_${ onOrOff }`]];
+    cardItems.push(oneItem);
+  }
+  return cardItems;
+}
+
+//新增单项成就
+export function getBadgeCardItems_single(successiveTimes: number):[string, Resource][] {
+  let badgeMileStones = ACHIEVEMENT_LEVEL_LIST_SINGLE;
+  let cardItems:[string, Resource][] = [];
+  for (let i = 0; i < badgeMileStones.length; i++) {
+    let onOrOff = successiveTimes >= badgeMileStones[i] ? 'on' : 'off';
+    let titleContent = String(badgeMileStones[i]);
+    let oneItem:[string, Resource] = [titleContent,AchievementMap_single[`${ badgeMileStones[i] }_${ onOrOff }`]];
     cardItems.push(oneItem);
   }
   return cardItems;

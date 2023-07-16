@@ -185,6 +185,16 @@ export const AchievementMap = {
   'run5_on': $r('app.media.run5_on')
 }
 
+//最后再换图片
+export const AchievementMap_single = {
+  '100_off': $r('app.media.ic_badge_30_off'),
+  '100_on': $r('app.media.ic_badge_30_on'),
+  '200_off': $r('app.media.ic_badge_50_off'),
+  '200_on': $r('app.media.ic_badge_50_on'),
+  '300_off': $r('app.media.ic_badge_99_off'),
+  '300_on': $r('app.media.ic_badge_99_on')
+}
+
 
 export const TaskMapById: TaskInitListType = {
   1: {
@@ -212,7 +222,7 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '0.25',
     isOpen: false,
     unit: 'L',
-    step: 0,
+    step: 0.25,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
@@ -246,7 +256,7 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
@@ -263,7 +273,7 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
@@ -354,6 +364,10 @@ export const RemindContentMap = {
 };
 
 export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];
+
+//增加当日单项成就,吃苹果
+export const ACHIEVEMENT_LEVEL_LIST_SINGLE = [100 ,200, 300];
+
 // 新添加的任务名称列表
 export const TASKS_NAME = ['早起', '喝水', '吃苹果', '微笑', '刷牙', '睡觉', '跑步']
 

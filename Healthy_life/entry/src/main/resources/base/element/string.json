@@ -53,6 +53,10 @@
       "value": "我的成就"
     },
     {
+      "name": "single_achievement",
+      "value": "单项成就"
+    },
+    {
       "name": "tab_mine",
       "value": "我的"
     },
@@ -99,6 +103,10 @@
     {
       "name": "task_achievement_level",
       "value": "连续%d天达成"
+    },
+    {
+      "name": "task_achievement_multi_level",
+      "value": "今日完成%d %"
     },
     {
       "name": "task_achievement_name",
