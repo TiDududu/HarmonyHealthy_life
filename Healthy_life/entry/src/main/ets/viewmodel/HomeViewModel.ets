@@ -270,7 +270,9 @@ export class HomeStore {
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
-        updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        // updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        updateTask.finValue = `${value}`;
+        Logger.info('datianli' + value);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
         if (!res || hasExceed) {
