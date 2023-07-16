@@ -79,7 +79,7 @@ export class HomeStore {
           this.setSelectedShowDate(this.showDate);
         }, 0)
       })
-    })
+    });
   }
 
   public getPreWeekData(date: Date, callback: Function) {
@@ -101,17 +101,17 @@ export class HomeStore {
   public getPreMonthData(date: Date, callback: Function) {
     let [initArr, dateArr] = getPreviousMonth(date);
     // get data form db
-    this.weekArr=[];
-    for (let j=0;j<initArr.length;j++) {
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
       DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < initArr[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
-            initArr[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
           }
         }
-        this.weekArr.push(initArr[j]);
+        //this.weekArr.push(initArr[j]);
       })
     }
     callback();
@@ -120,17 +120,17 @@ export class HomeStore {
   public getNextMonthData(date: Date, callback: Function) {
     let [initArr, dateArr] = getNextMonth(date);
     // get data form db
-    this.weekArr=[];
-    for (let j=0;j<initArr.length;j++) {
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
       DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < initArr[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
-            initArr[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
           }
         }
-        this.weekArr.push(initArr[j]);
+        //this.weekArr.push(initArr[j]);
       })
     }
     callback();
