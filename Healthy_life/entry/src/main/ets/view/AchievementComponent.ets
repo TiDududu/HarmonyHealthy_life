@@ -16,9 +16,6 @@
 import * as commonConst from '../common/constants/CommonConstants';
 import { BadgePanel, BadgePanel_single } from './BadgePanelComponent';
 import { TitleBar, TitleBar_single } from './TitleBarComponent';
-import { BadgePanel } from './BadgePanelComponent';
-import { TitleBar } from './TitleBarComponent';
-import { BadgeTaskPanel } from './BadgeTaskPanelComponent'
 import { BadgeRunPanel} from './runTaskPanelComponent'
 import Logger from '../common/utils/Logger';
 

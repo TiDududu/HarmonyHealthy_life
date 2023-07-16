@@ -14,7 +14,7 @@
  */
 
 import { DEFAULT_100 ,DEFAULT_200 ,DEFAULT_300 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE, , getHistoryTaskLevel, getAchievementTask } from '../model/AchieveModel';
+import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE, getHistoryTaskLevel, getAchievementTask } from '../model/AchieveModel';
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST,ACHIEVEMENT_LEVEL_LIST_SINGLE } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
