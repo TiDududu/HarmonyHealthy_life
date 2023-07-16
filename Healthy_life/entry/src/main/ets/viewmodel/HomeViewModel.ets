@@ -118,7 +118,7 @@ export class HomeStore {
   }
 
   public getPreMonthData(date: Date, callback: Function) {
-    let [arrMonth, strArrMonth] = getPreviousMonth(date);
+    let [initArr, dateArr] = getPreviousMonth(date);
     // get data form db
     this.weekArr=initArr;
     for (let j=0;j<this.weekArr.length;j++) {
@@ -129,7 +129,7 @@ export class HomeStore {
             let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
             this.weekArr[j][i].dayInfo = dayInfo;
           }
-          this.weekArr.push(arrMonth[j]);
+          this.weekArr.push(initArr[j]);
         }
         //this.weekArr.push(initArr[j]);
       })
@@ -138,7 +138,7 @@ export class HomeStore {
   }
 
   public getNextMonthData(date: Date, callback: Function) {
-    let [arrMonth, strArrMonth] = getNextMonth(date);
+    let [initArr, dateArr] = getNextMonth(date);
     // get data form db
     this.weekArr=initArr;
     for (let j=0;j<this.weekArr.length;j++) {
