@@ -195,62 +195,130 @@ struct PersonalData{
     }
   }
   build() {
-    Row() {
       Column() {
-        Image(this.getImage())
-          .objectFit(ImageFit.Contain)
-          .height($r('app.float.default_66'))
-          .width($r('app.float.default_66'))
-          .margin({ top: $r('app.float.default_71') })
-          .onClick((event)=>{
-            this.PersonalImageDialogController.open()
-          })
-        Text(this.nickname)
-          .onClick((event)=>{
-            this.PersonalNicknameDialogController.open()
-          })
-        Text(this.signature)
-          .onClick((event)=>{
-            this.PersonalSignatureDialogController.open()
-          })
-        Text(this.sex)
-          .onClick((event)=>{
-            this.PersonalSexDialogController.open()
-          })
-        Text(this.date)
-          .onClick((event)=>{
-            this.PersonalDateDialogController.open()
-          })
-        Text(this.high)
-          .onClick((event)=>{
-            this.PersonalHighDialogController.open()
-          })
-        Text(this.weight)
-          .onClick((event)=>{
-            this.PersonalWeightDialogController.open()
-          })
-        Button('保存', { type: ButtonType.Normal, stateEffect: true })
-          .onClick((event)=>{
-            let preferences = data_preferences.getPreferences(globalThis.context, "PersonalData");
-            preferences.then((res)=>{
-              res.put("image", this.image)
-              res.put("nickname", this.nickname)
-              res.put("signature", this.signature)
-              res.put("sex", this.sex)
-              res.put("date", this.date)
-              res.put("high", this.high)
-              res.put("weight", this.weight)
-              res.flush()
+          Row({space: 5}){
+            Row().width(10)
+            Column(){
+              Image(this.getImage())
+                .objectFit(ImageFit.Contain)
+                .height($r('app.float.default_66'))
+                .width($r('app.float.default_66'))
+                .margin({ top: $r('app.float.default_71') })
+                .onClick((event)=>{
+                  this.PersonalImageDialogController.open()
+                })
+              Column() {
+                Text('LV.7')
+                  .fontSize($r('app.float.default_12'))
+                  .fontWeight(FontWeight.Bolder)
+                  .fontColor($r('app.color.leveColor'))
+              }
+              .width($r('app.float.default_44'))
+              .height($r('app.float.default_16'))
+              .margin({ top: $r('app.float.default_n8') })
+              .border({ radius: $r('app.float.default_5') })
+              .backgroundColor($r('app.color.leveBgColor'))
+              .justifyContent(FlexAlign.Center)
+            }
+            Column(){
+              Text(this.nickname)
+                .onClick((event)=>{
+                  this.PersonalNicknameDialogController.open()
+                })
+              Text(this.signature)
+                .onClick((event)=>{
+                  this.PersonalSignatureDialogController.open()
+                })
+            }.alignItems(HorizontalAlign.Start)
+          }.alignItems(VerticalAlign.Bottom)
+          .width('100%')
+          .backgroundImagePosition({ x: 0, y: 0 })
+          .backgroundImage($r('app.media.persona'))
+          .backgroundImageSize({ width:'100%' } )
+          .borderWidth({bottom:30})
+          .borderColor($r('app.color.primaryBgColor'))
+          .borderRadius({bottomLeft:15 ,bottomRight: 10})
+        Row().width('100%').height('5%')
+        Column(){
+          Text(this.sex)
+            .onClick((event)=>{
+              this.PersonalSexDialogController.open()
+            })
+            .width('50%')
+            .height('7%')
+            .textAlign(TextAlign.Center)
+            .fontColor('#e1585858')
+            .backgroundImage($r('app.media.button'))
+            .backgroundImageSize({width:'100%' ,height:'100%'})
+
+          Text(this.date)
+            .onClick((event)=>{
+              this.PersonalDateDialogController.open()
+            })
+            .width('50%')
+            .height('7%')
+            .textAlign(TextAlign.Center)
+            .fontColor('#e1585858')
+            .backgroundImage($r('app.media.button'))
+            .backgroundImageSize({width:'100%' ,height:'100%'})
+          Text(this.high)
+            .onClick((event)=>{
+              this.PersonalHighDialogController.open()
+            })
+            .width('50%')
+            .height('7%')
+            .textAlign(TextAlign.Center)
+            .fontColor('#e1585858')
+            .backgroundImage($r('app.media.button'))
+            .backgroundImageSize({width:'100%' ,height:'100%'})
+          Text(this.weight)
+            .onClick((event)=>{
+              this.PersonalWeightDialogController.open()
+            })
+            .width('50%')
+            .height('7%')
+            .textAlign(TextAlign.Center)
+            .fontColor('#e1585858')
+            .backgroundImage($r('app.media.button'))
+            .backgroundImageSize({width:'100%' ,height:'100%'})
+
+          Button({ type: ButtonType.Capsule, stateEffect: true }){
+            Row() {
+              LoadingProgress().width(20).height(20).margin({ left: 12 }).color(0xFFFFFF)
+              Text('Save').fontSize(12).fontColor(0xffffff).margin({ left: 5, right: 12 })
+            }.alignItems(VerticalAlign.Center).width(90).height(40)
+          }
+            .backgroundColor('#a1838282')
+            .onClick((event)=>{
+              let preferences = data_preferences.getPreferences(globalThis.context, "PersonalData");
+              preferences.then((res)=>{
+                res.put("image", this.image)
+                res.put("nickname", this.nickname)
+                res.put("signature", this.signature)
+                res.put("sex", this.sex)
+                res.put("date", this.date)
+                res.put("high", this.high)
+                res.put("weight", this.weight)
+                res.flush()
+              })
+
+              router.back({
+                url: 'pages/MainPage',
+              })
+
             })
 
-            router.back({
-              url: 'pages/MainPage',
-            })
 
-          })
+        }.justifyContent(FlexAlign.SpaceEvenly)
+        .height('70%')
+        .width('95%')
+        .backgroundImage($r('app.media.biankuang'))
+        .backgroundImageSize({ width:'100%' ,height:'80%'})
+
+
       }
       .width('100%')
-    }
-    .height('100%')
+      .height('100%')
+      .backgroundColor($r('app.color.primaryBgColor'))
   }
 }

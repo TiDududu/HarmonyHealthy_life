@@ -70,7 +70,8 @@ export struct MonthCalendar {
         .height($r('app.float.default_12'))
     }
     .width($r('app.float.default_20'))
-    .height($r('app.float.default_20'))
+    .height($r('app.float.default_12'))
+    .height($r('app.float.default_12'))
     .rotate({ z: 1, angle: isRight ? 0 : commonConst.DEFAULT_180 })
     .justifyContent(FlexAlign.Center)
     .onClick(() => isRight ? MonthCalendarMethods.goToNextMonth.call(this) : MonthCalendarMethods.gotoPreviousMonth.call(this))
@@ -83,7 +84,8 @@ export struct MonthCalendar {
         Row() {
           this.ArrowIcon(false)
           HealthText({ title: this.homeStore.monthTitle, fontSize: $r('app.float.default_14') })
-            .margin($r('app.float.default_12'))
+            .margin($r('app.float.default_6'))
+            .margin($r('app.float.default_6'))
           this.ArrowIcon(true)
         }
         .justifyContent(FlexAlign.Center)
@@ -129,16 +131,17 @@ export struct MonthCalendar {
                 } else {
                   Column() {
                     //Image( (item1.date.getMonth()==this.homeStore.month)?this.getProgressImg(item1):$r("app.media.ic_cross"))
-                    Image(this.getProgressImg(item1))
-                      .height($r('app.float.default_28'))
-                      .objectFit(ImageFit.Contain)
-                      .margin({ top: commonConst.THOUSANDTH_80 })
-                    Text(`${item1.date.getDate()}`)
-                      .fontSize($r('app.float.default_12'))
-                      .fontWeight(commonConst.FONT_WEIGHT_400)
-                      .fontColor(item1.date.getTime() === (new Date(this.homeStore.showDate)).getTime() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
-                      .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
-                      .opacity(commonConst.OPACITY_6)
+                    // Image(this.getProgressImg(item1))
+                    //   .height($r('app.float.default_28'))
+                    //   .objectFit(ImageFit.Contain)
+                    //   .margin({ top: commonConst.THOUSANDTH_80 })
+                    //   .opacity(0.25)
+                    // Text(`${item1.date.getDate()}`)
+                    //   .fontSize($r('app.float.default_12'))
+                    //   .fontWeight(commonConst.FONT_WEIGHT_400)
+                    //   .fontColor(item1.date.getTime() === (new Date(this.homeStore.showDate)).getTime() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                    //   .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                    //   .opacity(commonConst.OPACITY_6)
                   }
                   .height("38vp")
                   .width(`${WEEK_DAY_WIDTH}%`)
@@ -150,13 +153,13 @@ export struct MonthCalendar {
         }
       }
       .borderRadius($r('app.float.default_24'))
-      .backgroundColor($r('app.color.white'))
+      .backgroundColor('rgba(255,255,255,0.75)')
       .width(commonConst.THOUSANDTH_1000)
       .height(commonConst.THOUSANDTH_1000)
       .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_50 })
     }
     .width(commonConst.THOUSANDTH_1000)
-    .height(commonConst.THOUSANDTH_710)
+    .height('76%')
     .padding(commonConst.THOUSANDTH_33)
   }
 }

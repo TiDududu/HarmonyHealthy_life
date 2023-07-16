@@ -129,7 +129,27 @@ export class HomeStore {
             let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
             this.weekArr[j][i].dayInfo = dayInfo;
           }
-          this.weekArr.push(initArr[j]);
+          //this.weekArr.push(initArr[j]);
+        }
+        //this.weekArr.push(initArr[j]);
+      })
+    }
+    callback();
+  }
+
+  public getThisMonthData(date: Date, callback: Function) {
+    date.setDate(0);
+    let [initArr, dateArr] = getNextMonth(date);
+    // get data form db
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+        Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
+        if (res.length > 0) {
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
+          }
         }
         //this.weekArr.push(initArr[j]);
       })
@@ -170,6 +190,12 @@ export class HomeStore {
         selectedDayInfo.taskList = res;
         this.dateArr = this.dateArr.map((item: WeekDateModel) =>
           item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        ///////////////////
+        // for(let i=0;i<this.weekArr.length;i++) {
+        //   this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) =>
+        //     item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        // }
+        //////////////////
         this.selectedDayInfo = { ...selectedDayInfo };
       });
     } else {
@@ -251,6 +277,52 @@ export class HomeStore {
         }
         return item;
       }).slice(0);
+      
+      for(let i=0;i<this.weekArr.length;i++) {
+        this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) => {
+          if (task.date == item.dateStr) {
+            Logger.info('item', JSON.stringify(item));
+            let taskList: TaskInfo[] = item.taskList;
+            const dayInfo: DayInfo = item.dayInfo;
+            if (editedTaskInfo.isOpen) {
+              // add task
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID)
+                .concat(task)
+                .sort((a, b) => a.taskID - b.taskID);
+              let count: number = 0;
+              taskList.forEach((taskItem: TaskInfo) => {
+                if (taskItem.isDone) {
+                  count++;
+                }
+              });
+              if (count > dayInfo.finTaskNum) {
+                dayInfo.finTaskNum = count;
+              }
+            } else {
+              // delete task
+              let taskIndex = taskList.findIndex((taskItem) => taskItem.taskID == taskID);
+              Logger.info('taskList[taskIndex]', JSON.stringify(taskList[taskIndex]));
+              if (taskList[taskIndex]?.isDone) {
+                dayInfo.finTaskNum -= 1;
+              }
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID);
+            }
+            dayInfo.targetTaskNum = taskList.length;
+            if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
+              dayInfo.finTaskNum = dayInfo.targetTaskNum;
+            }
+            DayInfoApi.updateData(dayInfo, () => {
+            });
+            Logger.debug("tempDayInfo", JSON.stringify(dayInfo));
+            let currentDayInfo = { ...item, taskList, dayInfo };
+            if (this.checkCurrentDay()) {
+              this.selectedDayInfo = currentDayInfo;
+            }
+            return currentDayInfo;
+          }
+          return item;
+        }).slice(0);
+      }
     }
   }
 
@@ -322,6 +394,11 @@ export class HomeStore {
     }
 
     this.dateArr = this.dateArr.map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    //////////////
+    // for(let i=0;i<this.weekArr.length;i++){
+    //   this.weekArr[i]= this.weekArr[i].map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    // }
+    //////////////
     Logger.info('achievementLevel', `${achievementLevel}`);
     Logger.info('achievementLevel_single', `${achievementLevel_single}`);
 
