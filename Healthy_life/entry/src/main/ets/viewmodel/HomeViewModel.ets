@@ -98,8 +98,7 @@ export class HomeStore {
           this.setSelectedShowDate(this.showDate);
         }, 0)
       })
-
-    })
+    });
   }
 
   public getPreWeekData(date: Date, callback: Function) {
@@ -121,17 +120,18 @@ export class HomeStore {
   public getPreMonthData(date: Date, callback: Function) {
     let [arrMonth, strArrMonth] = getPreviousMonth(date);
     // get data form db
-    this.weekArr=[];
-    for (let j=0;j<arrMonth.length;j++) {
-      DayInfoApi.queryList(strArrMonth[j], (res: DayInfo[]) => {
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < arrMonth[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == arrMonth[j][i].dateStr) || null;
-            arrMonth[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
           }
           this.weekArr.push(arrMonth[j]);
         }
+        //this.weekArr.push(initArr[j]);
       })
     }
     callback();
@@ -140,17 +140,17 @@ export class HomeStore {
   public getNextMonthData(date: Date, callback: Function) {
     let [arrMonth, strArrMonth] = getNextMonth(date);
     // get data form db
-    this.weekArr=[];
-    for (let j=0;j<arrMonth.length;j++) {
-      DayInfoApi.queryList(strArrMonth[j], (res: DayInfo[]) => {
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < arrMonth[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == arrMonth[j][i].dateStr) || null;
-            arrMonth[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
           }
         }
-        this.weekArr.push(arrMonth[j]);
+        //this.weekArr.push(initArr[j]);
       })
     }
     callback();

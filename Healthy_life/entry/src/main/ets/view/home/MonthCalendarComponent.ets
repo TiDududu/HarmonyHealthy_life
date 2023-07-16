@@ -49,14 +49,18 @@ export struct MonthCalendar {
   }
 
   getProgressImg(item: WeekDateModel): Resource {
-    let finNum = item.dayInfo?.finTaskNum || 0;
-    if (finNum === 0) {
-      return $r('app.media.ic_home_undone');
+    if(item.date.getMonth()==this.homeStore.month) {
+      let finNum = item.dayInfo?.finTaskNum || 0;
+      if (finNum === 0) {
+        return $r('app.media.ic_home_undone');
+      }
+      if (finNum === (item.dayInfo?.targetTaskNum || 0)) {
+        return $r('app.media.ic_home_all_done');
+      }
+      return $r('app.media.ic_home_half_done');
+    } else {
+      return $r("app.media.ic_cross");
     }
-    if (finNum === (item.dayInfo?.targetTaskNum || 0)) {
-      return $r('app.media.ic_home_all_done');
-    }
-    return $r('app.media.ic_home_half_done');
   }
 
   @Builder ArrowIcon(isRight: boolean) {
@@ -85,53 +89,65 @@ export struct MonthCalendar {
         .justifyContent(FlexAlign.Center)
 
         //月日历，横向滚动
-        Scroll(this.scroller) {
-          Column({space:"8vp"}) {
-            Row() {
-              ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
-                Column() {
-                  Text(item.weekTitle)
-                    .fontSize($r('app.float.default_12'))
-                    .fontWeight(commonConst.FONT_WEIGHT_500)
-                    .fontColor(item.date.getDay()===(new Date(this.homeStore.showDate)).getDay() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
-                    .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
-                    .opacity(commonConst.OPACITY_6)
-                }
-                .width(`${WEEK_DAY_WIDTH}%`)
-                .justifyContent(FlexAlign.SpaceBetween)
-              })
-            }
-
-            ForEach(this.homeStore.weekArr, (item0: Array<WeekDateModel>, index0: number) => {
-              Row() {
-                ForEach(item0, (item1: WeekDateModel, index1: number) => {
-                    Column() {
-                      Image( (item1.date.getMonth()==this.homeStore.month)?this.getProgressImg(item1):$r("app.media.ic_cross"))
-                        .height($r('app.float.default_28'))
-                        .objectFit(ImageFit.Contain)
-                        .margin({ top: commonConst.THOUSANDTH_80 })
-                      Text(`${item1.date.getDate()}`)
-                        .fontSize($r('app.float.default_12'))
-                        .fontWeight(commonConst.FONT_WEIGHT_400)
-                        .fontColor($r('app.color.titleColor'))
-                        .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
-                        .opacity(commonConst.OPACITY_6)
-                    }
-                    .height("38vp")
-                    .width(`${WEEK_DAY_WIDTH}%`)
-                    .justifyContent(FlexAlign.SpaceBetween)
-                    .onClick(() => WeekCalendarMethods.calenderItemClickAction.call(this, item1, index1))
-                })
+        Column({space:"8vp"}) {
+          Row() {
+            ForEach(this.homeStore.dateArr, (item: WeekDateModel, index: number) => {
+              Column() {
+                Text(item.weekTitle)
+                  .fontSize($r('app.float.default_12'))
+                  .fontWeight(commonConst.FONT_WEIGHT_500)
+                  .fontColor(item.date.getDay()===(new Date(this.homeStore.showDate)).getDay() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                  .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                  .opacity(commonConst.OPACITY_6)
               }
+              .width(`${WEEK_DAY_WIDTH}%`)
+              .justifyContent(FlexAlign.SpaceBetween)
             })
           }
+
+          ForEach(this.homeStore.weekArr, (item0: Array<WeekDateModel>, index0: number) => {
+            Row() {
+              ForEach(item0, (item1: WeekDateModel, index1: number) => {
+                if(item1.date.getMonth()==this.homeStore.month) {
+                  Column() {
+                    //Image( (item1.date.getMonth()==this.homeStore.month)?this.getProgressImg(item1):$r("app.media.ic_cross"))
+                    Image(this.getProgressImg(item1))
+                      .height($r('app.float.default_28'))
+                      .objectFit(ImageFit.Contain)
+                      .margin({ top: commonConst.THOUSANDTH_80 })
+                    Text(`${item1.date.getDate()}`)
+                      .fontSize($r('app.float.default_12'))
+                      .fontWeight(commonConst.FONT_WEIGHT_400)
+                      .fontColor(item1.date.getTime() === (new Date(this.homeStore.showDate)).getTime() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                      .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                      .opacity(commonConst.OPACITY_6)
+                  }
+                  .height("38vp")
+                  .width(`${WEEK_DAY_WIDTH}%`)
+                  .justifyContent(FlexAlign.SpaceBetween)
+                  .onClick(() => MonthCalendarMethods.calenderItemClickAction.call(this, item1, index1))
+                } else {
+                  Column() {
+                    //Image( (item1.date.getMonth()==this.homeStore.month)?this.getProgressImg(item1):$r("app.media.ic_cross"))
+                    Image(this.getProgressImg(item1))
+                      .height($r('app.float.default_28'))
+                      .objectFit(ImageFit.Contain)
+                      .margin({ top: commonConst.THOUSANDTH_80 })
+                    Text(`${item1.date.getDate()}`)
+                      .fontSize($r('app.float.default_12'))
+                      .fontWeight(commonConst.FONT_WEIGHT_400)
+                      .fontColor(item1.date.getTime() === (new Date(this.homeStore.showDate)).getTime() ? $r('app.color.blueColor') : $r('app.color.titleColor'))
+                      .fontFamily($r('app.string.HarmonyHeiTi_Medium'))
+                      .opacity(commonConst.OPACITY_6)
+                  }
+                  .height("38vp")
+                  .width(`${WEEK_DAY_WIDTH}%`)
+                  .justifyContent(FlexAlign.SpaceBetween)
+                }
+              })
+            }
+          })
         }
-        .scrollBar(BarState.Off)
-        .scrollable(ScrollDirection.Horizontal)
-        .width(commonConst.THOUSANDTH_1000)
-        .height(commonConst.THOUSANDTH_1000)
-        .onScrollStop(() => WeekCalendarMethods.onScrollEndAction.call(this))
-        .onScrollEdge(() => WeekCalendarMethods.onScrollEdgeAction.call(this))
       }
       .borderRadius($r('app.float.default_24'))
       .backgroundColor($r('app.color.white'))

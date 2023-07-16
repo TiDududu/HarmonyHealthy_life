@@ -22,9 +22,9 @@ function gotoPreviousMonth() {
   this.isPageScroll = true;
   let date: Date = new Date(this.homeStore.showDate);
   Logger.info('HomeIndex', 'gotoPreviousMonth: showDate_' + date.toISOString());
+
   let new_showDate=new Date(this.homeStore.showDate);
   new_showDate.setDate(0);
-
   this.homeStore.getPreMonthData(date, () => {
     this.homeStore.setSelectedShowDate(new_showDate.getTime());
     this.currentPage += 1;
@@ -35,8 +35,8 @@ function gotoPreviousMonth() {
 }
 
 function goToNextMonth() {
-  if (this.currentPage <= 0) {
-    Logger.info('HomeIndex', 'goToNextMonth: is the current week');
+  if (this.currentPage <= 1) {
+    Logger.info('HomeIndex', 'goToNextMonth: is the current month');
     return;
   }
   this.isPageScroll = true;
@@ -94,7 +94,7 @@ const MonthCalendarMethods = {
   goToNextMonth,
   onScrollEndAction,
   onScrollEdgeAction,
-  calenderItemClickAction
+  calenderItemClickAction,
 }
 
 export default MonthCalendarMethods;
