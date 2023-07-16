@@ -14,7 +14,7 @@
  */
 
 import { DEFAULT_100 ,DEFAULT_200 ,DEFAULT_300 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel';
+import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE, getHistoryTaskLevel, getAchievementTask } from '../model/AchieveModel';
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST,ACHIEVEMENT_LEVEL_LIST_SINGLE } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
@@ -271,6 +271,52 @@ export class HomeStore {
         }
         return item;
       }).slice(0);
+      
+      for(let i=0;i<this.weekArr.length;i++) {
+        this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) => {
+          if (task.date == item.dateStr) {
+            Logger.info('item', JSON.stringify(item));
+            let taskList: TaskInfo[] = item.taskList;
+            const dayInfo: DayInfo = item.dayInfo;
+            if (editedTaskInfo.isOpen) {
+              // add task
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID)
+                .concat(task)
+                .sort((a, b) => a.taskID - b.taskID);
+              let count: number = 0;
+              taskList.forEach((taskItem: TaskInfo) => {
+                if (taskItem.isDone) {
+                  count++;
+                }
+              });
+              if (count > dayInfo.finTaskNum) {
+                dayInfo.finTaskNum = count;
+              }
+            } else {
+              // delete task
+              let taskIndex = taskList.findIndex((taskItem) => taskItem.taskID == taskID);
+              Logger.info('taskList[taskIndex]', JSON.stringify(taskList[taskIndex]));
+              if (taskList[taskIndex]?.isDone) {
+                dayInfo.finTaskNum -= 1;
+              }
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID);
+            }
+            dayInfo.targetTaskNum = taskList.length;
+            if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
+              dayInfo.finTaskNum = dayInfo.targetTaskNum;
+            }
+            DayInfoApi.updateData(dayInfo, () => {
+            });
+            Logger.debug("tempDayInfo", JSON.stringify(dayInfo));
+            let currentDayInfo = { ...item, taskList, dayInfo };
+            if (this.checkCurrentDay()) {
+              this.selectedDayInfo = currentDayInfo;
+            }
+            return currentDayInfo;
+          }
+          return item;
+        }).slice(0);
+      }
     }
   }
 
@@ -292,6 +338,7 @@ export class HomeStore {
   }
 
   public getDonePercent(): string {
+    getAchievementTask(new Date().toDateString())
     let dayInfo = this.selectedDayInfo?.dayInfo;
     Logger.debug("dayInfo", JSON.stringify(dayInfo));
     if (dayInfo && (dayInfo?.finTaskNum || 0) > 0) {
@@ -327,6 +374,7 @@ export class HomeStore {
     this.selectedDayInfo.taskList = this.selectedDayInfo.taskList.map((item) => {
       return item.taskID == taskItem?.taskID ? taskItem : item;
     });
+    getHistoryTaskLevel(7);
     let achievementLevel;
     let achievementLevel_single;
     if (taskItem.isDone) {
@@ -368,6 +416,7 @@ export class HomeStore {
         Logger.info('finvalue after update' + updateTask.finValue);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
+
         if (!res || hasExceed) {
           Logger.error('taskClock-updateTask', JSON.stringify(res));
           reject(res);

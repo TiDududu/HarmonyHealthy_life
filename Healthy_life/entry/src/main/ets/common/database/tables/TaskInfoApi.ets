@@ -106,6 +106,65 @@ class TaskInfoApi {
       }
     });
   }
+  // 查询当天已经完成的任务
+  queryDone(date: string, callback): void {
+    let predicates = new dataRdb.RdbPredicates(TASK_INFO.tableName);
+    predicates.equalTo('date', date);
+    predicates.equalTo('isOpen', true);
+    predicates.equalTo('isDone', true);
+    predicates.orderByAsc('taskID');
+    RdbUtils.query(predicates).then(resultSet => {
+      let count = resultSet.rowCount;
+      if (count === 0 || typeof count === 'string') {
+        Logger.error('TaskInfoTable', `${date} query no results!`);
+        callback([]);
+      } else {
+        resultSet.goToFirstRow();
+        const result = [];
+        for (let i = 0; i < count; i++) {
+          let tmp = new TaskInfo(0, '', 0, '', false, '', '', '', false, '');
+          tmp.isOpen = resultSet.getDouble(resultSet.getColumnIndex('isOpen')) ? true : false;
+          tmp.id = resultSet.getDouble(resultSet.getColumnIndex('id'));
+          tmp.date = resultSet.getString(resultSet.getColumnIndex('date'));
+          tmp.taskID = resultSet.getDouble(resultSet.getColumnIndex('taskID'));
+          tmp.targetValue = resultSet.getString(resultSet.getColumnIndex('targetValue'));
+          tmp.isAlarm = resultSet.getDouble(resultSet.getColumnIndex('isAlarm')) ? true : false;
+          tmp.startTime = resultSet.getString(resultSet.getColumnIndex('startTime'));
+          tmp.endTime = resultSet.getString(resultSet.getColumnIndex('endTime'));
+          tmp.frequency = resultSet.getString(resultSet.getColumnIndex('frequency'));
+          tmp.isDone = resultSet.getDouble(resultSet.getColumnIndex('isDone')) ? true : false;
+          tmp.finValue = resultSet.getString(resultSet.getColumnIndex('finValue'));
+          result[i] = tmp;
+          resultSet.goToNextRow();
+        }
+        callback(result);
+      }
+    });
+  }
+
+  // 查询任务总量(跑步或吃苹果）
+  queryHistorySum(taskIDSearch:number, callback): void {
+    let predicates = new dataRdb.RdbPredicates(TASK_INFO.tableName);
+    // predicates.equalTo('date', date);
+    predicates.equalTo('isOpen', true);
+    predicates.equalTo('taskID', taskIDSearch);
+    // predicates.equalTo('isDone', true);
+    RdbUtils.query(predicates).then(resultSet => {
+      let count = resultSet.rowCount;
+      let runSum: number = 0;
+      if (count === 0 || typeof count === 'string') {
+        Logger.error('TaskInfoTable', `run sum query no results!`);
+        callback(0);
+      } else {
+        resultSet.goToFirstRow();
+        for (let i = 0; i < count; i++) {
+          runSum += Number(resultSet.getString(resultSet.getColumnIndex('finValue')));
+          resultSet.goToNextRow();
+        }
+        callback(runSum);
+      }
+    });
+  }
 }
 
 function generateBucket(taskInfo: TaskInfo): dataRdb.ValuesBucket {

@@ -70,7 +70,7 @@ export struct MonthCalendar {
         .height($r('app.float.default_12'))
     }
     .width($r('app.float.default_20'))
-    .height($r('app.float.default_20'))
+    .height($r('app.float.default_12'))
     .rotate({ z: 1, angle: isRight ? 0 : commonConst.DEFAULT_180 })
     .justifyContent(FlexAlign.Center)
     .onClick(() => isRight ? MonthCalendarMethods.goToNextMonth.call(this) : MonthCalendarMethods.gotoPreviousMonth.call(this))
@@ -83,7 +83,7 @@ export struct MonthCalendar {
         Row() {
           this.ArrowIcon(false)
           HealthText({ title: this.homeStore.monthTitle, fontSize: $r('app.float.default_14') })
-            .margin($r('app.float.default_12'))
+            .margin($r('app.float.default_6'))
           this.ArrowIcon(true)
         }
         .justifyContent(FlexAlign.Center)
@@ -156,7 +156,7 @@ export struct MonthCalendar {
       .padding({ top: commonConst.THOUSANDTH_50, bottom: commonConst.THOUSANDTH_50 })
     }
     .width(commonConst.THOUSANDTH_1000)
-    .height(commonConst.THOUSANDTH_710)
+    .height('76%')
     .padding(commonConst.THOUSANDTH_33)
   }
 }

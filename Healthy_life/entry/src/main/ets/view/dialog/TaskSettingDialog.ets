@@ -186,13 +186,15 @@ export struct RemindTimeDialog {
 export struct FrequencyDialog {
   @Consume settingParams: ITaskItem;
   @Consume frequency: string;
+  @Consume frequencyIds: boolean[];
   private controller: CustomDialogController;
   private currentFrequency: string = commonConst.EVERYDAY;
   private frequencyChooseRange: FrequencyContentType[] = frequencyRange();
+  // private frequencyIds: bool[] =
 
   setFrequency() {
     // const checkedArr = this.frequencyChooseRange.filter((item) => item?.isChecked)
-    const checkedArr = this.frequencyChooseRange.filter((item) => this.settingParams.frequencyIds.includes(item?.id.toString()));
+    const checkedArr = this.frequencyChooseRange.filter((item) => this.frequencyIds[item?.id-1]);
 
     if (checkedArr.length === this.frequencyChooseRange.length || checkedArr.length === commonConst.NO_LENGTH) {
       this.currentFrequency = commonConst.EVERYDAY;
@@ -206,6 +208,10 @@ export struct FrequencyDialog {
       return sum === '' ? sum + current?.id : sum + ',' + current?.id;
     }, '')
   }
+  aboutToAppear(){
+    Logger.info('datianli'+this.frequencyIds);
+  }
+
 
   build() {
     Column() {
@@ -223,23 +229,26 @@ export struct FrequencyDialog {
           ListItem() {
             Row() {
               Text(item?.label).fontSize(commonConst.DEFAULT_20)
-              Toggle({ type: ToggleType.Checkbox, isOn: this.settingParams.frequencyIds.includes(item.id.toString()) })  // 使用新的属性
+              Toggle({ type: ToggleType.Checkbox, isOn: this.frequencyIds[item.id-1]})  // 使用新的属性
                 .onChange((isOn) => {
                   item.isChecked = isOn;
                   Logger.info("picked fre"+isOn)
                   // 如果选中了复选框，则在数组中添加元素
-                  if (isOn) {
-                    if (!this.settingParams.frequencyIds.includes(item.id.toString())) {
-                      this.settingParams.frequencyIds.push(item.id.toString());
-                    }
-                  }
-                  // 如果取消了复选框的选中，则从数组中删除元素
-                  else {
-                    const index = this.settingParams.frequencyIds.indexOf(item.id.toString());
-                    if (index > -1) {
-                      this.settingParams.frequencyIds.splice(index, 1);
-                    }
-                  }
+                  // if (isOn) {
+                  //   if (!this.settingParams.frequencyIds[item.id-1]) {
+                  //
+                  //     this.settingParams.frequencyIds[item.id-1] = true;
+                  //   }
+                  // }
+                  // // 如果取消了复选框的选中，则从数组中删除元素
+                  // else {
+                  //
+                  //   if (this.settingParams.frequencyIds[item.id-1]) {
+                  //     this.settingParams.frequencyIds[item.id-1] = false;
+                  //   }
+                  // }
+                  this.frequencyIds[item.id - 1] = isOn;
+                  // this.frequencyIds = this.settingParams.frequencyIds
                 })
             }
             .width(commonConst.THOUSANDTH_1000)
@@ -266,6 +275,7 @@ export struct FrequencyDialog {
           .onClick(() => {
             this.setFrequency();
             this.frequency = this.currentFrequency;
+            // this.frequencyIds = this.settingParams.frequencyIds
             // this.settingParams.frequency = this.settingParams.frequencyIds.join(',');
             this.controller.close();
           })
