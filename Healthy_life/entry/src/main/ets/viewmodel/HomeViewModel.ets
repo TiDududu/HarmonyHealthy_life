@@ -170,6 +170,12 @@ export class HomeStore {
         selectedDayInfo.taskList = res;
         this.dateArr = this.dateArr.map((item: WeekDateModel) =>
           item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        ///////////////////
+        // for(let i=0;i<this.weekArr.length;i++) {
+        //   this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) =>
+        //     item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        // }
+        //////////////////
         this.selectedDayInfo = { ...selectedDayInfo };
       });
     } else {
@@ -368,6 +374,11 @@ export class HomeStore {
     }
 
     this.dateArr = this.dateArr.map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    //////////////
+    // for(let i=0;i<this.weekArr.length;i++){
+    //   this.weekArr[i]= this.weekArr[i].map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    // }
+    //////////////
     Logger.info('achievementLevel', `${achievementLevel}`);
     Logger.info('achievementLevel_single', `${achievementLevel_single}`);
 
