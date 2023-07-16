@@ -112,10 +112,9 @@ export class HomeStore {
           }
         }
         this.weekArr.push(initArr[j]);
-        callback();
       })
     }
-    // callback();
+    callback();
   }
 
   public getNextMonthData(date: Date, callback: Function) {
@@ -132,10 +131,9 @@ export class HomeStore {
           }
         }
         this.weekArr.push(initArr[j]);
-        callback();
       })
     }
-    // callback();
+    callback();
   }
 
   // check is current day
