@@ -131,10 +131,9 @@ export class HomeStore {
           }
         }
         this.weekArr.push(initArr[j]);
-        callback();
       })
     }
-    // callback();
+    callback();
   }
 
   // check is current day

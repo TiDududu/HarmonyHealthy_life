@@ -43,11 +43,11 @@ function goToNextMonth() {
   Logger.info('HomeIndex', 'goToNextMonth: nextPage');
 
   let date: Date = new Date(this.homeStore.showDate);
+  let new_showDate=new Date(this.homeStore.showDate);
+  new_showDate.setDate(32);
+
   this.homeStore.getNextMonthData(date, () => {
-    // let new_showDate=new Date(this.homeStore.showDate);
-    // new_showDate.setDate(0);
-    // this.homeStore.setSelectedShowDate(new_showDate.getTime());
-    this.homeStore.setSelectedShowDate(this.homeStore.showDate + WEEK_DAY_TIME);
+    this.homeStore.setSelectedShowDate(new_showDate.getTime());
     this.currentPage -= 1;
   });
   this.scroller.scrollPage({ next: true });
