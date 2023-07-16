@@ -45,7 +45,7 @@ export interface ITaskItem {
   frequency: string;
   isInit: boolean;
   step: number;
-  frequencyIds?: string[];
+  frequencyIds: boolean[];
 }
 
 export interface TaskInitListType {
@@ -164,7 +164,25 @@ export const AchievementMap = {
   '73_off': $r('app.media.ic_badge_73_off'),
   '73_on': $r('app.media.ic_badge_73_on'),
   '99_off': $r('app.media.ic_badge_99_off'),
-  '99_on': $r('app.media.ic_badge_99_on')
+  '99_on': $r('app.media.ic_badge_99_on'),
+  'task1_off': $r('app.media.task1_off'),
+  'task1_on': $r('app.media.task1_on'),
+  'task2_off': $r('app.media.task2_off'),
+  'task2_on': $r('app.media.task2_on'),
+  'task3_off': $r('app.media.task3_off'),
+  'task3_on': $r('app.media.task3_on'),
+  'task4_off': $r('app.media.task4_off'),
+  'task4_on': $r('app.media.task4_on'),
+  'task5_off': $r('app.media.task5_off'),
+  'task5_on': $r('app.media.task5_on'),
+  'task6_off': $r('app.media.task6_off'),
+  'task6_on': $r('app.media.task6_on'),
+  'run1_off': $r('app.media.run1_off'),
+  'run1_on': $r('app.media.run1_on'),
+  'run3_off': $r('app.media.run3_off'),
+  'run3_on': $r('app.media.run3_on'),
+  'run5_off': $r('app.media.run5_off'),
+  'run5_on': $r('app.media.run5_on')
 }
 
 //最后再换图片
@@ -194,7 +212,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   2: {
     taskID: 2,
@@ -211,7 +229,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   3: {
     taskID: 3,
@@ -228,7 +246,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   4: {
     taskID: 4,
@@ -245,7 +263,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   5: {
     taskID: 5,
@@ -262,7 +280,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   6: {
     taskID: 6,
@@ -279,7 +297,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   7: {
     taskID: 7,
@@ -296,7 +314,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   }
 }
 
@@ -349,3 +367,10 @@ export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];
 
 //增加当日单项成就,吃苹果
 export const ACHIEVEMENT_LEVEL_LIST_SINGLE = [100 ,200, 300];
+
+// 新添加的任务名称列表
+export const TASKS_NAME = ['早起', '喝水', '吃苹果', '微笑', '刷牙', '睡觉', '跑步']
+
+// 新添加的成就等级
+export const ACHIEVEMENT_RUN = [1, 3, 5];
+export const ACHIEVEMENT_APPLE = [1, 3, 5];

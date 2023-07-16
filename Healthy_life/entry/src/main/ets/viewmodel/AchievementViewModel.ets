@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ACHIEVEMENT_LEVEL_LIST, AchievementMap,ACHIEVEMENT_LEVEL_LIST_SINGLE,AchievementMap_single } from '../model/TaskInitList';
+import { ACHIEVEMENT_LEVEL_LIST, AchievementMap,ACHIEVEMENT_LEVEL_LIST_SINGLE,AchievementMap_single, TASKS_NAME, ACHIEVEMENT_RUN } from '../model/TaskInitList';
 
 export function getBadgeCardItems(successiveDays: number):[string, Resource][] {
   let badgeMileStones = ACHIEVEMENT_LEVEL_LIST;
@@ -35,6 +35,30 @@ export function getBadgeCardItems_single(successiveTimes: number):[string, Resou
     let onOrOff = successiveTimes >= badgeMileStones[i] ? 'on' : 'off';
     let titleContent = String(badgeMileStones[i]);
     let oneItem:[string, Resource] = [titleContent,AchievementMap_single[`${ badgeMileStones[i] }_${ onOrOff }`]];
+    cardItems.push(oneItem);
+  }
+  return cardItems;
+}
+
+export function getBadgeTaskCardItems(achieveTask: string):[string, Resource][] {
+
+  let cardItems:[string, Resource][] = [];
+  for( let i = 1; i<= 6; i++){
+    let onOrOff = achieveTask.includes(String(i)) ? 'on' : 'off';
+    let titleContent = TASKS_NAME[i - 1];
+    let oneItem:[string, Resource] = [titleContent,AchievementMap[`task${ i }_${ onOrOff }`]];
+    cardItems.push(oneItem);
+  }
+  return cardItems;
+}
+
+export function getHistoryCardItems(historySum: number):[string, Resource][] {
+  let badgeMileStones = ACHIEVEMENT_RUN;
+  let cardItems:[string, Resource][] = [];
+  for (let i = 0; i < badgeMileStones.length; i++) {
+    let onOrOff = historySum >= badgeMileStones[i] ? 'on' : 'off';
+    let titleContent = String(badgeMileStones[i]);
+    let oneItem:[string, Resource] = [titleContent,AchievementMap[`run${ badgeMileStones[i] }_${ onOrOff }`]];
     cardItems.push(oneItem);
   }
   return cardItems;
