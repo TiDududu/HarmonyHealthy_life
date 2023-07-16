@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a65793e9-b137-4249-9de6-444e6ec90f3b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Healthy_life/entry/src/main/ets/viewmodel/HomeViewModel.ets" beforeDir="false" afterPath="$PROJECT_DIR$/Healthy_life/entry/src/main/ets/viewmodel/HomeViewModel.ets" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
