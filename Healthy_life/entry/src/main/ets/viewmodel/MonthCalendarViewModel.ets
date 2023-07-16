@@ -17,31 +17,24 @@ import { WeekDateModel } from '../model/WeekCalendarModel';
 import Logger from '../common/utils/Logger';
 import { WEEK_DAY_NUM, WEEK_DAY_TIME } from '../common/constants/CommonConstants';
 import { MONTH_DAY_NUM,MONTH_DAY_TIME} from '../common/constants/CommonConstants';
-const LAZY_DATA_PAGE: number = 2; // lazy page number
 
 function gotoPreviousMonth() {
   this.isPageScroll = true;
   let date: Date = new Date(this.homeStore.showDate);
   Logger.info('HomeIndex', 'gotoPreviousMonth: showDate_' + date.toISOString());
+  let new_showDate=new Date(this.homeStore.showDate);
+  new_showDate.setDate(0);
 
-  if ((this.currentPage + LAZY_DATA_PAGE) * MONTH_DAY_NUM > this.homeStore.dateArr.length) {
-    // get more history data
-    this.homeStore.getPreMonthData(date, () => {
-      // let new_showDate=new Date(this.homeStore.showDate);
-      // new_showDate.setDate(0);
-      // this.homeStore.setSelectedShowDate(new_showDate.getTime());
-      this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
-      this.currentPage += 1;
-    });
-  } else {
-    this.scroller.scrollPage({ next: false });
-    Logger.info('HomeIndex', 'gotoPreviousMonth');
-    let new_showDate=new Date(this.homeStore.showDate);
-    new_showDate.setDate(0);
+  this.homeStore.getPreMonthData(date, () => {
     this.homeStore.setSelectedShowDate(new_showDate.getTime());
-    //this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
     this.currentPage += 1;
-  }
+  });
+  this.scroller.scrollPage({ next: false });
+  Logger.info('HomeIndex', 'gotoPreviousMonth');
+  //this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
+  this.currentPage += 1;
+
+
 }
 
 function goToNextMonth() {
@@ -100,7 +93,7 @@ function calenderItemClickAction(item: WeekDateModel, index: number) {
   this.homeStore.selectedDay = index % WEEK_DAY_NUM;
 }
 
-const WeekCalendarMethods = {
+const MonthCalendarMethods = {
   gotoPreviousMonth,
   goToNextMonth,
   onScrollEndAction,
@@ -108,4 +101,4 @@ const WeekCalendarMethods = {
   calenderItemClickAction
 }
 
-export default WeekCalendarMethods;
+export default MonthCalendarMethods;
