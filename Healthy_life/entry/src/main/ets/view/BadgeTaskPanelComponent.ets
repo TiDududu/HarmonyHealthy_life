@@ -13,37 +13,28 @@
  * limitations under the License.
  */
 
+import { BadgeCardTask } from './BadgeCardTaskComponent'
+import { getAchievementTask} from '../model/AchieveModel'
+import { getBadgeTaskCardItems } from '../viewmodel/AchievementViewModel'
+import Logger from '../common/utils/Logger'
+import { ACHIEVEMENT_TASK_KEY } from '../model/AchieveModel'
 import * as commonConst from '../common/constants/CommonConstants';
-import { BadgePanel, BadgePanel_single } from './BadgePanelComponent';
-import { TitleBar, TitleBar_single } from './TitleBarComponent';
-import { BadgeRunPanel} from './runTaskPanelComponent'
-import Logger from '../common/utils/Logger';
 
 @Component
-export struct AchievementIndex {
-  aboutToAppear(){
-    Logger.debug('AchievementIndex', 'aboutToAppear')
-  }
+export struct BadgeTaskPanel {
+  @StorageProp(ACHIEVEMENT_TASK_KEY) taskAchieve: string='';
 
-  onPageShow () {
-    Logger.debug('AchievementIndex', 'onPageShow')
+  aboutToAppear() {
+    Logger.debug('BadgeTaskPanel','aboutToAppear')
+    getAchievementTask(new Date().toDateString())
   }
 
   build() {
-    Column({space: commonConst.DEFAULT_20}) {
-      TitleBar()
-      BadgePanel()
-
-      //新增一个title
-      TitleBar_single()
-      BadgePanel_single()
-
-      // BadgeTaskPanel()
-      BadgeRunPanel()
+    Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
+      ForEach(getBadgeTaskCardItems(this.taskAchieve), (item) => {
+        BadgeCardTask({ content: item[0], imgSrc: item[1]})
+      })
     }
-    .padding(commonConst.DEFAULT_10)
-    .height(commonConst.FULL_HEIGHT)
     .width(commonConst.FULL_WIDTH)
-    .backgroundColor($r('app.color.black'))
   }
 }

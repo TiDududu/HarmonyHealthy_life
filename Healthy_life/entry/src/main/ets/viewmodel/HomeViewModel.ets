@@ -14,13 +14,13 @@
  */
 
 import { DEFAULT_100 ,DEFAULT_200 ,DEFAULT_300 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel';
+import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE, getHistoryTaskLevel, getAchievementTask } from '../model/AchieveModel';
 import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST,ACHIEVEMENT_LEVEL_LIST_SINGLE } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
 import { WeekDateModel, initializeOnStartUp, getPreviousWeek, WEEK_DAY_NUM } from '../model/WeekCalendarModel';
-import { initializeOnStartUp_Month,getPreviousMonth } from '../model/MonthCalendarModel'
+import { initializeOnStartUp_Month,getPreviousMonth,getNextMonth } from '../model/MonthCalendarModel'
 import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
 import DayInfoApi from '../common/database/tables/DayInfoApi';
@@ -51,7 +51,7 @@ export class HomeStore {
 
   public initData() {
     let [initArr, dateArr] = initializeOnStartUp(this.currentDate);
-    let [initArrMonth,dataArrMonth]=initializeOnStartUp_Month(this.currentDate);
+    let [initArrMonth,dateArrMonth]=initializeOnStartUp_Month(this.currentDate);
     this.dateArr = initArr;
     this.weekArr=initArrMonth;
     Logger.info('this.currentDate', this.currentDate.toDateString());
@@ -75,11 +75,30 @@ export class HomeStore {
           }
         }
         this.dateArr = initArr;
+
+        for(let j=0;j<dateArrMonth.length;j++){
+          DayInfoApi.queryList(dateArrMonth[j], (res: DayInfo[]) => {
+            let tempList = res.concat(dayInfo);
+            Logger.info('initDayInfoList: ', JSON.stringify(res));
+            for (let i = 0; i < this.weekArr[j].length; i++) {
+              let tempDayInfo = tempList.find((item) => item.date == this.weekArr[j][i].dateStr) || {
+                date: this.weekArr[j][i].dateStr,
+                finTaskNum: 0,
+                targetTaskNum: 0
+              };
+              this.weekArr[j][i].dayInfo = tempDayInfo;
+              if (this.weekArr[j][i].dateStr == dateToStr(new Date(this.showDate))) {
+                // get tasks of showDate
+                this.weekArr[j][i].taskList = taskList;
+              }
+            }
+          })
+        }
         setTimeout(() => {
           this.setSelectedShowDate(this.showDate);
         }, 0)
       })
-    })
+    });
   }
 
   public getPreWeekData(date: Date, callback: Function) {
@@ -94,28 +113,67 @@ export class HomeStore {
         }
       }
       this.dateArr = initArr.concat(...this.dateArr);
-      callback();
     })
+    callback();
   }
 
   public getPreMonthData(date: Date, callback: Function) {
     let [initArr, dateArr] = getPreviousMonth(date);
     // get data form db
-    this.weekArr=[];
-    for (let j=0;j<initArr.length;j++) {
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
       DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
         Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
         if (res.length > 0) {
-          for (let i = 0; i < initArr[j].length; i++) {
-            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
-            initArr[j][i].dayInfo = dayInfo;
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
           }
+          this.weekArr.push(initArr[j]);
         }
-        this.weekArr.push(initArr[j]);
-        callback();
+        //this.weekArr.push(initArr[j]);
       })
     }
-    // callback();
+    callback();
+  }
+
+  public getThisMonthData(date: Date, callback: Function) {
+    date.setDate(0);
+    let [initArr, dateArr] = getNextMonth(date);
+    // get data form db
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+        Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
+        if (res.length > 0) {
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
+          }
+        }
+        //this.weekArr.push(initArr[j]);
+      })
+    }
+    callback();
+  }
+
+  public getNextMonthData(date: Date, callback: Function) {
+    let [initArr, dateArr] = getNextMonth(date);
+    // get data form db
+    this.weekArr=initArr;
+    for (let j=0;j<this.weekArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+        Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
+        if (res.length > 0) {
+          for (let i = 0; i < this.weekArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == this.weekArr[j][i].dateStr) || null;
+            this.weekArr[j][i].dayInfo = dayInfo;
+          }
+        }
+        //this.weekArr.push(initArr[j]);
+      })
+    }
+    callback();
   }
 
   // check is current day
@@ -132,6 +190,12 @@ export class HomeStore {
         selectedDayInfo.taskList = res;
         this.dateArr = this.dateArr.map((item: WeekDateModel) =>
           item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        ///////////////////
+        // for(let i=0;i<this.weekArr.length;i++) {
+        //   this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) =>
+        //     item.dateStr == selectedDayInfo.dateStr ? { ...item, taskList: res } : item);
+        // }
+        //////////////////
         this.selectedDayInfo = { ...selectedDayInfo };
       });
     } else {
@@ -213,6 +277,52 @@ export class HomeStore {
         }
         return item;
       }).slice(0);
+      
+      for(let i=0;i<this.weekArr.length;i++) {
+        this.weekArr[i] = this.weekArr[i].map((item: WeekDateModel) => {
+          if (task.date == item.dateStr) {
+            Logger.info('item', JSON.stringify(item));
+            let taskList: TaskInfo[] = item.taskList;
+            const dayInfo: DayInfo = item.dayInfo;
+            if (editedTaskInfo.isOpen) {
+              // add task
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID)
+                .concat(task)
+                .sort((a, b) => a.taskID - b.taskID);
+              let count: number = 0;
+              taskList.forEach((taskItem: TaskInfo) => {
+                if (taskItem.isDone) {
+                  count++;
+                }
+              });
+              if (count > dayInfo.finTaskNum) {
+                dayInfo.finTaskNum = count;
+              }
+            } else {
+              // delete task
+              let taskIndex = taskList.findIndex((taskItem) => taskItem.taskID == taskID);
+              Logger.info('taskList[taskIndex]', JSON.stringify(taskList[taskIndex]));
+              if (taskList[taskIndex]?.isDone) {
+                dayInfo.finTaskNum -= 1;
+              }
+              taskList = taskList.filter((taskItem) => taskItem.taskID != taskID);
+            }
+            dayInfo.targetTaskNum = taskList.length;
+            if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
+              dayInfo.finTaskNum = dayInfo.targetTaskNum;
+            }
+            DayInfoApi.updateData(dayInfo, () => {
+            });
+            Logger.debug("tempDayInfo", JSON.stringify(dayInfo));
+            let currentDayInfo = { ...item, taskList, dayInfo };
+            if (this.checkCurrentDay()) {
+              this.selectedDayInfo = currentDayInfo;
+            }
+            return currentDayInfo;
+          }
+          return item;
+        }).slice(0);
+      }
     }
   }
 
@@ -234,6 +344,7 @@ export class HomeStore {
   }
 
   public getDonePercent(): string {
+    getAchievementTask(new Date().toDateString())
     let dayInfo = this.selectedDayInfo?.dayInfo;
     Logger.debug("dayInfo", JSON.stringify(dayInfo));
     if (dayInfo && (dayInfo?.finTaskNum || 0) > 0) {
@@ -269,6 +380,7 @@ export class HomeStore {
     this.selectedDayInfo.taskList = this.selectedDayInfo.taskList.map((item) => {
       return item.taskID == taskItem?.taskID ? taskItem : item;
     });
+    getHistoryTaskLevel(7);
     let achievementLevel;
     let achievementLevel_single;
     if (taskItem.isDone) {
@@ -282,6 +394,11 @@ export class HomeStore {
     }
 
     this.dateArr = this.dateArr.map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    //////////////
+    // for(let i=0;i<this.weekArr.length;i++){
+    //   this.weekArr[i]= this.weekArr[i].map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
+    // }
+    //////////////
     Logger.info('achievementLevel', `${achievementLevel}`);
     Logger.info('achievementLevel_single', `${achievementLevel_single}`);
 
@@ -310,6 +427,7 @@ export class HomeStore {
         Logger.info('finvalue after update' + updateTask.finValue);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
+
         if (!res || hasExceed) {
           Logger.error('taskClock-updateTask', JSON.stringify(res));
           reject(res);
