@@ -29,7 +29,8 @@ function gotoPreviousMonth() {
     this.homeStore.getPreMonthData(date, () => {
       let new_showDate=new Date(this.homeStore.showDate);
       new_showDate.setDate(0);
-      this.homeStore.setSelectedShowDate(new_showDate.getTime());
+      // this.homeStore.setSelectedShowDate(new_showDate.getTime());
+      this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
       this.currentPage += 1;
     });
   } else {

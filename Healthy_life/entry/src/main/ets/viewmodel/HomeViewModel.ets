@@ -112,9 +112,10 @@ export class HomeStore {
           }
         }
         this.weekArr.push(initArr[j]);
+        callback();
       })
     }
-    callback();
+    // callback();
   }
 
   // check is current day
@@ -222,6 +223,8 @@ export class HomeStore {
     this.showDate = showDateTime;
     this.dateTitle = weekDateFormat(this.showDate);
     this.monthTitle = monthFormat(this.showDate);
+    let date=new Date(this.showDate);
+    this.month=date.getMonth();
     let selectedInfo = this.dateArr.find((item: WeekDateModel) => item.dateStr == dateToStr(new Date(showDateTime)));
     if (selectedInfo) {
       this.updateSelectedDayInfo({ ...selectedInfo });
