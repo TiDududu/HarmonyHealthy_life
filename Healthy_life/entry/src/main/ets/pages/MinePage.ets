@@ -16,20 +16,24 @@
 import { ListInfo } from '../view/ListInfo';
 import { UserBaseInfo } from '../view/UserBaseInfo';
 import { NICK_NAME, SIGNATURE, FULL_HEIGHT } from '../common/constants/CommonConstants';
-
+import common from '@ohos.app.ability.common';
 @Component
 export struct MineIndex {
-  @State nickname: string = NICK_NAME;
-  @State signature: string = SIGNATURE;
+  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+  @Link image: string;
+  @Link nickname: string;
+  @Link signature: string;
+
 
   build() {
     Column() {
       UserBaseInfo({
+        image: this.image,
         nickname: this.nickname,
         signature: this.signature
       });
 
-      ListInfo();
+      ListInfo({nickname: $nickname, signature: $signature});
     }
     .height(FULL_HEIGHT)
     .backgroundColor($r('app.color.mineBgColor'))

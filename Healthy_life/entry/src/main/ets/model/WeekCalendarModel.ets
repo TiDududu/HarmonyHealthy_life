@@ -22,8 +22,8 @@ import Logger from '../common/utils/Logger'
 export const WEEK_DAY_NUM: number = 7;
 
 export class WeekDateModel {
-  weekTitle: string;
-  dateStr: string;
+  weekTitle: string; //星期几
+  dateStr: string;  //日期字符串
   date: Date;
   dayInfo: DayInfo;
   taskList: TaskInfo[] = [];
@@ -41,15 +41,15 @@ export class WeekDateModel {
  * @param date  today str
  */
 export function initializeOnStartUp(date: Date): [Array<WeekDateModel>, Array<string>] {
-  let [arr, strArr] = [[], []]; // getPreviousWeek(date);
+  let [arr, strArr] = [[], []]; // 日期信息，日期字符串
   let currentDay = date.getDay() - 1;
   if (date.getDay() === 0) {
     currentDay = 6;
-  }
+  }//周一
   Logger.debug('WeekCalendarModel', date.toISOString());
   // monday is first day of week
-  date.setDate(date.getDate() - currentDay)
-  for (let index = 0; index < WEEK_DAY_NUM; index++) {
+  date.setDate(date.getDate() - currentDay)//设置为一周开头
+  for (let index = 0; index < WEEK_DAY_NUM; index++) {//设置一周内各天的WeekDateModel
     let tempDate = new Date(date);
     tempDate.setDate(date.getDate() + index);
     let dateStr = dateToStr(tempDate);

@@ -65,6 +65,9 @@ export struct TaskChooseItem {
         .selectedColor($r('app.color.blueColor'))
         .onChange((isOn) => {
           this.settingParams.isOpen = isOn;
+          if(!isOn && this.settingParams.isAlarm) {
+            this.settingParams.isAlarm = false;
+          }
         })
     }
     .width(THOUSANDTH_1000)

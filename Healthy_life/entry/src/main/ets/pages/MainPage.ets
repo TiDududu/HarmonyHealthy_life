@@ -24,6 +24,8 @@ import { AchievementIndex } from '../view/AchievementComponent';
 import { MineIndex } from './MinePage';
 import { HomeStore } from '../viewmodel/HomeViewModel';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
+import { NICK_NAME, SIGNATURE, FULL_HEIGHT } from '../common/constants/CommonConstants';
+import data_preferences from '@ohos.data.preferences';
 
 @Styles function allSize() {
   .width(commonConst.THOUSANDTH_1000)
@@ -33,10 +35,14 @@ import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
 @Entry
 @Component
 struct Index {
+  context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
   @State currentPage: number = 0;
   @State editedTaskInfo: ITaskItem = JSON.parse(router.getParams() ? router.getParams()['editTask'] : '{}');
   @State editedTaskID: string = '0';
   @State homeStore: HomeStore = new HomeStore(new Date());
+  @State nickname: string = NICK_NAME;
+  @State signature: string = SIGNATURE;
+  @State image: string = 'app.media.ic_user';
   private tabController: TabsController = new TabsController();
 
   onPageShow() {
@@ -51,8 +57,38 @@ struct Index {
       }
       this.checkCurrentTime();
     }
+    this.MineIndexDate()
   }
-
+  MineIndexDate(){
+    let preferences = data_preferences.getPreferences(this.context, "PersonalData");
+    globalThis.context =this.context
+    preferences.then((res)=>{
+      if (res.has("image")) {
+        res.get("image", 'app.media.ic_user').then((value) => {
+          this.image = value.toString();
+          Logger.info('PersonalData', 'image is get success');
+        }).catch((err) => {
+          Logger.info('PersonalData', 'image get failed. Cause:' + err);
+        });
+      }
+      if (res.has("nickname")) {
+        res.get("nickname", NICK_NAME).then((value) => {
+          this.nickname = value.toString();
+          Logger.info('PersonalData', 'nickname is get success');
+        }).catch((err) => {
+          Logger.info('PersonalData', 'nickname get failed. Cause:' + err);
+        });
+      }
+      if (res.has("signature")) {
+        res.get("signature", SIGNATURE).then((value) => {
+          this.signature = value.toString();
+          Logger.info('PersonalData', 'signature is get success');
+        }).catch((err) => {
+          Logger.info('PersonalData', 'signature get failed. Cause:' + err);
+        });
+      }
+    })
+  }
   checkCurrentTime() {
     GlobalInfoApi.query((result) => {
       let predate = new Date(result.lastDate);
@@ -113,7 +149,7 @@ struct Index {
       .tabBar(this.TabBuilder(TabId.ACHIEVEMENT))
 
       TabContent() {
-        MineIndex()
+        MineIndex({nickname: $nickname, signature: $signature, image: $image})
           .borderWidth({ bottom: 1 })
           .borderColor($r('app.color.primaryBgColor'))
       }
@@ -124,6 +160,7 @@ struct Index {
     .barWidth(commonConst.THOUSANDTH_940)
     .barMode(BarMode.Fixed)
     .vertical(false)
+    .animationDuration(400)
     .onChange((index) => {
       this.currentPage = index;
     })

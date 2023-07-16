@@ -192,7 +192,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   2: {
     taskID: 2,
@@ -202,12 +204,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '0.25',
     isOpen: false,
     unit: 'L',
-    step: 0,
+    step: 0.25,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   3: {
     taskID: 3,
@@ -222,7 +226,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   4: {
     taskID: 4,
@@ -232,12 +238,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   5: {
     taskID: 5,
@@ -247,12 +255,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   6: {
     taskID: 6,
@@ -267,7 +277,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   7: {
     taskID: 7,
@@ -282,7 +294,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   }
 }
 
