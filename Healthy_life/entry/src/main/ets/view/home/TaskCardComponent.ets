@@ -90,26 +90,26 @@ export struct TaskCard {
               .height(10)
           }
           else{
-            if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(parseInt(JSON.parse(this.taskInfoStr).targetValue)/3)) {
+            if(parseFloat(JSON.parse(this.taskInfoStr).finValue)<=(parseFloat(JSON.parse(this.taskInfoStr).targetValue)/3)) {
               Progress({
                 value: 0,
                 total: 150,
                 type: ProgressType.Capsule
               })
-                .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
+                .value((parseFloat(JSON.parse(this.taskInfoStr).finValue)/parseFloat(JSON.parse(this.taskInfoStr).targetValue))*150)
                 .color('#c9ffe070')
                 .backgroundColor('#fffdf4f4')
                 .width('40%')
                 .height(10)
             }
             else{
-              if(parseInt(JSON.parse(this.taskInfoStr).finValue)<=(2*parseInt(JSON.parse(this.taskInfoStr).targetValue))/3) {
+              if(parseFloat(JSON.parse(this.taskInfoStr).finValue)<=(2*parseFloat(JSON.parse(this.taskInfoStr).targetValue))/3) {
                 Progress({
                   value: 0,
                   total: 150,
                   type: ProgressType.Capsule
                 })
-                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
+                  .value((parseFloat(JSON.parse(this.taskInfoStr).finValue)/parseFloat(JSON.parse(this.taskInfoStr).targetValue))*150)
                   .color('#d0ff9232')
                   .backgroundColor('#fffdf4f4')
                   .width('40%')
@@ -121,7 +121,7 @@ export struct TaskCard {
                   total: 150,
                   type: ProgressType.Capsule
                 })
-                  .value((parseInt(JSON.parse(this.taskInfoStr).finValue)/parseInt(JSON.parse(this.taskInfoStr).targetValue))*150)
+                  .value((parseFloat(JSON.parse(this.taskInfoStr).finValue)/parseFloat(JSON.parse(this.taskInfoStr).targetValue))*150)
                   .color('#bafd5817')
                   .backgroundColor('#fffdf4f4')
                   .width('40%')
