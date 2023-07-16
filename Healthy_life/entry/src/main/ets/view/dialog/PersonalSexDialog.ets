@@ -14,7 +14,7 @@ export default struct PersonalSexDialogController {
   @Consume sex: string;
   controller: CustomDialogController;
   cancel: () => void;
-  name:string;
+  name:string = '男';
   select:number;
 
 

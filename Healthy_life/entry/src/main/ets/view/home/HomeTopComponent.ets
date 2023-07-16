@@ -39,8 +39,8 @@ export default struct HomeTopView {
     Stack({alignContent:Alignment.TopEnd}){
       //背景选择
       Column() {
-        Select([{value:'默认',icon: $r('app.media.ic_home_bg')},
-          {value:'粉色',icon: $r('app.media.ic_home_bg')},
+        Select([{value:'默认',icon: $r('app.media.blue')},
+          {value:'粉色',icon: $r('app.media.colorpink')},
           {value:'黄色',icon: $r('app.media.ic_home_bg')},
           {value:'黑色',icon: $r('app.media.ic_home_bg')}])
           .height(20)
@@ -106,7 +106,7 @@ export default struct HomeTopView {
                 .fontSize($r('app.float.default_18'))
                 .titleTextStyle()
                 .backgroundColor($r('app.color.primaryBgColor'))
-                .borderWidth({ bottom: 3 })
+                .borderWidth({ left:5 ,bottom: 3 })
                 .borderRadius({ bottomLeft: 5, bottomRight: 5 })
                 .borderColor($r('app.color.primaryBgColor'))
             }
