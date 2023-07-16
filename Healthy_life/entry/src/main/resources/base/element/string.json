@@ -53,6 +53,10 @@
       "value": "我的成就"
     },
     {
+      "name": "single_achievement",
+      "value": "单项成就"
+    },
+    {
       "name": "tab_mine",
       "value": "我的"
     },
@@ -99,6 +103,10 @@
     {
       "name": "task_achievement_level",
       "value": "连续%d天达成"
+    },
+    {
+      "name": "task_achievement_multi_level",
+      "value": "今日完成%d %"
     },
     {
       "name": "already_open",
@@ -191,6 +199,34 @@
     {
       "name": "agencyNoTask",
       "value": "Go to Healthy Living to add tasks"
+    },
+    {
+      "name": "nickname",
+      "value": "请输入昵称"
+    },
+    {
+      "name": "signature",
+      "value": "请输入个性签名"
+    },
+    {
+      "name": "sex",
+      "value": "请选择性别"
+    },
+    {
+      "name": "date",
+      "value": "请输入日期"
+    },
+    {
+      "name": "high",
+      "value": "请选择身高, 单位:cm"
+    },
+    {
+      "name": "weight",
+      "value": "请选择体重, 单位:kg"
+    },
+    {
+      "name": "image",
+      "value": "请选择图片"
     }
   ]
 }

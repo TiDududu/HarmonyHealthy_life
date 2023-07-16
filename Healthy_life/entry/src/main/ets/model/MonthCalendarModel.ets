@@ -17,11 +17,12 @@ import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { WEEK_TITLES, dateToStr } from '../common/utils/Utils'
 import Logger from '../common/utils/Logger'
+import { WeekDateModel } from './WeekCalendarModel';
 
 // day number of on week
 export const WEEK_DAY_NUM: number = 7;
 
-export class WeekDateModel {
+export class MonthDateModel {
   weekTitle: string;
   dateStr: string;
   date: Date;
@@ -118,21 +119,8 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
     arrMonth.push(arr);
     strArrMonth.push(strArr);
     currentDate.setDate(currentDate.getDate() + 7); // Move to the next week
-  }*/
-  let show_month = showDate.getMonth();
-  if(show_month!=0)
-  {
-    showDate.setMonth(show_month-1);
   }
-  else
-  {
-    showDate.setFullYear(showDate.getFullYear()-1,show_month,1)
-  }
-  let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
-  // for(let index = 0; index<arrMonth.length; index++){
-  //   arrMonth[index]=arrMonth[index];
-  //   strArrMonth[index]=strArrMonth[index];
-  // }
+
   return [arrMonth, strArrMonth];
 }
 

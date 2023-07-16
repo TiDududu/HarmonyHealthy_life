@@ -167,6 +167,16 @@ export const AchievementMap = {
   '99_on': $r('app.media.ic_badge_99_on')
 }
 
+//最后再换图片
+export const AchievementMap_single = {
+  '100_off': $r('app.media.ic_badge_30_off'),
+  '100_on': $r('app.media.ic_badge_30_on'),
+  '200_off': $r('app.media.ic_badge_50_off'),
+  '200_on': $r('app.media.ic_badge_50_on'),
+  '300_off': $r('app.media.ic_badge_99_off'),
+  '300_on': $r('app.media.ic_badge_99_on')
+}
+
 
 export const TaskMapById: TaskInitListType = {
   1: {
@@ -182,7 +192,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   2: {
     taskID: 2,
@@ -192,12 +204,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '0.25',
     isOpen: false,
     unit: 'L',
-    step: 0,
+    step: 0.25,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   3: {
     taskID: 3,
@@ -212,7 +226,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   4: {
     taskID: 4,
@@ -222,12 +238,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   5: {
     taskID: 5,
@@ -237,12 +255,14 @@ export const TaskMapById: TaskInitListType = {
     targetValue: '1',
     isOpen: false,
     unit: '次',
-    step: 0,
+    step: 1,
     isInit: true,
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   6: {
     taskID: 6,
@@ -257,7 +277,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   },
   7: {
     taskID: 7,
@@ -272,7 +294,9 @@ export const TaskMapById: TaskInitListType = {
     isAlarm: false,
     startTime: '08: 00',
     endTime: '00: 00',
-    frequency: '1, 2, 3, 4, 5, 6, 7'
+    frequency: '1, 2, 3, 4, 5, 6, 7',
+    // 添加的新属性
+    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
   }
 }
 
@@ -322,3 +346,6 @@ export const RemindContentMap = {
 };
 
 export const ACHIEVEMENT_LEVEL_LIST = [3, 7, 30, 50, 73, 99];
+
+//增加当日单项成就,吃苹果
+export const ACHIEVEMENT_LEVEL_LIST_SINGLE = [100 ,200, 300];

@@ -52,6 +52,8 @@ const WHITE_COLOR_0X = 255;
 export default struct HomeIndex {
   @Provide broadCast: BroadCast = HealthDataSrcMgr.getInstance().getBroadCast();
   @State naviAlpha: number = 0;
+  @State is_month: boolean = false;
+  @State selectedOptionIndex: number = 0;
   @Link homeStore: HomeStore;
   @Link editedTaskInfo: ITaskItem;
   @Link @Watch('taskChange') editedTaskID: string;
@@ -90,6 +92,9 @@ export default struct HomeIndex {
       if (res.showAchievement) {
         this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [res.achievementLevel]);
       }
+      // if (res.showAchievement_single) {
+      //   this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, [res.achievementLevel_single]);
+      // }
     })
   }
 
@@ -112,11 +117,11 @@ export default struct HomeIndex {
   build() {
     Stack({ alignContent: Alignment.Top }) {
       Column(){
-        HomeTopView({ homeStore: $homeStore })
+        HomeTopView({ homeStore: $homeStore , is_month: $is_month ,selectedOptionIndex: $selectedOptionIndex})
       }.zIndex(2)
       Scroll(this.scroller) {
         Column() {
-          HomeTopView({ homeStore: $homeStore })
+          HomeTopView({ homeStore: $homeStore , is_month: $is_month ,selectedOptionIndex: $selectedOptionIndex})
           if (this.homeStore.getTaskListOfDay().length > 0) {
             Column({ space: commonConst.DEFAULT_8 }) {
               ForEach(this.homeStore.getTaskListOfDay(), (item: TaskInfo) => {

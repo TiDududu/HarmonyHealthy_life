@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import { DEFAULT_100 } from '../common/constants/CommonConstants';
-import { isReachNewAchievement, ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel';
-import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST } from '../model/TaskInitList';
+import { DEFAULT_100 ,DEFAULT_200 ,DEFAULT_300 } from '../common/constants/CommonConstants';
+import { isReachNewAchievement,isReachNewAchievement_single, ACHIEVEMENT_LEVEL_KEY, ACHIEVEMENT_LEVEL_KEY_SINGLE } from '../model/AchieveModel';
+import { TaskMapById, ITaskItem, ACHIEVEMENT_LEVEL_LIST,ACHIEVEMENT_LEVEL_LIST_SINGLE } from '../model/TaskInitList';
 import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
@@ -25,6 +25,7 @@ import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
 import DayInfoApi from '../common/database/tables/DayInfoApi';
 import GlobalInfoApi from '../common/database/tables/GlobalInfoApi';
+import  TaskInfoApi from '../common/database/tables/TaskInfoApi';
 import Logger from '../common/utils/Logger';
 
 @Observed
@@ -233,10 +234,11 @@ export class HomeStore {
     let dayInfo = this.selectedDayInfo?.dayInfo;
     Logger.debug("dayInfo", JSON.stringify(dayInfo));
     if (dayInfo && (dayInfo?.finTaskNum || 0) > 0) {
-      if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
-        return `${DEFAULT_100}`;
-      }
-      return `${Math.ceil(dayInfo.finTaskNum / dayInfo.targetTaskNum * DEFAULT_100)}`;
+      // if (dayInfo.finTaskNum > dayInfo.targetTaskNum) {
+      //   return `${DEFAULT_100}`;
+      // }
+      return `${DEFAULT_200}` ;
+       // return `${Math.ceil(dayInfo.finTaskNum / dayInfo.targetTaskNum * DEFAULT_100)}`;
     }
     return '0';
   }
@@ -255,7 +257,9 @@ export class HomeStore {
     if (!taskItem) {
       return Promise.resolve({
         achievementLevel: 0,
-        showAchievement: false
+         achievementLevel_single:0,
+        showAchievement: false,
+        showAchievement_single: false
       });
     }
 
@@ -263,17 +267,26 @@ export class HomeStore {
       return item.taskID == taskItem?.taskID ? taskItem : item;
     });
     let achievementLevel;
+    let achievementLevel_single;
     if (taskItem.isDone) {
       let dayInfo = await this.updateDayInfo();
       if (dayInfo && dayInfo?.finTaskNum === dayInfo?.targetTaskNum) {
         achievementLevel = await this.updateAchievement(this.selectedDayInfo.dayInfo);
       }
+      if (dayInfo && dayInfo?.finTaskNum >= dayInfo?.targetTaskNum){
+        achievementLevel_single = await this.updateAchievement_single(this.selectedDayInfo.dayInfo);
+      }
     }
+
     this.dateArr = this.dateArr.map((item: WeekDateModel) => dateStr == item.dateStr ? this.selectedDayInfo : item);
     Logger.info('achievementLevel', `${achievementLevel}`);
+    Logger.info('achievementLevel_single', `${achievementLevel_single}`);
+
     return Promise.resolve({
       achievementLevel: achievementLevel,
-      showAchievement: ACHIEVEMENT_LEVEL_LIST.includes(achievementLevel)
+      achievementLevel_single : achievementLevel_single,
+      showAchievement: ACHIEVEMENT_LEVEL_LIST.includes(achievementLevel),
+      showAchievement_single: ACHIEVEMENT_LEVEL_LIST_SINGLE.includes(achievementLevel_single)
     });
   }
 
@@ -289,7 +302,9 @@ export class HomeStore {
       } else {
         let value = Number(finValue) + step;
         updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
-        updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        // updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        updateTask.finValue = `${value}`;
+        Logger.info('finvalue after update' + updateTask.finValue);
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res) => {
         if (!res || hasExceed) {
@@ -339,6 +354,15 @@ export class HomeStore {
             AppStorage.SetOrCreate(ACHIEVEMENT_LEVEL_KEY, achievementInfo.checkInDays);
             achievementInfo.achievements = achievementInfo.achievements + ',' + achievementInfo.checkInDays;
           }
+          //
+          // //增加单项成就
+          // let isNewAchieve_single = isReachNewAchievement_single(achievementInfo);
+          // if (isNewAchieve_single) {
+          //   AppStorage.SetOrCreate(ACHIEVEMENT_LEVEL_KEY_SINGLE, achievementInfo.checkInDays);
+          //   achievementInfo.achievements = achievementInfo.achievements + ',' + achievementInfo.checkInDays;
+          // }
+
+
           GlobalInfoApi.updateData(achievementInfo, (res) => {
             if (!res) {
               Logger.error('taskClock-updateAchievement', JSON.stringify(res));
@@ -351,4 +375,50 @@ export class HomeStore {
       })
     });
   }
+
+
+  updateAchievement_single(dayInfo: DayInfo): Promise<number> {
+    Logger.debug('taskClock-updateAchievement_single', JSON.stringify(dayInfo));
+    return new Promise((resolve, reject) => {
+      let preDay = new Date();
+      preDay.setDate(preDay.getDate() - 1);
+      preDay = new Date(preDay);
+      let preDayStr = dateToStr(preDay);
+      Logger.info('taskClock-updateAchievement_single-1', `${preDayStr}`);
+      DayInfoApi.query(preDayStr, (res) => {
+        Logger.info('taskClock-updateAchievement_single-2', JSON.stringify(res));
+      //  let isReset = res?.length === 0 || res?.targetTaskNum > res?.finTaskNum;
+        GlobalInfoApi.query((res) => {
+          Logger.info('taskClock-globalInfoApi', JSON.stringify(res));
+          let achievementInfo_single = res;
+      //      isReset ? (achievementInfo.checkInDays = 1) : (achievementInfo.checkInDays += 1);
+
+          let isNewAchieve_single = isReachNewAchievement_single(achievementInfo_single);
+
+          let finish_time: number = 200;
+
+          TaskInfoApi.query(preDayStr, true, (res) => {
+            let taskInfo: TaskInfo = res;
+           // finish_time = Number(taskInfo.finValue) / Number(taskInfo.targetValue) ;
+          });
+
+
+          if (isNewAchieve_single) {
+            AppStorage.SetOrCreate(ACHIEVEMENT_LEVEL_KEY_SINGLE, finish_time);
+            achievementInfo_single.achievements_single = achievementInfo_single.achievements_single + ',' + finish_time;
+          }
+          GlobalInfoApi.updateData(achievementInfo_single, (res) => {
+            if (!res) {
+              Logger.error('taskClock-updateAchievement_single', JSON.stringify(res));
+              reject(res);
+            }
+            Logger.debug('taskClock-updateAchievement_single', JSON.stringify(achievementInfo_single));
+              isNewAchieve_single ? resolve(finish_time) : resolve(0);
+          });
+        });
+      })
+    });
+  }
+
+
 }
