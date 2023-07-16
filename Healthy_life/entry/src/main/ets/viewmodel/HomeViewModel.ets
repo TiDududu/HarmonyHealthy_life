@@ -20,7 +20,7 @@ import TaskInfo from '../common/bean/TaskInfo';
 import DayInfo from '../common/bean/DayInfo';
 import { dateToStr, monthFormat, weekDateFormat } from '../common/utils/Utils';
 import { WeekDateModel, initializeOnStartUp, getPreviousWeek, WEEK_DAY_NUM } from '../model/WeekCalendarModel';
-import { initializeOnStartUp_Month } from '../model/MonthCalendarModel'
+import { initializeOnStartUp_Month,getPreviousMonth } from '../model/MonthCalendarModel'
 import DatabaseApi from '../model/DatabaseModel';
 import TaskInfoTableApi from '../common/database/tables/TaskInfoApi';
 import DayInfoApi from '../common/database/tables/DayInfoApi';
@@ -95,6 +95,25 @@ export class HomeStore {
       this.dateArr = initArr.concat(...this.dateArr);
       callback();
     })
+  }
+
+  public getPreMonthData(date: Date, callback: Function) {
+    let [initArr, dateArr] = getPreviousMonth(date);
+    // get data form db
+    this.weekArr=[];
+    for (let j=0;j<initArr.length;j++) {
+      DayInfoApi.queryList(dateArr[j], (res: DayInfo[]) => {
+        Logger.info('getPreMonthData->DayInfoList: ', JSON.stringify(res));
+        if (res.length > 0) {
+          for (let i = 0; i < initArr[j].length; i++) {
+            let dayInfo = res.find((item) => item.date == initArr[j][i].dateStr) || null;
+            initArr[j][i].dayInfo = dayInfo;
+          }
+        }
+        this.weekArr.push(initArr[j]);
+      })
+    }
+    callback();
   }
 
   // check is current day

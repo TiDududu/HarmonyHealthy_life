@@ -284,6 +284,10 @@ export const WEEK_DAY_NUM: number = 7; // number days of one week
 
 export const WEEK_DAY_TIME: number = WEEK_DAY_NUM * 24 * 60 * 60 * 1000;
 
+export const MONTH_DAY_NUM: number = 30; // number days of one week
+
+export const MONTH_DAY_TIME: number = MONTH_DAY_NUM * 24 * 60 * 60 * 1000;
+
 export enum TaskType {
   Getup = 'getup',
   Drink= 'drink',
