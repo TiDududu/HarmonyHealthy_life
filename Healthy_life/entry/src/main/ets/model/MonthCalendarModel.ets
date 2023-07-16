@@ -129,4 +129,10 @@ export function getPreviousMonth(showDate: Date):[Array<Array<WeekDateModel>>, A
   return [arrMonth, strArrMonth];
 }
 
+export function getNextMonth(showDate: Date):[Array<Array<WeekDateModel>>, Array<Array<string>>] {
+  showDate.setDate(32);
+  let [arrMonth, strArrMonth] =initializeOnStartUp_Month(showDate);
+  return [arrMonth, strArrMonth];
+}
+
 

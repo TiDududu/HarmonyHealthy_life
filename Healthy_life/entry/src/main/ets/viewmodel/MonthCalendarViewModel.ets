@@ -24,11 +24,11 @@ function gotoPreviousMonth() {
   let date: Date = new Date(this.homeStore.showDate);
   Logger.info('HomeIndex', 'gotoPreviousMonth: showDate_' + date.toISOString());
 
-  if ((this.currentPage + LAZY_DATA_PAGE) * WEEK_DAY_NUM > this.homeStore.dateArr.length) {
+  if ((this.currentPage + LAZY_DATA_PAGE) * MONTH_DAY_NUM > this.homeStore.dateArr.length) {
     // get more history data
     this.homeStore.getPreMonthData(date, () => {
-      let new_showDate=new Date(this.homeStore.showDate);
-      new_showDate.setDate(0);
+      // let new_showDate=new Date(this.homeStore.showDate);
+      // new_showDate.setDate(0);
       // this.homeStore.setSelectedShowDate(new_showDate.getTime());
       this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
       this.currentPage += 1;
@@ -36,7 +36,10 @@ function gotoPreviousMonth() {
   } else {
     this.scroller.scrollPage({ next: false });
     Logger.info('HomeIndex', 'gotoPreviousMonth');
-    this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
+    let new_showDate=new Date(this.homeStore.showDate);
+    new_showDate.setDate(0);
+    this.homeStore.setSelectedShowDate(new_showDate.getTime());
+    //this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
     this.currentPage += 1;
   }
 }
@@ -48,8 +51,15 @@ function goToNextMonth() {
   }
   this.isPageScroll = true;
   Logger.info('HomeIndex', 'goToNextMonth: nextPage');
-  this.homeStore.setSelectedShowDate(this.homeStore.showDate + MONTH_DAY_TIME);
-  this.currentPage -= 1;
+
+  let date: Date = new Date(this.homeStore.showDate);
+  this.homeStore.getNextMonthData(date, () => {
+    // let new_showDate=new Date(this.homeStore.showDate);
+    // new_showDate.setDate(0);
+    // this.homeStore.setSelectedShowDate(new_showDate.getTime());
+    this.homeStore.setSelectedShowDate(this.homeStore.showDate + WEEK_DAY_TIME);
+    this.currentPage -= 1;
+  });
   this.scroller.scrollPage({ next: true });
 }
 
