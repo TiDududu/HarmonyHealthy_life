@@ -94,8 +94,8 @@ export class HomeStore {
         }
       }
       this.dateArr = initArr.concat(...this.dateArr);
-      callback();
     })
+    callback();
   }
 
   public getPreMonthData(date: Date, callback: Function) {
@@ -112,10 +112,9 @@ export class HomeStore {
           }
         }
         this.weekArr.push(initArr[j]);
-        callback();
       })
     }
-    // callback();
+    callback();
   }
 
   public getNextMonthData(date: Date, callback: Function) {

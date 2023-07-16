@@ -32,9 +32,6 @@ function gotoPreviousMonth() {
   this.scroller.scrollPage({ next: false });
   Logger.info('HomeIndex', 'gotoPreviousMonth');
   //this.homeStore.setSelectedShowDate(this.homeStore.showDate - WEEK_DAY_TIME);
-  this.currentPage += 1;
-
-
 }
 
 function goToNextMonth() {
