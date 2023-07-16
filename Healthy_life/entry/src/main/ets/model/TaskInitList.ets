@@ -45,7 +45,7 @@ export interface ITaskItem {
   frequency: string;
   isInit: boolean;
   step: number;
-  frequencyIds?: string[];
+  frequencyIds: boolean[];
 }
 
 export interface TaskInitListType {
@@ -184,7 +184,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   2: {
     taskID: 2,
@@ -201,7 +201,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   3: {
     taskID: 3,
@@ -218,7 +218,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   4: {
     taskID: 4,
@@ -235,7 +235,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   5: {
     taskID: 5,
@@ -252,7 +252,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   6: {
     taskID: 6,
@@ -269,7 +269,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   },
   7: {
     taskID: 7,
@@ -286,7 +286,7 @@ export const TaskMapById: TaskInitListType = {
     endTime: '00: 00',
     frequency: '1, 2, 3, 4, 5, 6, 7',
     // 添加的新属性
-    frequencyIds: ['1', '2', '3', '4', '5', '6', '7']
+    frequencyIds: [true, true, true, true, true, true, true]
   }
 }
 

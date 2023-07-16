@@ -32,6 +32,7 @@ import { BroadCast, BroadCastType } from '../../common/utils/BroadCast';
 import { HealthDataSrcMgr } from '../../common/utils/HealthDataSrcMgr';
 import { initFrequencyString, addTask, formatParams } from '../../viewmodel/TaskViewModel';
 import { TaskDialogView } from '../dialog/TaskDialogView';
+import { frequencyRange } from '../../common/utils/Utils';
 
 @Styles function listItemStyle() {
   .backgroundColor($r('app.color.white'))
@@ -45,12 +46,32 @@ export default struct TaskDetail {
   @Provide broadCast: BroadCast = HealthDataSrcMgr.getInstance().getBroadCast();
   @Provide @Watch('onParamsChanged') settingParams: ITaskItem = this.parseRouterParams();
   @Provide frequency: string = initFrequencyString(this.settingParams?.frequency);
+  @Provide frequencyIds: boolean[] = this.fre2id();
   private isChanged: boolean = false;
+  fre2id(){
+    const frequencyIdArray =this.settingParams?.frequency.split(',').map(item => Number(item));
+    const length = frequencyIdArray.length;
+    let frequencyIds;
+    if (length === 0) {
+      frequencyIds = [true, true, true, true, true, true, true]
+    }
+    else frequencyIds = [1, 2, 3, 4, 5, 6, 7].map(day => frequencyIdArray.includes(day));
+    return frequencyIds;
 
+  }
   parseRouterParams() {
     const routerParams: ITaskItem = JSON.parse(router.getParams()['params']);
-    routerParams.frequencyIds = routerParams.frequency.split(',');
-    Logger.info('Init frequencyIDs'+ routerParams.frequencyIds[2]);
+    // routerParams.frequency.split(',').map(item => {
+    //   // 去掉空格并转换为数字
+    //   let day = Number(item.trim());
+    //
+    //   // 有效的 day 范围是 1-7
+    //   if(day >= 1 && day <= 7) {
+    //     // 在 JavaScript 中，数组的索引是从 0 开始的，所以我们要减去 1
+    //     routerParams.frequencyIds[day - 1] = true;
+    //   }
+    // });
+    // Logger.info('Init frequencyIDs'+ routerParams.frequencyIds[2]);
     return routerParams;
   }
 
